@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>res/default.png</file>
+        <file>res/editclear.png</file>
+        <file>res/adv_search.png</file>
+        <file>res/youtube.png</file>
+        <file>res/configure.png</file>
+        <file>res/vlc.png</file>
+        <file>res/dialog-error.png</file>
+        <file>res/system-log-out.png</file>
+        <file>res/go-previous.png</file>
+        <file>res/go-next.png</file>
+        <file>res/process-stop.png</file>
+        <file>res/view-refresh.png</file>
+        <file>res/go-first-view.png</file>
+        <file>res/help-about.png</file>
+        <file>res/tool-animator.png</file>
+        <file>res/media-playback-start.png</file>
+        <file>res/media-playback-stop.png</file>
+        <file>res/emblem-important.png</file>
+        <file>res/window-close.png</file>
+        <file>res/download.png</file>
+        <file>res/mpv.png</file>
+        <file>res/dialog-password.png</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>

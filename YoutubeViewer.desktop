@@ -1,0 +1,20 @@
+[Desktop Entry]
+Categories=Application;AudioVideo;
+Comment[en_US]=QT Youtube viewer
+Comment=QT Youtube viewer
+Exec=YoutubeViewer
+GenericName[en_US]=
+GenericName=
+Icon=youtubeviewer.png
+Name[en_US]=YoutubeViewer
+Name=YoutubeViewer
+Path=.
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=1.0
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
