@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network declarative
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -53,7 +53,6 @@ SOURCES += main.cpp\
     fancylineedit.cpp \
     historycompleter.cpp \
     waitview.cpp \
-    busyindicator.cpp \
     youtubeviewsplitter.cpp \
     widgetmenu.cpp \
     youtubesearchwidget.cpp \
@@ -88,7 +87,6 @@ HEADERS  += mainwindow.h \
     fancylineedit.h \
     historycompleter.h \
     waitview.h \
-    busyindicator.h \
     youtubeviewsplitter.h \
     default_values.h \
     widgetmenu.h \
