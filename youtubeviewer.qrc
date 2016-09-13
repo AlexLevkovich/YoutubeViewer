@@ -22,6 +22,6 @@
         <file>res/download.png</file>
         <file>res/mpv.png</file>
         <file>res/dialog-password.png</file>
+        <file>res/mpc-hc.png</file>
     </qresource>
-    <qresource prefix="/"/>
 </RCC>

@@ -7,11 +7,27 @@
 
 extern QSettings *theSettings;
 
+#ifdef WIN32
+#define PROVIDERS_COUNT 3
+#else
 #define PROVIDERS_COUNT 2
-const QString providers[PROVIDERS_COUNT] = {QObject::tr("VLC media player"),QObject::tr("MPV media player")};
-const QString players[PROVIDERS_COUNT] = {"VLC","MPV"};
+#endif
+const QString providers[PROVIDERS_COUNT] = {QObject::tr("VLC media player"),QObject::tr("MPV media player")
+#ifdef WIN32
+                                            ,QObject::tr("MPC-HC media player")
+#endif
+                                           };
+const QString players[PROVIDERS_COUNT] = {"VLC","MPV"
+#ifdef WIN32
+                                          ,"MPC-HC"
+#endif
+                                         };
 static QString paths[PROVIDERS_COUNT];
-const QString icons[PROVIDERS_COUNT] = {":/images/res/vlc.png",":/images/res/mpv.png"};
+const QString icons[PROVIDERS_COUNT] = {":/images/res/vlc.png",":/images/res/mpv.png"
+#ifdef WIN32
+                                        ,":/images/res/mpc-hc.png"
+#endif
+                                       };
 
 ProvidersDialog::ProvidersDialog(const QUrl & url,QWidget *parent) : QDialog(parent), ui(new Ui::ProvidersDialog) {
     ui->setupUi(this);
@@ -19,6 +35,9 @@ ProvidersDialog::ProvidersDialog(const QUrl & url,QWidget *parent) : QDialog(par
 
     paths[0] = theSettings->value("vlc_path",VLC_PATH).toString();
     paths[1] = theSettings->value("mpv_path",MPV_PATH).toString();
+#ifdef WIN32
+    paths[2] = theSettings->value("mpc_path",MPC_PATH).toString();
+#endif
 #if QT_VERSION >= 0x050000
     ui->providersList->header()->setSectionResizeMode(0,QHeaderView::ResizeToContents);    
 #else    
@@ -85,7 +104,10 @@ QString ProvidersDialog::command() const {
             return "\"" + paths[1] + "\" "+ theSettings->value("mpv_parms","").toString()+" "+
                     QString("--cache=%1 --volume=-1").arg(theSettings->value("mpv_cache",MPV_CACHE_SIZE).toInt())+" "+
                     QString("\"%1\"").arg(m_url.toString());
-        }
+            case 2:
+            return "\"" + paths[2] + "\" "+ theSettings->value("mpc_parms","").toString()+" "+
+                    QString("\"%1\"").arg(m_url.toString());
+            }
 
     }
     return QString();

@@ -223,7 +223,7 @@
         <translation>Выберите проигрыватель</translation>
     </message>
     <message>
-        <location filename="../providersdialog.cpp" line="+62"/>
+        <location filename="../providersdialog.cpp" line="+81"/>
         <source>Cannot start the player...</source>
         <translation>Не удается запустить проигрыватель...</translation>
     </message>
@@ -281,7 +281,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../providersdialog.cpp" line="-51"/>
+        <location filename="../providersdialog.cpp" line="-66"/>
         <source>VLC media player</source>
         <translation>Проигрыватель VLC</translation>
     </message>
@@ -289,6 +289,11 @@
         <location line="+0"/>
         <source>MPV media player</source>
         <translation>Проигрыватель MPV</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>MPC-HC media player</source>
+        <translation type="unfinished">Проигрыватель MPC-HC</translation>
     </message>
     <message>
         <location filename="../youtubesearch.cpp" line="+20"/>
@@ -359,7 +364,7 @@ You can change it in Settings dialog.</source>
 <context>
     <name>SettingsButton</name>
     <message>
-        <location filename="../settingsbutton.cpp" line="+16"/>
+        <location filename="../settingsbutton.cpp" line="+19"/>
         <source>Configure the program&apos;s parameters</source>
         <translation>Настройка параметров программы</translation>
     </message>
@@ -374,12 +379,12 @@ You can change it in Settings dialog.</source>
         <translation>Изменить ключ разработчика...</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>About...</source>
         <translation>Об программе...</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+26"/>
         <source>About YoutubeViewer...</source>
         <translation>Об YoutubeViewer...</translation>
     </message>
@@ -455,16 +460,6 @@ You can change it in Settings dialog.</source>
         <location/>
         <source>Ask</source>
         <translation>Спрашивать</translation>
-    </message>
-    <message>
-        <location/>
-        <source>VLC</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location/>
-        <source>MPV</source>
-        <translation></translation>
     </message>
     <message>
         <location/>
@@ -736,6 +731,34 @@ You can change it in Settings dialog.</source>
         <location line="+12"/>
         <source>Information...</source>
         <translation>Информация...</translation>
+    </message>
+</context>
+<context>
+    <name>MpcHcSettingsDialog</name>
+    <message>
+        <location filename="../mpchcsettingsdialog.ui"/>
+        <source>Parameters:</source>
+        <translation type="unfinished">Параметры:</translation>
+    </message>
+    <message>
+        <location/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Path to MPC-HC:</source>
+        <translation type="unfinished">Путь к MPC-HC:</translation>
+    </message>
+    <message>
+        <location filename="../mpchcsettingsdialog.cpp" line="+20"/>
+        <source>Choose MPC-HC executable...</source>
+        <translation type="unfinished">Выбор MPC-HC файла...</translation>
+    </message>
+    <message>
+        <location filename="../mpchcsettingsdialog.ui"/>
+        <source>Vlc settings</source>
+        <translation type="unfinished">Настройки Vlc</translation>
     </message>
 </context>
 </TS>

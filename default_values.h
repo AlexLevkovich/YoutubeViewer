@@ -17,8 +17,10 @@ const QString MPV_PATH = QString(INSTALL_PREFIX)+"/bin/mpv";
 #else
 const QString MPV_PATH = "C:/Program Files/mpv/mpv.exe";
 #ifdef __x86_64__
+const QString MPC_PATH = "C:/Program Files/MPC-HC/mpc-hc64.exe";
 const QString VLC_PATH = "C:/Program Files (x86)/VideoLAN/vlc.exe";
 #else
+const QString MPC_PATH = "C:/Program Files/MPC-HC/mpc-hc.exe";
 const QString VLC_PATH = "C:/Program Files/VideoLAN/vlc.exe";
 #endif
 #endif

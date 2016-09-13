@@ -13,6 +13,7 @@ private slots:
     void key();
     void vlc();
     void mpv();
+    void mpc();
     void about();
 };
 

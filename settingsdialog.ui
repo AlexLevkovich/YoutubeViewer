@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>401</width>
+    <width>412</width>
     <height>288</height>
    </rect>
   </property>
@@ -168,24 +168,6 @@
        <item>
         <property name="text">
          <string>Ask</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>VLC</string>
-        </property>
-        <property name="icon">
-         <iconset resource="youtubeviewer.qrc">
-          <normaloff>:/images/res/vlc.png</normaloff>:/images/res/vlc.png</iconset>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>MPV</string>
-        </property>
-        <property name="icon">
-         <iconset resource="youtubeviewer.qrc">
-          <normaloff>:/images/res/mpv.png</normaloff>:/images/res/mpv.png</iconset>
         </property>
        </item>
       </widget>

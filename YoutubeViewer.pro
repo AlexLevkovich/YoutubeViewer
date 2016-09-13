@@ -17,15 +17,15 @@ isEmpty(INSTALL_PREFIX) {
 
 TOOLS_BIN = /usr/bin
 
-!exists( $$TOOLS_BIN/youtube-dl ) {
-    message( "youtube-dl should be installed!!!" )
-}
-
-!exists( $$TOOLS_BIN/aria2c ) {
-    message( "aria2 should be installed!!!" )
-}
-
 !win32 {
+    !exists( $$TOOLS_BIN/youtube-dl ) {
+        message( "youtube-dl should be installed!!!" )
+    }
+
+    !exists( $$TOOLS_BIN/aria2c ) {
+        message( "aria2 should be installed!!!" )
+    }
+
     !exists( $$TOOLS_BIN/stdbuf ) {
         message( "coreutils should be installed!!!" )
     }
@@ -40,6 +40,11 @@ DEFINES += TRANS_DIR2=\\\"$$TRANS_DIR2\\\"
 DEFINES += TOOLS_BIN=\\\"$$TOOLS_BIN\\\"
 
 RC_FILE = win_icon.rc
+
+win32 {
+    SOURCES +=  mpchcsettingsdialog.cpp
+    HEADERS +=  mpchcsettingsdialog.h
+}
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -122,10 +127,10 @@ FORMS    += mainwindow.ui \
     downloadwidget.ui \
     providersdialog.ui \
     mpvsettingsdialog.ui \
-    createnewyoutubekeydialog.ui
+    createnewyoutubekeydialog.ui \
+    mpchcsettingsdialog.ui
 
-RESOURCES += \
-    youtubeviewer.qrc
+RESOURCES += youtubeviewer.qrc
 
 TRANSLATIONS = $$PWD/translations/youtubeviewer_ru.ts \
                $$PWD/translations/youtubeviewer_be.ts

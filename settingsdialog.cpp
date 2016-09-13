@@ -2,20 +2,37 @@
 #include "ui_settingsdialog.h"
 #include <QSettings>
 #include <QFileInfo>
+#include <QIcon>
 #include "default_values.h"
 #include "youtubesearch.h"
 
+#ifdef WIN32
+#define PROVIDERS_COUNT 3
+#else
 #define PROVIDERS_COUNT 2
+#endif
 extern QSettings *theSettings;
 extern QString TOOLS_BIN_PATH;
 static QString paths[PROVIDERS_COUNT];
-const QString players[PROVIDERS_COUNT] = {"VLC","MPV"};
+const QString players[PROVIDERS_COUNT] = {"VLC","MPV"
+#ifdef WIN32
+                                          ,"MPC-HC"
+#endif
+                                         };
+const QString icons[PROVIDERS_COUNT] = {":/images/res/vlc.png",":/images/res/mpv.png"
+#ifdef WIN32
+                                        ,":/images/res/mpc-hc.png"
+#endif
+                                       };
 
 SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::SettingsDialog) {
     ui->setupUi(this);
 
     paths[0] = theSettings->value("vlc_path",VLC_PATH).toString();
     paths[1] = theSettings->value("mpv_path",MPV_PATH).toString();
+#ifdef WIN32
+    paths[2] = theSettings->value("mpc_path",MPC_PATH).toString();
+#endif
 
     int i;
     for (i=0;;i++) {
@@ -46,8 +63,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Se
     ui->threadsSpin->setValue(theSettings->value("threads_count",THREADS_COUNT).toInt());
     ui->toolsLine->setText(theSettings->value("tools_path",TOOLS_BIN_PATH).toString());
 
-    for (i=0;i<ui->playerCombo->count();i++) {
-        ui->playerCombo->setItemData(i,i);
+    ui->playerCombo->setItemData(0,0);
+    for (i=0;i<PROVIDERS_COUNT;i++) {
+        ui->playerCombo->addItem(QIcon(icons[i]),players[i],i+1);
     }
 
     QString player = theSettings->value("def_player","Ask").toString();
