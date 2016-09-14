@@ -45,8 +45,10 @@ DEFINES += TOOLS_BIN=\\\"$$TOOLS_BIN\\\"
 RC_FILE = win_icon.rc
 
 win32 {
-    SOURCES +=  mpchcsettingsdialog.cpp
-    HEADERS +=  mpchcsettingsdialog.h
+    SOURCES +=  mpchcsettingsdialog.cpp \
+                explorerstyle.cpp
+    HEADERS +=  mpchcsettingsdialog.h \
+                explorerstyle.h
 }
 
 SOURCES += main.cpp\
