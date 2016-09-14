@@ -4,6 +4,9 @@
 #include <QNetworkAccessManager>
 #include <QMessageBox>
 #include "default_values.h"
+#ifdef WIN32
+#include "explorerstyle.h"
+#endif
 
 QSettings *theSettings = NULL;
 QString TOOLS_BIN_PATH = TOOLS_BIN;
@@ -20,6 +23,9 @@ QMainWindow * findMainWindow() {
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
+#ifdef WIN32
+    a.setStyle(new ExplorerStyle());
+#endif
 
     QTranslator m_translator;
     QString lang = QLocale::system().name().split("_").at(0);
