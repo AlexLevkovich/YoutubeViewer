@@ -55,7 +55,7 @@ void Media::download_video_infos() {
     QApplication::setOverrideCursor(Qt::WaitCursor);
     QProcess links_process;
     links_process.setProcessChannelMode(QProcess::MergedChannels);
-    links_process.start(QString(YOUTUBE_VIDEO_URLS_PROCESS).arg(id()).arg(TOOLS_BIN_PATH));
+    links_process.start(QString(YOUTUBE_VIDEO_URLS_PROCESS).arg(url().toString()).arg(TOOLS_BIN_PATH));
     links_process.waitForFinished(-1);
 
     if (links_process.exitCode() == 0) {
@@ -71,7 +71,7 @@ void Media::download_video_infos() {
             if ((i%2) == 0) {
                 if (!line.contains("(DASH")) {
                     info.quality = FmtQuality(line);
-                    video_infos().append(info);
+                    if (!info.quality.quality.isEmpty()) video_infos().append(info);
                 }
             }
             else {

@@ -12,7 +12,7 @@
 #define YOUTUBE_COMMENT_API "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=%1&videoId=%2"
 #define YOUTUBE_VIDEO "https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails,statistics,snippet&key=%1&id=%2"
 #define YOUTUBE_VIDEO_CATEGORIES "https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&key=%1&regionCode=US"
-#define YOUTUBE_VIDEO_URLS_PROCESS "%2/youtube-dl --skip-download --get-format -g --all-formats https://www.youtube.com/watch?v=%1"
+#define YOUTUBE_VIDEO_URLS_PROCESS "%2/youtube-dl --skip-download --get-format -g --all-formats %1"
 #define CATEGORY_PART "&videoCategoryId=%1"
 #define AUTHOR_PART "&forContentOwner=true&onBehalfOfContentOwner=%1"
 #define PAGE_TOKEN_PART "&pageToken=%1"
@@ -49,6 +49,18 @@ struct FmtQuality {
         QStringList parts = str.split(" - ");
         if (parts.count() == 2) {
             quality = parts[1];
+            QString substr = quality;
+            if (substr.contains(" (")) {
+                substr = substr.split(' ').at(1);
+            }
+            if (substr.startsWith("(") && substr.endsWith(")")) {
+                if (substr.endsWith("p)")) {
+                    substr = substr.mid(1,substr.length()-3);
+                    bool ok;
+                    substr.toInt(&ok);
+                    if (ok) quality.clear();
+                }
+            }
             id = parts[0].toInt();
         }
     }
