@@ -22,10 +22,10 @@ SettingsButton::SettingsButton(QWidget *parent) : QToolButton(parent) {
     menu->addAction(icon(),tr("Settings..."),this,SLOT(settings()));
     menu->addAction(QIcon(":/images/res/dialog-password.png"),tr("Change the developer key..."),this,SLOT(key()));
     menu->addAction(QIcon(":/images/res/vlc.png"),"Vlc...",this,SLOT(vlc()));
-#ifdef WIN32
     menu->addAction(QIcon(":/images/res/mpv.png"),"Mpv...",this,SLOT(mpv()));
-#endif
+#ifdef WIN32
     menu->addAction(QIcon(":/images/res/mpc-hc.png"),"MPC-HC...",this,SLOT(mpc()));
+#endif
     menu->addAction(QIcon(":/images/res/youtube.png"),tr("About..."),this,SLOT(about()));
     setMenu(menu);
     if (old_menu != NULL) delete old_menu;
