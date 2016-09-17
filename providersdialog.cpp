@@ -102,7 +102,7 @@ QString ProvidersDialog::command() const {
                     QString("\"%1\"").arg(m_url.toString());
             case 1:
             return "\"" + paths[1] + "\" "+ theSettings->value("mpv_parms","").toString()+" "+
-                    QString("--cache=%1 --volume=-1").arg(theSettings->value("mpv_cache",MPV_CACHE_SIZE).toInt())+" "+
+                    QString("--cache=%1").arg(theSettings->value("mpv_cache",MPV_CACHE_SIZE).toInt())+" "+
                     QString("\"%1\"").arg(m_url.toString());
             case 2:
             return "\"" + paths[2] + "\" "+ theSettings->value("mpc_parms","").toString()+" "+
