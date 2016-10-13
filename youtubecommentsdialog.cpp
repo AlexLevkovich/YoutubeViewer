@@ -10,6 +10,8 @@ YoutubeCommentsDialog::YoutubeCommentsDialog(Media * media,QWidget *parent) : QD
     font.setBold(true);
     ui->titleLabel->setFont(font);
     ui->categoryLabel->setText(media->category());
+    ui->videoidLabel->setText(media->id());
+    ui->channelidLabel->setText(media->channel_id());
     ui->lengthLabel->setText(media->duration());
     ui->ratingLabel->setText(QString("%1").arg(media->rating()));
     ui->uploaderLabel->setText(media->author());
