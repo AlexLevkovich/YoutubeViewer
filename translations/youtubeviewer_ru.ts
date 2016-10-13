@@ -341,7 +341,7 @@
         <translation>дней</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="+47"/>
+        <location filename="../main.cpp" line="+53"/>
         <source>Critical error!</source>
         <translation type="unfinished">Критическая ошибка!</translation>
     </message>
@@ -379,12 +379,12 @@ You can change it in Settings dialog.</source>
         <translation>Изменить ключ разработчика...</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+6"/>
         <source>About...</source>
         <translation>Об программе...</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+28"/>
         <source>About YoutubeViewer...</source>
         <translation>Об YoutubeViewer...</translation>
     </message>
@@ -513,8 +513,8 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YouTubeSearch</name>
     <message>
-        <location filename="../youtubesearch.cpp" line="+112"/>
-        <location line="+67"/>
+        <location filename="../youtubesearch.cpp" line="+119"/>
+        <location line="+68"/>
         <location line="+108"/>
         <source>JSON parsing error!</source>
         <translation>Ошибка при разборе JSON!</translation>
@@ -625,6 +625,16 @@ You can change it in Settings dialog.</source>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
+    <message>
+        <location/>
+        <source>Channel ID:</source>
+        <translation type="unfinished">ID канала:</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Video ID:</source>
+        <translation type="unfinished">ID видео:</translation>
+    </message>
 </context>
 <context>
     <name>YoutubeCommentsReader</name>
@@ -685,9 +695,8 @@ You can change it in Settings dialog.</source>
         <translation>Категория:</translation>
     </message>
     <message>
-        <location/>
         <source>Author:</source>
-        <translation>Автор:</translation>
+        <translation type="vanished">Автор:</translation>
     </message>
     <message>
         <location/>
@@ -703,6 +712,11 @@ You can change it in Settings dialog.</source>
         <location/>
         <source>dd.MM.yy H:mm:ss</source>
         <translation></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel ID:</source>
+        <translation type="unfinished">ID канала:</translation>
     </message>
 </context>
 <context>

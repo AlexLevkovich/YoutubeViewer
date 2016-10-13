@@ -345,7 +345,7 @@
         <translation type="unfinished">дзён</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="+47"/>
+        <location filename="../main.cpp" line="+53"/>
         <source>Critical error!</source>
         <translation type="unfinished">Крытычная памылка!</translation>
     </message>
@@ -388,12 +388,12 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Змяніць ключ распрацоўніка...</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+6"/>
         <source>About...</source>
         <translation type="unfinished">Аб праграме...</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+28"/>
         <source>About YoutubeViewer...</source>
         <translation type="unfinished">Аб YoutubeViewer...</translation>
     </message>
@@ -574,8 +574,8 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Памылка XML: (%1)</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+112"/>
-        <location line="+67"/>
+        <location filename="../youtubesearch.cpp" line="+119"/>
+        <location line="+68"/>
         <location line="+108"/>
         <source>JSON parsing error!</source>
         <translation type="unfinished">Памылка разбору JSON!</translation>
@@ -685,6 +685,16 @@ You can change it in Settings dialog.</source>
         <location/>
         <source>Description</source>
         <translation type="unfinished">Апісанне</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel ID:</source>
+        <translation type="unfinished">ID канала:</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Video ID:</source>
+        <translation type="unfinished">ID вiдэа:</translation>
     </message>
 </context>
 <context>
@@ -810,9 +820,8 @@ You can change it in Settings dialog.</source>
         <translation type="unfinished">Катэгорыя:</translation>
     </message>
     <message>
-        <location/>
         <source>Author:</source>
-        <translation type="unfinished">Аўтар:</translation>
+        <translation type="obsolete">Аўтар:</translation>
     </message>
     <message>
         <location/>
@@ -852,6 +861,11 @@ You can change it in Settings dialog.</source>
         <location/>
         <source>dd.MM.yy H:mm:ss</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel ID:</source>
+        <translation type="unfinished">ID канала:</translation>
     </message>
 </context>
 <context>
