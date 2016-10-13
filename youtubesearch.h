@@ -14,7 +14,7 @@
 #define YOUTUBE_VIDEO_CATEGORIES "https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&key=%1&regionCode=US"
 #define YOUTUBE_VIDEO_URLS_PROCESS "%2/youtube-dl --skip-download --get-format -g --all-formats %1"
 #define CATEGORY_PART "&videoCategoryId=%1"
-#define AUTHOR_PART "&forContentOwner=true&onBehalfOfContentOwner=%1"
+#define AUTHOR_PART "&channelId=%1"
 #define PAGE_TOKEN_PART "&pageToken=%1"
 #define YOUTUBE_URL_FORMAT "https://youtu.be/%1"
 
@@ -128,6 +128,7 @@ public:
     inline QDateTime & date() { return m_date; }
     inline QString & duration() { return m_duration; }
     inline QString & author() { return m_author; }
+    inline QString & channel_id() { return m_channel_id; }
     inline double & rating() { return m_rating; }
     inline QString & category() { return m_category; }
     inline QUrl & comments_url() { return m_comments_url; }
@@ -151,6 +152,7 @@ private:
     QUrl m_url;
     QDateTime m_date;
     QString m_duration;
+    QString m_channel_id;
     QString m_author;
     double m_rating;
     QString m_category;
@@ -172,7 +174,7 @@ public slots:
     bool search(const QString & userKey,
                 const QString & query,
                 const QString & category = QString(),
-                const QString & author = QString(),
+                const QString & channel_id = QString(),
                 YoutubeOrderBy orderby = relevance,
                 const YoutubeTime & time = YoutubeTime(),
                 const QString & pageToken = QString());
@@ -206,9 +208,9 @@ private:
     QNetworkAccessManager manager;
     QString m_userKey;
     QString m_query;
+    QString m_channel_id;
     QList<Media> m_medias;
     int m_categoryId;
-    QString m_author;
     YoutubeOrderBy m_orderby;
     YoutubeTime m_time;
     int m_thread_count;

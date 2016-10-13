@@ -133,7 +133,7 @@ YouTubeSearch::~YouTubeSearch() {}
 bool YouTubeSearch::search(const QString & userKey,
                            const QString & query,
                            const QString & category,
-                           const QString & author,
+                           const QString & channel_id,
                            YoutubeOrderBy orderby,
                            const YoutubeTime & time,
                            const QString & pageToken) {
@@ -143,7 +143,7 @@ bool YouTubeSearch::search(const QString & userKey,
     m_categoryId = m_categories.indexOf(category);
     if (m_categoryId < 0) m_categoryId = 0;
     else m_categoryId++;
-    m_author = author;
+    m_channel_id = channel_id;
     m_orderby = orderby;
     m_time = time;
     m_nextPageToken.clear();
@@ -167,7 +167,7 @@ bool YouTubeSearch::search_again(const QString & pageToken) {
 
     QString url = QString(YOUTUBE_API).arg(orderby_values_en[m_orderby]).arg(m_userKey).arg(m_query).arg(MAX_QUERY_COUNT);
     if (m_categoryId > 0) url += QString(CATEGORY_PART).arg(m_categoryId);
-    if (!m_author.isEmpty()) url += QString(AUTHOR_PART).arg(m_author);
+    if (!m_channel_id.isEmpty()) url += QString(AUTHOR_PART).arg(m_channel_id);
     if (!m_time.isNull()) url += m_time.toString();
     if (!pageToken.isEmpty()) url += QString(PAGE_TOKEN_PART).arg(pageToken);
 
@@ -237,6 +237,7 @@ void YouTubeSearch::finished() {
                 QtJson::JsonObject snippet = item["snippet"].toMap();
                 media.date() = QDateTime::fromString(snippet["publishedAt"].toString().left(19)+"+00:00",Qt::ISODate);
                 media.title() = snippet["title"].toString();
+                media.channel_id() = snippet["channelId"].toString();
                 QtJson::JsonObject thumbnails = snippet["thumbnails"].toMap();
                 media.image_url() = QUrl(thumbnails["high"].toMap()["url"].toString());
                 media.author() = snippet["channelTitle"].toString();
