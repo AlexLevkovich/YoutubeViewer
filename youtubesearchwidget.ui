@@ -51,12 +51,12 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Author:</string>
+        <string>Channel ID:</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="FancyLineEdit" name="authorEdit"/>
+      <widget class="FancyLineEdit" name="channelidEdit"/>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_4">
@@ -94,6 +94,9 @@
          </property>
          <property name="displayFormat">
           <string>dd.MM.yy H:mm:ss</string>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

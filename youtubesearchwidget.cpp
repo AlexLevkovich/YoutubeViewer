@@ -12,7 +12,7 @@ YoutubeSearchWidget::YoutubeSearchWidget(QWidget *parent) : QWidget(parent), ui(
     setWindowTitle(tr("Search"));
 
     ui->searchEdit->setHistoryCompleter("youtube_completer");
-    ui->authorEdit->setHistoryCompleter("author_completer");
+    ui->channelidEdit->setHistoryCompleter("channelid_completer");
 
     int i;
     QStringList categories = YouTubeSearch::categories();
@@ -22,7 +22,7 @@ YoutubeSearchWidget::YoutubeSearchWidget(QWidget *parent) : QWidget(parent), ui(
 
     ui->searchEdit->setText(theSettings->value("search_def_query","").toString());
     ui->categoryCombo->setCurrentIndex(theSettings->value("search_def_category",0).toInt());
-    ui->authorEdit->setText(theSettings->value("search_def_author","").toString());
+    ui->channelidEdit->setText(theSettings->value("search_def_channelid","").toString());
 
     for (i=0;;i++) {
         QString text = YouTubeSearch::orderByParameterString((YoutubeOrderBy)i);
@@ -48,7 +48,7 @@ void YoutubeSearchWidget::on_buttonBox_accepted() {
     ((QWidget *)parent())->hide();
      emit search_requested(ui->searchEdit->text(),
                            ui->categoryCombo->currentText(),
-                           ui->authorEdit->text(),
+                           ui->channelidEdit->text(),
                            (YoutubeOrderBy)ui->orderbyCombo->currentIndex(),
                            YoutubeTime((YoutubeTimeId)ui->timeCombo->currentIndex(),ui->timeEdit->dateTime()));
 }
