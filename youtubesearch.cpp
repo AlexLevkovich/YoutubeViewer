@@ -158,15 +158,16 @@ const QStringList YouTubeSearch::categories() {
 bool YouTubeSearch::search_again(const QString & pageToken) {
     if (m_userKey.isEmpty()) return false;
     if (is_in_processing()) return false;
-    if (m_query.isEmpty()) return false;
+    if (m_query.isEmpty() && m_channel_id.isEmpty()) return false;
 
     is_processing = true;
     m_thread_count = theSettings->value("threads_count",THREADS_COUNT).toInt();
     m_medias.clear();
     resources_map.clear();
 
-    QString url = QString(YOUTUBE_API).arg(orderby_values_en[m_orderby]).arg(m_userKey).arg(m_query).arg(MAX_QUERY_COUNT);
+    QString url = QString(YOUTUBE_API).arg(orderby_values_en[m_orderby]).arg(m_userKey).arg(MAX_QUERY_COUNT);
     if (m_categoryId > 0) url += QString(CATEGORY_PART).arg(m_categoryId);
+    if (!m_query.isEmpty()) url += QString(QUERY_PART).arg(m_query);
     if (!m_channel_id.isEmpty()) url += QString(AUTHOR_PART).arg(m_channel_id);
     if (!m_time.isNull()) url += m_time.toString();
     if (!pageToken.isEmpty()) url += QString(PAGE_TOKEN_PART).arg(pageToken);
