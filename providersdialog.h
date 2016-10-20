@@ -13,7 +13,7 @@ class ProvidersDialog : public QDialog {
     Q_OBJECT
 
 public:
-    explicit ProvidersDialog(const QUrl & url,QWidget *parent = 0);
+    explicit ProvidersDialog(const QUrl & video_url,const QUrl & audio_url,QWidget *parent = 0);
     ~ProvidersDialog();
     QString command() const;
 
@@ -30,7 +30,8 @@ private:
     void fill();
 
     Ui::ProvidersDialog *ui;
-    QUrl m_url;
+    QUrl m_video_url;
+    QUrl m_audio_url;
 };
 
 #endif // PROVIDERSDIALOG_H
