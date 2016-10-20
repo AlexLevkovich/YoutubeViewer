@@ -46,6 +46,7 @@ int main(int argc, char *argv[]) {
 
 #ifdef WIN32
     TOOLS_BIN_PATH = QFileInfo(QCoreApplication::applicationFilePath()).dir().path() + "/utils";
+    qputenv("PATH",qgetenv("PATH")+";"+TOOLS_BIN_PATH.toLocal8Bit());
 #endif
     TOOLS_BIN_PATH = theSettings->value("tools_path",TOOLS_BIN_PATH).toString();
 
