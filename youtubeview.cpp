@@ -56,18 +56,28 @@ void YoutubeView::resizeEvent(QResizeEvent * event) {
     emit model_changed();
 }
 
-void YoutubeView::execPlayer(const QUrl & url) {
+void YoutubeView::execPlayer(const QUrl & video_url,const QUrl & audio_url) {
     QAction * source_object = (QAction *)QObject::sender();
     QModelIndexList sel_list = selectionModel()->selectedRows();
     if (sel_list.count() <= 0) return;
 
-    QUrl m_url = url;
+    QUrl m_video_url = video_url;
+    QUrl m_audio_url = audio_url;
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
-    if (!url.isValid()) m_url = media->best_video().url;
-    if (!url.isValid() && (source_object != NULL) && source_object->property("url").isValid()) m_url = source_object->property("url").toUrl();
-    if (!m_url.isValid()) m_url = media->url();
+    if (!video_url.isValid()) {
+        m_video_url = media->best_video().url;
+        m_audio_url = media->best_video().audio_url;
+    }
+    if (!video_url.isValid() && (source_object != NULL) && source_object->property("video_url").isValid()) {
+        m_video_url = source_object->property("video_url").toUrl();
+        m_audio_url = source_object->property("audio_url").toUrl();
+    }
+    if (!m_video_url.isValid()) {
+        m_video_url = media->url();
+        m_audio_url = QUrl();
+    }
 
-    ProvidersDialog providers(m_url,this);
+    ProvidersDialog providers(m_video_url,m_audio_url,this);
     if (providers.exec() == QDialog::Rejected) return;
     new ExternalPlayer(providers.command());
 }
@@ -80,7 +90,7 @@ void YoutubeView::download(const QUrl & url) {
     QUrl m_url = url;
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
     if (!url.isValid()) m_url = media->best_video().url;
-    if (!url.isValid() && (source_object != NULL) && source_object->property("url").isValid()) m_url = source_object->property("url").toUrl();
+    if (!url.isValid() && (source_object != NULL) && source_object->property("video_url").isValid()) m_url = source_object->property("video_url").toUrl();
     if (!m_url.isValid()) m_url = media->url();
 
     emit download_request(m_url,media->title());
@@ -107,8 +117,14 @@ void YoutubeView::contextMenuEvent(QContextMenuEvent * e) {
     }
     else {
         for (int i=0;i<real_links.count();i++) {
-            playerMenu.addAction(QIcon(":/images/res/tool-animator.png"),real_links[i].quality.toString(),this,SLOT(execPlayer()))->setProperty("url",real_links[i].url);
-            download_menu.addAction(QIcon(":/images/res/tool-animator.png"),real_links[i].quality.toString(),this,SLOT(download()))->setProperty("url",real_links[i].url);
+            if (!real_links[i].isAudioOnly()) {
+                QAction * action = playerMenu.addAction(QIcon(":/images/res/tool-animator.png"),real_links[i].desc.toString(),this,SLOT(execPlayer()));
+                action->setProperty("video_url",real_links[i].url);
+                action->setProperty("audio_url",real_links[i].audio_url);
+            }
+            QAction *  action = download_menu.addAction(QIcon(":/images/res/tool-animator.png"),real_links[i].desc.toStringFull(),this,SLOT(download()));
+            action ->setProperty("video_url",real_links[i].url);
+            action ->setProperty("audio_url",real_links[i].audio_url);
         }
         menu.addMenu(&playerMenu);
         menu.addMenu(&download_menu);

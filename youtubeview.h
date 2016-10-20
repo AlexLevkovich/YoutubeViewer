@@ -22,7 +22,7 @@ protected slots:
 private slots:
     void _updateGeometry();
     void _updateGeometry2();
-    void execPlayer(const QUrl & url = QUrl());
+    void execPlayer(const QUrl & video_url = QUrl(),const QUrl & audio_url = QUrl());
     void show_info();
     void download(const QUrl & url = QUrl());
 

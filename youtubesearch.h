@@ -35,47 +35,54 @@ const QString orderby_values_en[6] = {"relevance",
                                       "videoCount",
                                       "viewCount"};
 
-struct FmtQuality {
-    QString quality;
+struct FmtDesc {
+    QString resolution;
+    QString description;
     int id;
 
-    inline FmtQuality() {}
+    inline FmtDesc() {}
 
-    inline FmtQuality(QString quality, int id) {
-        this->quality = quality;
+    inline FmtDesc(QString resolution,QString description, int id) {
+        this->resolution = resolution;
+        this->description = description;
         this->id = id;
     }
 
-    inline FmtQuality(QString str) {
+    inline FmtDesc(QString str) {
         QStringList parts = str.split(" - ");
         if (parts.count() == 2) {
-            quality = parts[1];
-            QString substr = quality;
-            if (substr.contains(" (")) {
-                substr = substr.split(' ').at(1);
-            }
-            if (substr.startsWith("(") && substr.endsWith(")")) {
-                if (substr.endsWith("p)")) {
-                    substr = substr.mid(1,substr.length()-3);
-                    bool ok;
-                    substr.toInt(&ok);
-                    if (ok) quality.clear();
-                }
-            }
             id = parts[0].toInt();
+            QString substr = parts[1];
+            if (substr.contains(" (")) {
+                parts = substr.split(" (");
+                resolution = parts[0];
+                description = (parts[1].startsWith("DASH "))?"("+parts[1]:"(video + audio)";
+            }
+            else description = substr;
         }
     }
 
     inline QString toString() const {
-        return QString("%1 (%2)").arg(quality).arg(id);
+        return QString("%1 (%2)").arg(resolution).arg(id);
+    }
+
+    inline QString toStringFull() const {
+        return QString("%1 %2 (%3)").arg(resolution).arg(description).arg(id);
     }
 };
 
 struct VideoInfo {
     QUrl url;
-    FmtQuality quality;
+    QUrl audio_url;
+    FmtDesc desc;
 
     inline VideoInfo() {}
+    bool isAudioOnly() {
+        return (desc.resolution == "audio only");
+    }
+    bool hasExternalAudio() {
+        return (desc.description == "(DASH video)");
+    }
 };
 
 enum YoutubeTimeId {

@@ -69,10 +69,8 @@ void Media::download_video_infos() {
             }
 
             if ((i%2) == 0) {
-                if (!line.contains("(DASH")) {
-                    info.quality = FmtQuality(line);
-                    if (!info.quality.quality.isEmpty()) video_infos().append(info);
-                }
+                info.desc = FmtDesc(line);
+                if (!info.desc.description.isEmpty()) video_infos().append(info);
             }
             else {
                 if (!line.startsWith("http")) {
@@ -82,6 +80,17 @@ void Media::download_video_infos() {
                 info.url = QUrl(line);
             }
         }
+    }
+
+    QUrl audio_url;
+    for (int i=0;i<video_infos().count();i++) {
+        VideoInfo info = video_infos().at(i);
+        if (info.isAudioOnly()) audio_url = info.url;
+    }
+
+    for (int i=0;i<video_infos().count();i++) {
+        VideoInfo & info = video_infos()[i];
+        if (info.hasExternalAudio()) info.audio_url = audio_url;
     }
     QApplication::restoreOverrideCursor();
 }
