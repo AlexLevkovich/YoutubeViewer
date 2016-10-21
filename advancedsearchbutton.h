@@ -5,12 +5,14 @@
 #include "youtubesearch.h"
 
 class QLineEdit;
+class YoutubeSearchWidget;
 
 class AdvancedSearchButton : public ComboToolButton {
     Q_OBJECT
 public:
     explicit AdvancedSearchButton(QWidget *parent = 0);
     void setSearchLinePointer(QLineEdit * edit);
+    void setPopupChannelId(const QString & channel_id);
 
 signals:
     void search_requested(const QString & query,
@@ -24,6 +26,7 @@ private slots:
 
 private:
     QLineEdit * m_edit;
+    YoutubeSearchWidget * m_searchWidget;
 };
 
 #endif // ADVANCEDSEARCHBUTTON_H

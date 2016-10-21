@@ -13,11 +13,11 @@ AdvancedSearchButton::AdvancedSearchButton(QWidget *parent) : ComboToolButton(pa
     setIcon(QIcon(":/images/res/adv_search.png"));
     setToolTip(tr("Search with advanced parameters"));
     QMenu * old_menu = this->menu();
-    YoutubeSearchWidget * searchWidget = new YoutubeSearchWidget(this);
-    setMenu(new WidgetMenu(searchWidget,this));
+    m_searchWidget = new YoutubeSearchWidget(this);
+    setMenu(new WidgetMenu(m_searchWidget,this));
     if (old_menu != NULL) delete old_menu;
     connect(this,SIGNAL(released()),this,SLOT(search_triggered()));
-    connect(searchWidget,SIGNAL(search_requested(const QString &,
+    connect(m_searchWidget,SIGNAL(search_requested(const QString &,
                                                  const QString &,
                                                  const QString &,
                                                  YoutubeOrderBy,
@@ -38,3 +38,8 @@ void AdvancedSearchButton::search_triggered() {
 void AdvancedSearchButton::setSearchLinePointer(QLineEdit * edit) {
     m_edit = edit;
 }
+
+void AdvancedSearchButton::setPopupChannelId(const QString & channel_id) {
+    m_searchWidget->setChannelId(channel_id);
+}
+

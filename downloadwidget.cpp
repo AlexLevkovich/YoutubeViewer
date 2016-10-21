@@ -35,6 +35,7 @@ void DownloadWidget::init_new_downloader() {
     downloader = new YoutubeDownloader(url,out_file_name,threads_count,this);
     connect(downloader,SIGNAL(finished(const QString &)),this,SLOT(download_finished(const QString &)));
     connect(downloader,SIGNAL(progress(qreal,qreal,int,qreal)),this,SLOT(download_progress(qreal,qreal,int,qreal)));
+    downloader->start();
 }
 
 void DownloadWidget::download_finished(const QString & err) {

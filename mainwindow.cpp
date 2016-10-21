@@ -25,6 +25,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->mainToolBar,SIGNAL(search_completed(const QList<Media> &)),this,SLOT(search_completed(const QList<Media> &)));
     connect(ui->mainToolBar,SIGNAL(search_started()),this,SLOT(search_started()));
     connect(youtube_view,SIGNAL(download_request(const QUrl &,const QString &)),this,SLOT(adding_download(const QUrl &,const QString &)));
+    connect(youtube_view,SIGNAL(search_requested(const QString &,
+                                                  const QString &,
+                                                  const QString &,
+                                                  YoutubeOrderBy,
+                                                  YoutubeTime)),
+                       ui->mainToolBar,SLOT(search_requested(const QString &,
+                                                  const QString &,
+                                                  const QString &,
+                                                  YoutubeOrderBy,
+                                                  YoutubeTime)));
+    connect(youtube_view,SIGNAL(channel_videos_popup_requested(const QString &)),ui->mainToolBar,SLOT(show_search_videos_popup(const QString &)));
 
     start_getting_categories();
 }
@@ -99,24 +110,14 @@ void MainWindow::set_window_size() {
     if (theSettings->value("is_main_maximized",false).toBool()) showMaximized();
 }
 
-void MainWindow::adding_download(const QUrl & url,const QString & title) {
+void MainWindow::adding_download(const QUrl & url,const QString & filename) {
     QString url_str = url.toString();
-    QString ext;
-    int index = url_str.indexOf(VIDEO_TAG);
-    if (index != -1) {
-        ext = url_str.mid(index+strlen(VIDEO_TAG));
-        index = ext.indexOf('&');
-        if (index != -1) {
-            ext = ext.left(index);
-        }
-        else ext.clear();
-    }
 
-    QString save_name = title.trimmed();
-    save_name.replace(" ","_");
-    if (save_name.isEmpty()) save_name="video";
+    QString save_name = filename;
+    if (save_name.isEmpty()) save_name="video.mp4";
+    QString ext = QFileInfo(save_name).suffix();
 
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),theSettings->value("saved_download_path",QDir::homePath()).toString()+"/"+save_name+(ext.isEmpty()?ext:("."+ext)),tr("Videos")+" (*.mp4 *.webm"+(ext.isEmpty()?ext:(" *."+ext))+")");
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),theSettings->value("saved_download_path",QDir::homePath()).toString()+"/"+save_name,tr("Videos")+" (*."+ext+")");
     if (!fileName.isEmpty()) {
         ui->mainToolBar->addNewDownload(url,fileName,theSettings->value("threads_count",THREADS_COUNT).toInt());
         theSettings->setValue("saved_download_path",QFileInfo(fileName).dir().path());
