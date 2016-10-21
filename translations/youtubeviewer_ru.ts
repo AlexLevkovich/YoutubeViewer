@@ -48,7 +48,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../downloadwidget.cpp" line="+64"/>
+        <location filename="../downloadwidget.cpp" line="+65"/>
         <source>/s</source>
         <translation></translation>
     </message>
@@ -152,12 +152,12 @@
         <translation>Текущий номер страницы</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+66"/>
+        <location filename="../mainwindow.cpp" line="+77"/>
         <source>Error during Categories returning!</source>
         <translation>Ошибка при попытке вернуть список Категорий!</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+43"/>
         <source>Save File</source>
         <translation>Сохранить в файл</translation>
     </message>
@@ -223,14 +223,18 @@
         <translation>Выберите проигрыватель</translation>
     </message>
     <message>
-        <location filename="../providersdialog.cpp" line="+81"/>
+        <location filename="../providersdialog.cpp" line="+82"/>
         <source>Cannot start the player...</source>
         <translation>Не удается запустить проигрыватель...</translation>
     </message>
     <message>
         <location line="+0"/>
+        <source>Please install some supported one!</source>
+        <translation type="unfinished">Пожалуйста, установите что-нибудь поддерживаемое!</translation>
+    </message>
+    <message>
         <source>Please install vlc or mpv!</source>
-        <translation>Пожалуйста, установите VLC или MPV!</translation>
+        <translation type="vanished">Пожалуйста, установите VLC или MPV!</translation>
     </message>
 </context>
 <context>
@@ -281,7 +285,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../providersdialog.cpp" line="-66"/>
+        <location filename="../providersdialog.cpp" line="-67"/>
         <source>VLC media player</source>
         <translation>Проигрыватель VLC</translation>
     </message>
@@ -296,7 +300,7 @@
         <translation type="unfinished">Проигрыватель MPC-HC</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+20"/>
+        <location filename="../youtubesearch.cpp" line="+19"/>
         <source>Relevance</source>
         <translation>Релевантность</translation>
     </message>
@@ -341,7 +345,7 @@
         <translation>дней</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="+53"/>
+        <location filename="../main.cpp" line="+54"/>
         <source>Critical error!</source>
         <translation type="unfinished">Критическая ошибка!</translation>
     </message>
@@ -351,6 +355,20 @@
 You can change it in Settings dialog.</source>
         <translation type="unfinished">Похоже, каталог инструментов указан неправильно!
 Вы можете изменить его в диалоге Настройки.</translation>
+    </message>
+    <message>
+        <source>No video</source>
+        <translation type="obsolete">Без видео</translation>
+    </message>
+    <message>
+        <location filename="../youtubesearch.h" line="+67"/>
+        <source>No audio</source>
+        <translation type="unfinished">Без звука</translation>
+    </message>
+    <message>
+        <location line="-14"/>
+        <source>Audio only</source>
+        <translation type="unfinished">Только звук</translation>
     </message>
 </context>
 <context>
@@ -513,7 +531,7 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YouTubeSearch</name>
     <message>
-        <location filename="../youtubesearch.cpp" line="+119"/>
+        <location filename="../youtubesearch.cpp" line="+113"/>
         <location line="+68"/>
         <location line="+108"/>
         <source>JSON parsing error!</source>
@@ -730,7 +748,7 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YoutubeView</name>
     <message>
-        <location filename="../youtubeview.cpp" line="+97"/>
+        <location filename="../youtubeview.cpp" line="+108"/>
         <location line="+9"/>
         <source>Download...</source>
         <translation>Скачать...</translation>
@@ -742,7 +760,17 @@ You can change it in Settings dialog.</source>
         <translation>Проиграть внешним проигрывателем...</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+18"/>
+        <source>View uploader channel</source>
+        <translation type="unfinished">Просмотр канала загрущика</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Search channel&apos;s videos...</source>
+        <translation type="unfinished">Поиск видео на канале...</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Information...</source>
         <translation>Информация...</translation>
     </message>
@@ -773,6 +801,14 @@ You can change it in Settings dialog.</source>
         <location filename="../mpchcsettingsdialog.ui"/>
         <source>Vlc settings</source>
         <translation type="unfinished">Настройки Vlc</translation>
+    </message>
+</context>
+<context>
+    <name>YoutubeDownloader</name>
+    <message>
+        <location filename="../youtubedownloader.cpp" line="+34"/>
+        <source>Cannot start %1/aria2c!!!</source>
+        <translation type="unfinished">Не удается запустить %1/aria2c!!!</translation>
     </message>
 </context>
 </TS>

@@ -48,7 +48,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../downloadwidget.cpp" line="+64"/>
+        <location filename="../downloadwidget.cpp" line="+65"/>
         <source>/s</source>
         <translation type="unfinished"></translation>
     </message>
@@ -152,12 +152,12 @@
         <translation type="obsolete">Памылка сеткі!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+66"/>
+        <location filename="../mainwindow.cpp" line="+77"/>
         <source>Error during Categories returning!</source>
         <translation type="unfinished">Памылка пры вяртаннi Катэгорый!</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+43"/>
         <source>Save File</source>
         <translation type="unfinished">Захаваць у файл</translation>
     </message>
@@ -227,14 +227,18 @@
         <translation type="unfinished">Выберыце прайгравальнік</translation>
     </message>
     <message>
-        <location filename="../providersdialog.cpp" line="+81"/>
+        <location filename="../providersdialog.cpp" line="+82"/>
         <source>Cannot start the player...</source>
         <translation type="unfinished">Не ўдаецца запусціць прайгравальнік...</translation>
     </message>
     <message>
         <location line="+0"/>
+        <source>Please install some supported one!</source>
+        <translation type="unfinished">Калі ласка, усталюйце што-небудзь падтрымоўванае!</translation>
+    </message>
+    <message>
         <source>Please install vlc or mpv!</source>
-        <translation type="unfinished">Калі ласка, усталюйце VLC або MPV!</translation>
+        <translation type="obsolete">Калі ласка, усталюйце VLC або MPV!</translation>
     </message>
 </context>
 <context>
@@ -285,7 +289,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../providersdialog.cpp" line="-66"/>
+        <location filename="../providersdialog.cpp" line="-67"/>
         <source>VLC media player</source>
         <translation type="unfinished">Прайгравальнік VLC</translation>
     </message>
@@ -300,7 +304,7 @@
         <translation type="unfinished">Прайгравальнік MPC-HC</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+20"/>
+        <location filename="../youtubesearch.cpp" line="+19"/>
         <source>Relevance</source>
         <translation type="unfinished">Дарэчнасць</translation>
     </message>
@@ -345,7 +349,7 @@
         <translation type="unfinished">дзён</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="+53"/>
+        <location filename="../main.cpp" line="+54"/>
         <source>Critical error!</source>
         <translation type="unfinished">Крытычная памылка!</translation>
     </message>
@@ -355,6 +359,20 @@
 You can change it in Settings dialog.</source>
         <translation type="unfinished">Падобна на тое, што каталог інструмента няправільны!
 Вы можаце змяніць яго ў дыялогу Налады.</translation>
+    </message>
+    <message>
+        <source>No video</source>
+        <translation type="obsolete">Без відэа</translation>
+    </message>
+    <message>
+        <location filename="../youtubesearch.h" line="+67"/>
+        <source>No audio</source>
+        <translation type="unfinished">Без гуку</translation>
+    </message>
+    <message>
+        <location line="-14"/>
+        <source>Audio only</source>
+        <translation type="unfinished">Толькi гук</translation>
     </message>
 </context>
 <context>
@@ -574,7 +592,7 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Памылка XML: (%1)</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+119"/>
+        <location filename="../youtubesearch.cpp" line="+113"/>
         <location line="+68"/>
         <location line="+108"/>
         <source>JSON parsing error!</source>
@@ -891,7 +909,7 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Калі ласка, усталюйце VLC або MPV!</translation>
     </message>
     <message>
-        <location filename="../youtubeview.cpp" line="+97"/>
+        <location filename="../youtubeview.cpp" line="+108"/>
         <location line="+9"/>
         <source>Download...</source>
         <translation type="unfinished">Запампаваць...</translation>
@@ -903,7 +921,17 @@ You can change it in Settings dialog.</source>
         <translation type="unfinished">Прайграць знешнім прайгравальнікам...</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+18"/>
+        <source>View uploader channel</source>
+        <translation type="unfinished">Прагляд канала загрузніка</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Search channel&apos;s videos...</source>
+        <translation type="unfinished">Пошук вiдэа на канале...</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Information...</source>
         <translation type="unfinished">Інфармацыя...</translation>
     </message>
@@ -934,6 +962,14 @@ You can change it in Settings dialog.</source>
         <location filename="../mpchcsettingsdialog.ui"/>
         <source>Vlc settings</source>
         <translation type="unfinished">Налады Vlc</translation>
+    </message>
+</context>
+<context>
+    <name>YoutubeDownloader</name>
+    <message>
+        <location filename="../youtubedownloader.cpp" line="+34"/>
+        <source>Cannot start %1/aria2c!!!</source>
+        <translation type="unfinished">Не ўдаецца запусціць %1/aria2c!!!</translation>
     </message>
 </context>
 </TS>
