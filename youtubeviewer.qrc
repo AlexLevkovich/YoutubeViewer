@@ -23,5 +23,7 @@
         <file>res/mpv.png</file>
         <file>res/dialog-password.png</file>
         <file>res/mpc-hc.png</file>
+        <file>res/find-user.png</file>
+        <file>res/find-user-video.png</file>
     </qresource>
 </RCC>
