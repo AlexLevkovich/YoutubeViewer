@@ -25,10 +25,18 @@ private slots:
     void execPlayer(const QUrl & video_url = QUrl(),const QUrl & audio_url = QUrl());
     void show_info();
     void download(const QUrl & url = QUrl());
+    void view_uploader_channel();
+    void show_channel_videos_popup();
 
 signals:
     void model_changed();
     void download_request(const QUrl & url,const QString & title);
+    void search_requested(const QString & query,
+                          const QString & category,
+                          const QString & author,
+                          YoutubeOrderBy orderby,
+                          YoutubeTime time);
+    void channel_videos_popup_requested(const QString & channel_id);
 
 private:
     QAbstractItemModel * prev_model;

@@ -89,11 +89,12 @@ void YoutubeView::download(const QUrl & url) {
 
     QUrl m_url = url;
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
-    if (!url.isValid()) m_url = media->best_video().url;
+    VideoInfo info = media->best_video();
+    if (!url.isValid()) m_url = info.url;
     if (!url.isValid() && (source_object != NULL) && source_object->property("video_url").isValid()) m_url = source_object->property("video_url").toUrl();
     if (!m_url.isValid()) m_url = media->url();
 
-    emit download_request(m_url,media->title());
+    emit download_request(m_url,info.filename);
 }
 
 void YoutubeView::contextMenuEvent(QContextMenuEvent * e) {
@@ -130,8 +131,26 @@ void YoutubeView::contextMenuEvent(QContextMenuEvent * e) {
         menu.addMenu(&download_menu);
     }
 
+    menu.addAction(QIcon(":/images/res/find-user.png"),tr("View uploader channel"),this,SLOT(view_uploader_channel()));
+    menu.addAction(QIcon(":/images/res/find-user-video.png"),tr("Search channel's videos..."),this,SLOT(show_channel_videos_popup()));
     menu.addAction(QIcon(":/images/res/help-about.png"),tr("Information..."),this,SLOT(show_info()));
     menu.exec(e->globalPos());
+}
+
+void YoutubeView::show_channel_videos_popup() {
+    QModelIndexList sel_list = selectionModel()->selectedRows();
+    if (sel_list.count() <= 0) return;
+
+    Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
+    emit channel_videos_popup_requested(media->channel_id());
+}
+
+void YoutubeView::view_uploader_channel() {
+    QModelIndexList sel_list = selectionModel()->selectedRows();
+    if (sel_list.count() <= 0) return;
+
+    Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
+    emit search_requested("","",media->channel_id(),relevance,YoutubeTime());
 }
 
 void YoutubeView::show_info() {
