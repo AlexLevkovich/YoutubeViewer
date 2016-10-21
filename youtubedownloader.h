@@ -10,6 +10,7 @@ class YoutubeDownloader : public QObject {
 public:
     explicit YoutubeDownloader(const QUrl & url,const QString & out_file_name,int threads_count = 8,QObject *parent = 0);
     void terminate();
+    void start();
 
 signals:
     void finished(const QString & err);
@@ -18,10 +19,15 @@ signals:
 private slots:
     void aria_finished(int code,QProcess::ExitStatus status);
     void aria_ready_read();
+    void aria_error();
 
 private:
     QProcess downloader;
     static const QRegExp progress_exp;
+    int m_threads_count;
+    QString m_file_name;
+    QString m_dir_name;
+    QUrl m_url;
 };
 
 #endif // YOUTUBEDOWNLOADER_H

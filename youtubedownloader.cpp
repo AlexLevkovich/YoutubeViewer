@@ -7,16 +7,31 @@
 extern QString TOOLS_BIN_PATH;
 
 YoutubeDownloader::YoutubeDownloader(const QUrl & url,const QString & out_file_name,int threads_count,QObject *parent) : QObject(parent) {
-    QString file_name = QFileInfo(out_file_name).fileName();
-    QString dir_name = QFileInfo(out_file_name).dir().path();
+    m_threads_count = threads_count;
+    m_url = url;
+
+    m_file_name = QFileInfo(out_file_name).fileName();
+    m_dir_name = QFileInfo(out_file_name).dir().path();
     downloader.setEnvironment(downloader.systemEnvironment() << "LANG=C");
     connect(&downloader,SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(aria_finished(int,QProcess::ExitStatus)));
     connect(&downloader,SIGNAL(readyReadStandardOutput()),SLOT(aria_ready_read()));
-#ifndef WIN32
-    downloader.start(QString("%1/stdbuf -i0 -o0 -e0 %1/aria2c --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(threads_count)+"\""+url.toString()+"\" -o \""+file_name+"\" --dir=\""+dir_name+"\"");
+#if QT_VERSION >= 0x050000
+    connect(&downloader,SIGNAL(errorOccurred(QProcess::ProcessError)),SLOT(aria_error()));
 #else
-    downloader.start(QString("%1/aria2c --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(threads_count)+"\""+url.toString()+"\" -o \""+file_name+"\" --dir=\""+dir_name+"\"");
+    connect(&downloader,SIGNAL(error(QProcess::ProcessError)),SLOT(aria_error()));
 #endif
+}
+
+void YoutubeDownloader::start() {
+#ifndef WIN32
+    downloader.start(QString("%1/stdbuf -i0 -o0 -e0 %1/aria2c --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(m_threads_count)+"\""+m_url.toString()+"\" -o \""+m_file_name+"\" --dir=\""+m_dir_name+"\"");
+#else
+    downloader.start(QString("%1/aria2c --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(m_threads_count)+"\""+m_url.toString()+"\" -o \""+m_file_name+"\" --dir=\""+m_dir_name+"\"");
+#endif
+}
+
+void YoutubeDownloader::aria_error() {
+    emit finished(tr("Cannot start %1/aria2c!!!").arg(TOOLS_BIN_PATH));
 }
 
 void YoutubeDownloader::aria_finished(int code,QProcess::ExitStatus /*status*/) {
@@ -47,5 +62,5 @@ void YoutubeDownloader::aria_ready_read() {
 }
 
 void YoutubeDownloader::terminate() {
-    downloader.terminate();
+    downloader.kill();
 }
