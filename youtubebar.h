@@ -20,7 +20,9 @@ signals:
     void search_completed(const QList<Media> & medias);
     void search_started();
 
+
 private slots:
+    void show_search_videos_popup(const QString & channel_id = QString());
     void search_was_completed(const QList<Media> & medias);
     void search_was_started();
     void search_requested(const QString & query,

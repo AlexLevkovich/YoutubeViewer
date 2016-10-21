@@ -56,3 +56,7 @@ void YoutubeSearchWidget::on_buttonBox_accepted() {
 void YoutubeSearchWidget::on_buttonBox_rejected() {
     ((QWidget *)parent())->hide();
 }
+
+void YoutubeSearchWidget::setChannelId(const QString & channel_id) {
+    ui->channelidEdit->setText(channel_id);
+}

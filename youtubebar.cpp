@@ -111,3 +111,8 @@ void YoutubeBar::first_page() {
 void YoutubeBar::addNewDownload(const QUrl & url,const QString & out_file_name,int threads_count) {
     settings_widget->addNewDownload(url,out_file_name,threads_count);
 }
+
+void YoutubeBar::show_search_videos_popup(const QString & channel_id) {
+    search_widget->setSearchButtonPopupChannelId(channel_id);
+    search_widget->showSearchButtonPopup();
+}

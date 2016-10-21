@@ -30,3 +30,10 @@ SearchWidget::~SearchWidget() {
     delete ui;
 }
 
+void SearchWidget::setSearchButtonPopupChannelId(const QString & channel_id) {
+    ui->searchButton->setPopupChannelId(channel_id);
+}
+
+void SearchWidget::showSearchButtonPopup() {
+    ui->searchButton->showMenu();
+}

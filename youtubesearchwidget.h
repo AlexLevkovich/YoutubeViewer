@@ -14,6 +14,7 @@ class YoutubeSearchWidget : public QWidget {
 public:
     explicit YoutubeSearchWidget(QWidget *parent = 0);
     ~YoutubeSearchWidget();
+    void setChannelId(const QString & channel_id);
 
 signals:
     void search_requested(const QString & query,
