@@ -79,7 +79,7 @@ void ProvidersDialog::fill() {
         ui->providersList->setCurrentItem(firstitem);
     }
     else {
-        QMessageBox::critical(this,tr("Cannot start the player..."),tr("Please install vlc or mpv!"));
+        QMessageBox::critical(this,tr("Cannot start the player..."),tr("Please install some supported one!"));
         return;
     }
 }
