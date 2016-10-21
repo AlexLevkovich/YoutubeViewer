@@ -6,13 +6,14 @@
 #include <QDateTime>
 #include <QImage>
 #include <QMap>
+#include "json.h"
 
 #define MAX_QUERY_COUNT 50
 #define YOUTUBE_API "https://www.googleapis.com/youtube/v3/search?part=snippet&order=%1&type=video&key=%2&maxResults=%3"
 #define YOUTUBE_COMMENT_API "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=%1&videoId=%2"
 #define YOUTUBE_VIDEO "https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails,statistics,snippet&key=%1&id=%2"
 #define YOUTUBE_VIDEO_CATEGORIES "https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&key=%1&regionCode=US"
-#define YOUTUBE_VIDEO_URLS_PROCESS "%2/youtube-dl --skip-download --get-format -g --all-formats %1"
+#define YOUTUBE_VIDEO_URLS_PROCESS "%2/youtube-dl --skip-download --print-json %1"
 #define CATEGORY_PART "&videoCategoryId=%1"
 #define QUERY_PART "&q=%1"
 #define AUTHOR_PART "&channelId=%1"
@@ -38,47 +39,45 @@ const QString orderby_values_en[6] = {"relevance",
 struct FmtDesc {
     QString resolution;
     QString description;
+    QString acodec;
+    QString vcodec;
+    int bitrate;
     int id;
 
     inline FmtDesc() {}
 
-    inline FmtDesc(QString resolution,QString description, int id) {
-        this->resolution = resolution;
-        this->description = description;
-        this->id = id;
-    }
-
-    inline FmtDesc(QString str) {
-        QStringList parts = str.split(" - ");
-        if (parts.count() == 2) {
-            id = parts[0].toInt();
-            QString substr = parts[1];
-            if (substr.contains(" (")) {
-                parts = substr.split(" (");
-                resolution = parts[0];
-                description = (parts[1].startsWith("DASH "))?"("+parts[1]:"(video + audio)";
-            }
-            else description = substr;
-        }
+    inline FmtDesc(QtJson::JsonObject format) {
+        id = format["format_id"].toInt();
+        QString format_note = format["format_note"].toString();
+        description = (format_note.startsWith("DASH "))?"("+format_note+")":"(video + audio)";
+        if (format["width"].isNull() || format["height"].isNull()) resolution = QObject::tr("Audio only");
+        else resolution = format["width"].toString() + "x" + format["height"].toString();
+        vcodec = format["vcodec"].toString();
+        if (vcodec == "none") vcodec = QString();
+        acodec = format["acodec"].toString();
+        if (acodec == "none") acodec = QString();
+        bitrate = format["tbr"].toInt();
     }
 
     inline QString toString() const {
-        return QString("%1 (%2)").arg(resolution).arg(id);
+        return QString("%1 (%2%3)").arg(resolution).arg((vcodec.isEmpty()?(acodec):vcodec)).arg(vcodec.isEmpty()?QString(", %1 Kbps").arg(bitrate):"");
     }
 
     inline QString toStringFull() const {
-        return QString("%1 %2 (%3)").arg(resolution).arg(description).arg(id);
+        return QString("%1 (%2%3)").arg(resolution).arg((vcodec.isEmpty()?(acodec):vcodec)).arg(vcodec.isEmpty()?QString(", %1 Kbps").arg(bitrate):(acodec.isEmpty()?" ,"+QObject::tr("No audio"):""));
     }
+
 };
 
 struct VideoInfo {
     QUrl url;
     QUrl audio_url;
     FmtDesc desc;
+    QString filename;
 
     inline VideoInfo() {}
     bool isAudioOnly() {
-        return (desc.resolution == "audio only");
+        return (desc.vcodec.isEmpty());
     }
     bool hasExternalAudio() {
         return (desc.description == "(DASH video)");

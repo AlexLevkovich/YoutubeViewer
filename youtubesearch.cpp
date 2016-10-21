@@ -1,4 +1,3 @@
-#include "json.h"
 #include <stdio.h>
 #include <QLocale>
 #include <QApplication>
@@ -59,26 +58,17 @@ void Media::download_video_infos() {
     links_process.waitForFinished(-1);
 
     if (links_process.exitCode() == 0) {
-        QTextStream buffer(&links_process);
-        QString line;
-        VideoInfo info;
-        for (int i=1;!(line = buffer.readLine()).isEmpty();i++) {
-            if (line.startsWith("WARNING: ")) {
-                i--;
-                continue;
-            }
+        bool ok;
+        QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(links_process.readAll()),ok).toMap();
+        if (!ok) return;
 
-            if ((i%2) == 0) {
-                info.desc = FmtDesc(line);
-                if (!info.desc.description.isEmpty()) video_infos().append(info);
-            }
-            else {
-                if (!line.startsWith("http")) {
-                    i--;
-                    continue;
-                }
-                info.url = QUrl(line);
-            }
+        foreach(QVariant v_item, result["formats"].toList()) {
+            QtJson::JsonObject item = v_item.value<QtJson::JsonObject>();
+            VideoInfo info;
+            info.filename = result["_filename"].toString();
+            info.desc = FmtDesc(item);
+            info.url = QUrl(item["url"].toString());
+            if (!info.desc.description.isEmpty()) video_infos().append(info);
         }
     }
 
