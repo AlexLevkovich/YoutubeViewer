@@ -48,8 +48,6 @@ struct FmtDesc {
 
     inline FmtDesc(QtJson::JsonObject format) {
         id = format["format_id"].toInt();
-        QString format_note = format["format_note"].toString();
-        description = (format_note.startsWith("DASH "))?"("+format_note+")":"(video + audio)";
         if (format["width"].isNull() || format["height"].isNull()) resolution = QObject::tr("Audio only");
         else resolution = format["width"].toString() + "x" + format["height"].toString();
         vcodec = format["vcodec"].toString();
@@ -57,6 +55,7 @@ struct FmtDesc {
         acodec = format["acodec"].toString();
         if (acodec == "none") acodec = QString();
         bitrate = format["tbr"].toInt();
+        description = format["format_note"].toString();
     }
 
     inline QString toString() const {
@@ -80,7 +79,7 @@ struct VideoInfo {
         return (desc.vcodec.isEmpty());
     }
     bool hasExternalAudio() {
-        return (desc.description == "(DASH video)");
+        return (desc.acodec.isEmpty() && !desc.vcodec.isEmpty());
     }
 };
 
