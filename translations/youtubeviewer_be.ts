@@ -365,12 +365,12 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Без відэа</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.h" line="+67"/>
+        <location filename="../youtubesearch.h" line="+66"/>
         <source>No audio</source>
         <translation type="unfinished">Без гуку</translation>
     </message>
     <message>
-        <location line="-14"/>
+        <location line="-15"/>
         <source>Audio only</source>
         <translation type="unfinished">Толькi гук</translation>
     </message>
@@ -922,13 +922,21 @@ You can change it in Settings dialog.</source>
     </message>
     <message>
         <location line="+18"/>
-        <source>View uploader channel</source>
-        <translation type="unfinished">Прагляд канала загрузніка</translation>
+        <source>View channel</source>
+        <translation type="unfinished">Прагляд канала</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>Search videos on channel</source>
+        <translation type="unfinished">Пошук вiдэа на канале</translation>
+    </message>
+    <message>
+        <source>View uploader channel</source>
+        <translation type="obsolete">Прагляд канала загрузніка</translation>
+    </message>
+    <message>
         <source>Search channel&apos;s videos...</source>
-        <translation type="unfinished">Пошук вiдэа на канале...</translation>
+        <translation type="obsolete">Пошук вiдэа на канале...</translation>
     </message>
     <message>
         <location line="+1"/>
