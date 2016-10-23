@@ -131,8 +131,8 @@ void YoutubeView::contextMenuEvent(QContextMenuEvent * e) {
         menu.addMenu(&download_menu);
     }
 
-    menu.addAction(QIcon(":/images/res/find-user.png"),tr("View uploader channel"),this,SLOT(view_uploader_channel()));
-    menu.addAction(QIcon(":/images/res/find-user-video.png"),tr("Search channel's videos..."),this,SLOT(show_channel_videos_popup()));
+    menu.addAction(QIcon(":/images/res/find-user.png"),tr("View channel")+" \""+media->author()+"\"",this,SLOT(view_uploader_channel()));
+    menu.addAction(QIcon(":/images/res/find-user-video.png"),tr("Search videos on channel")+" \""+media->author()+"\"...",this,SLOT(show_channel_videos_popup()));
     menu.addAction(QIcon(":/images/res/help-about.png"),tr("Information..."),this,SLOT(show_info()));
     menu.exec(e->globalPos());
 }
