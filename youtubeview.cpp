@@ -65,8 +65,8 @@ void YoutubeView::execPlayer(const QUrl & video_url,const QUrl & audio_url) {
     QUrl m_audio_url = audio_url;
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
     if (!video_url.isValid()) {
-        m_video_url = media->best_video().url;
-        m_audio_url = media->best_video().audio_url;
+        m_video_url = media->best_video().url();
+        m_audio_url = media->best_video().audio_url();
     }
     if (!video_url.isValid() && (source_object != NULL) && source_object->property("video_url").isValid()) {
         m_video_url = source_object->property("video_url").toUrl();
@@ -90,11 +90,15 @@ void YoutubeView::download(const QUrl & url) {
     QUrl m_url = url;
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
     VideoInfo info = media->best_video();
-    if (!url.isValid()) m_url = info.url;
-    if (!url.isValid() && (source_object != NULL) && source_object->property("video_url").isValid()) m_url = source_object->property("video_url").toUrl();
+    QString m_filename = info.filename();
+    if (!url.isValid()) m_url = info.url();
+    if (!url.isValid() && (source_object != NULL) && source_object->property("video_url").isValid()) {
+        m_url = source_object->property("video_url").toUrl();
+        m_filename = source_object->property("video_filename").toString();
+    }
     if (!m_url.isValid()) m_url = media->url();
 
-    emit download_request(m_url,info.filename);
+    emit download_request(m_url,m_filename);
 }
 
 void YoutubeView::contextMenuEvent(QContextMenuEvent * e) {
@@ -119,13 +123,14 @@ void YoutubeView::contextMenuEvent(QContextMenuEvent * e) {
     else {
         for (int i=0;i<real_links.count();i++) {
             if (!real_links[i].isAudioOnly()) {
-                QAction * action = playerMenu.addAction(QIcon(":/images/res/tool-animator.png"),real_links[i].desc.toString(),this,SLOT(execPlayer()));
-                action->setProperty("video_url",real_links[i].url);
-                action->setProperty("audio_url",real_links[i].audio_url);
+                QAction * action = playerMenu.addAction(QIcon(":/images/res/tool-animator.png"),real_links[i].desc().toString(),this,SLOT(execPlayer()));
+                action->setProperty("video_url",real_links[i].url());
+                action->setProperty("audio_url",real_links[i].audio_url());
             }
-            QAction *  action = download_menu.addAction(QIcon(":/images/res/tool-animator.png"),real_links[i].desc.toStringFull(),this,SLOT(download()));
-            action ->setProperty("video_url",real_links[i].url);
-            action ->setProperty("audio_url",real_links[i].audio_url);
+            QAction *  action = download_menu.addAction(QIcon(":/images/res/tool-animator.png"),real_links[i].desc().toStringFull(),this,SLOT(download()));
+            action->setProperty("video_url",real_links[i].url());
+            action->setProperty("video_filename",real_links[i].filename());
+            action->setProperty("audio_url",real_links[i].audio_url());
         }
         menu.addMenu(&playerMenu);
         menu.addMenu(&download_menu);

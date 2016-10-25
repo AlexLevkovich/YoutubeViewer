@@ -15,6 +15,12 @@ public:
     explicit YoutubeSearchWidget(QWidget *parent = 0);
     ~YoutubeSearchWidget();
     void setChannelId(const QString & channel_id);
+    void setEnableFillButton(bool flag);
+    void setFieldsValues(const QString & query,
+                         const QString & category,
+                         const QString & author,
+                         YoutubeOrderBy orderby,
+                         YoutubeTime time);
 
 signals:
     void search_requested(const QString & query,
@@ -23,6 +29,7 @@ signals:
                           YoutubeOrderBy orderby,
                           YoutubeTime time);
     void accepted();
+    void previousTermsClicked();
 
 private slots:
     void on_buttonBox_accepted();

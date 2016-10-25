@@ -3,6 +3,7 @@
 #include <QSettings>
 #include <QNetworkAccessManager>
 #include <QMessageBox>
+#include <QDateTimeEdit>
 #include "default_values.h"
 #ifdef WIN32
 #include "explorerstyle.h"
@@ -10,6 +11,7 @@
 
 QSettings *theSettings = NULL;
 QString TOOLS_BIN_PATH = TOOLS_BIN;
+QDateTime MINIMUM_DATE;
 
 QMainWindow * findMainWindow() {
     foreach(QWidget *widget, qApp->topLevelWidgets()) {
@@ -26,6 +28,8 @@ int main(int argc, char *argv[]) {
 #ifdef WIN32
     a.setStyle(new ExplorerStyle());
 #endif
+
+    MINIMUM_DATE = QDateTimeEdit().minimumDateTime();
 
     QTranslator m_translator;
     QString lang = QLocale::system().name().split("_").at(0);

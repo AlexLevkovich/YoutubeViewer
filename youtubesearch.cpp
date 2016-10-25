@@ -65,22 +65,26 @@ void Media::download_video_infos() {
         foreach(QVariant v_item, result["formats"].toList()) {
             QtJson::JsonObject item = v_item.value<QtJson::JsonObject>();
             VideoInfo info;
-            info.filename = result["_filename"].toString();
-            info.desc = FmtDesc(item);
-            info.url = QUrl(item["url"].toString());
-            if (!info.desc.description.isEmpty()) video_infos().append(info);
+            info.m_desc = FmtDesc(item);
+            info.m_filename = result["_filename"].toString();
+            if (info.isAudioOnly()) info.m_filename += "a";
+            info.m_url = QUrl(item["url"].toString());
+            m_video_infos.append(info);
         }
     }
 
     QUrl audio_url;
     for (int i=0;i<video_infos().count();i++) {
         VideoInfo info = video_infos().at(i);
-        if (info.isAudioOnly()) audio_url = info.url;
+        if (info.isAudioOnly()) audio_url = info.url();
     }
 
     for (int i=0;i<video_infos().count();i++) {
-        VideoInfo & info = video_infos()[i];
-        if (info.hasExternalAudio()) info.audio_url = audio_url;
+        VideoInfo info = video_infos()[i];
+        if (info.hasExternalAudio()) {
+            info.m_audio_url = audio_url;
+            m_video_infos[i] = info;
+        }
     }
     QApplication::restoreOverrideCursor();
 }
@@ -233,16 +237,16 @@ void YouTubeSearch::finished() {
                 QtJson::JsonObject item = v_item.value<QtJson::JsonObject>();
                 Media media;
                 QtJson::JsonObject id = item["id"].toMap();
-                media.id() = id["videoId"].toString();
+                media.m_id = id["videoId"].toString();
                 QtJson::JsonObject snippet = item["snippet"].toMap();
-                media.date() = QDateTime::fromString(snippet["publishedAt"].toString().left(19)+"+00:00",Qt::ISODate);
-                media.title() = snippet["title"].toString();
-                media.channel_id() = snippet["channelId"].toString();
+                media.m_date = QDateTime::fromString(snippet["publishedAt"].toString().left(19)+"+00:00",Qt::ISODate);
+                media.m_title = snippet["title"].toString();
+                media.m_channel_id = snippet["channelId"].toString();
                 QtJson::JsonObject thumbnails = snippet["thumbnails"].toMap();
-                media.image_url() = QUrl(thumbnails["high"].toMap()["url"].toString());
-                media.author() = snippet["channelTitle"].toString();
-                media.url() = QUrl(QString(YOUTUBE_URL_FORMAT).arg(media.id()));
-                media.comments_url() = QUrl(QString(YOUTUBE_COMMENT_API).arg(m_userKey).arg(media.id()));
+                media.m_image_url = QUrl(thumbnails["high"].toMap()["url"].toString());
+                media.m_author = snippet["channelTitle"].toString();
+                media.m_url = QUrl(QString(YOUTUBE_URL_FORMAT).arg(media.id()));
+                media.m_comments_url = QUrl(QString(YOUTUBE_COMMENT_API).arg(m_userKey).arg(media.id()));
                 m_medias << media;
             }
         }
@@ -347,11 +351,11 @@ void YouTubeSearch::image_finished() {
     int statusCode = image_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (statusCode >= 200 && statusCode < 300) {
         QByteArray data = image_reply->readAll();
-        m_medias[resources_map[image_reply]].image() = (data.isEmpty()?QImage(":/images/res/default.png"):QImage::fromData(data)).scaled(theSettings->value("preview_size",QSize(PREVIEW_WIDTH,PREVIEW_HEIGHT)).toSize(),Qt::KeepAspectRatio);
+        m_medias[resources_map[image_reply]].m_image = (data.isEmpty()?QImage(":/images/res/default.png"):QImage::fromData(data)).scaled(theSettings->value("preview_size",QSize(PREVIEW_WIDTH,PREVIEW_HEIGHT)).toSize(),Qt::KeepAspectRatio);
     }
     else {
         if (statusCode == 404) {
-            m_medias[resources_map[image_reply]].image() = QImage(":/images/res/default.png").scaled(theSettings->value("preview_size",QSize(PREVIEW_WIDTH,PREVIEW_HEIGHT)).toSize());
+            m_medias[resources_map[image_reply]].m_image = QImage(":/images/res/default.png").scaled(theSettings->value("preview_size",QSize(PREVIEW_WIDTH,PREVIEW_HEIGHT)).toSize());
         }
     }
     resources_map.remove(image_reply);
@@ -412,15 +416,15 @@ void YouTubeSearch::desc_finished() {
                 double dislikeCount = statistics["dislikeCount"].toDouble();
                 QString desc = snippet["description"].toString();
                 if (desc.isNull()) desc="";
-                m_medias[resources_map[desc_reply]].description() = desc;
-                m_medias[resources_map[desc_reply]].duration() = convertYoutubeDuration(contentDetails["duration"].toString());
-                m_medias[resources_map[desc_reply]].rating() = ((likeCount-dislikeCount)*5.0)/(likeCount+dislikeCount);
+                m_medias[resources_map[desc_reply]].m_description = desc;
+                m_medias[resources_map[desc_reply]].m_duration = convertYoutubeDuration(contentDetails["duration"].toString());
+                m_medias[resources_map[desc_reply]].m_rating = ((likeCount-dislikeCount)*5.0)/(likeCount+dislikeCount);
                 int categoryId = snippet["categoryId"].toInt()-1;
-                if ((categoryId >= 0) && (m_categories.count() > categoryId)) m_medias[resources_map[desc_reply]].category() = m_categories[categoryId];
+                if ((categoryId >= 0) && (m_categories.count() > categoryId)) m_medias[resources_map[desc_reply]].m_category = m_categories[categoryId];
                 is_ok = true;
             }
             if (!is_ok) {
-                m_medias[resources_map[desc_reply]].doIgnore() = true;
+                m_medias[resources_map[desc_reply]].m_ignore = true;
             }
         }
 

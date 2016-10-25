@@ -8,6 +8,8 @@
 #include <QMap>
 #include "json.h"
 
+extern QDateTime MINIMUM_DATE;
+
 #define MAX_QUERY_COUNT 50
 #define YOUTUBE_API "https://www.googleapis.com/youtube/v3/search?part=snippet&order=%1&type=video&key=%2&maxResults=%3"
 #define YOUTUBE_COMMENT_API "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=%1&videoId=%2"
@@ -36,51 +38,99 @@ const QString orderby_values_en[6] = {"relevance",
                                       "videoCount",
                                       "viewCount"};
 
-struct FmtDesc {
-    QString resolution;
-    QString description;
-    QString acodec;
-    QString vcodec;
-    int bitrate;
-    int id;
+class FmtDesc {
+private:
+    QString m_resolution;
+    QString m_description;
+    QString m_acodec;
+    QString m_vcodec;
+    int m_bitrate;
+    int m_id;
 
     inline FmtDesc() {}
-
     inline FmtDesc(QtJson::JsonObject format) {
-        id = format["format_id"].toInt();
-        if (format["width"].isNull() || format["height"].isNull()) resolution = QObject::tr("Audio only");
-        else resolution = format["width"].toString() + "x" + format["height"].toString();
-        vcodec = format["vcodec"].toString();
-        if (vcodec == "none") vcodec = QString();
-        acodec = format["acodec"].toString();
-        if (acodec == "none") acodec = QString();
-        bitrate = format["tbr"].toInt();
-        description = format["format_note"].toString();
+        m_id = format["format_id"].toInt();
+        if (format["width"].isNull() || format["height"].isNull()) m_resolution = QObject::tr("Audio only");
+        else m_resolution = format["width"].toString() + "x" + format["height"].toString();
+        m_vcodec = format["vcodec"].toString();
+        if (m_vcodec == "none") m_vcodec = QString();
+        m_acodec = format["acodec"].toString();
+        if (m_acodec == "none") m_acodec = QString();
+        m_bitrate = format["tbr"].toInt();
+        m_description = format["format_note"].toString();
+    }
+
+public:
+    QString resolution() const {
+        return m_resolution;
+    }
+
+    QString description() const {
+        return m_description;
+    }
+
+    QString acodec() const {
+        return m_acodec;
+    }
+
+    QString vcodec() const {
+        return m_vcodec;
+    }
+
+    int bitrate() const {
+        return m_bitrate;
+    }
+
+    int id() const {
+        return m_id;
     }
 
     inline QString toString() const {
-        return QString("%1 (%2%3)").arg(resolution).arg((vcodec.isEmpty()?(acodec):vcodec)).arg(vcodec.isEmpty()?QString(", %1 Kbps").arg(bitrate):"");
+        return QString("%1 (%2%3)").arg(m_resolution).arg((m_vcodec.isEmpty()?(m_acodec):m_vcodec)).arg(m_vcodec.isEmpty()?QString(", %1 Kbps").arg(m_bitrate):"");
     }
 
     inline QString toStringFull() const {
-        return QString("%1 (%2%3)").arg(resolution).arg((vcodec.isEmpty()?(acodec):vcodec)).arg(vcodec.isEmpty()?QString(", %1 Kbps").arg(bitrate):(acodec.isEmpty()?" ,"+QObject::tr("No audio"):""));
+        return QString("%1 (%2%3)").arg(m_resolution).arg((m_vcodec.isEmpty()?(m_acodec):m_vcodec)).arg(m_vcodec.isEmpty()?QString(", %1 Kbps").arg(m_bitrate):(m_acodec.isEmpty()?" ,"+QObject::tr("No audio"):""));
     }
 
+    friend class VideoInfo;
+    friend class Media;
 };
 
-struct VideoInfo {
-    QUrl url;
-    QUrl audio_url;
-    FmtDesc desc;
-    QString filename;
+class VideoInfo {
+private:
+    QUrl m_url;
+    QUrl m_audio_url;
+    FmtDesc m_desc;
+    QString m_filename;
 
     inline VideoInfo() {}
+
+public:
+    QUrl url() const {
+        return m_url;
+    }
+
+    QUrl audio_url() const {
+        return m_audio_url;
+    }
+
+    FmtDesc desc() const {
+        return m_desc;
+    }
+
+    QString filename() const {
+        return m_filename;
+    }
+
     bool isAudioOnly() {
-        return (desc.vcodec.isEmpty());
+        return (m_desc.m_vcodec.isEmpty());
     }
     bool hasExternalAudio() {
-        return (desc.acodec.isEmpty() && !desc.vcodec.isEmpty());
+        return (m_desc.m_acodec.isEmpty() && !m_desc.m_vcodec.isEmpty());
     }
+
+    friend class Media;
 };
 
 enum YoutubeTimeId {
@@ -91,7 +141,10 @@ enum YoutubeTimeId {
 class YoutubeTime {
 public:
 
-    YoutubeTime() {}
+    YoutubeTime() {
+        m_operation = after;
+        m_date = MINIMUM_DATE;
+    }
     YoutubeTime(YoutubeTimeId operation,const QDateTime & date) {
         m_operation = operation;
         m_date = date;
@@ -113,6 +166,11 @@ public:
     bool isNull() { return m_date.isNull(); }
     static const QString timeParameterString(YoutubeTimeId id);
 
+    bool operator==(const YoutubeTime & other) const {
+        return m_operation == other.m_operation &&
+               m_date == other.m_date;
+    }
+
 private:
     YoutubeTimeId m_operation;
     QDateTime m_date;
@@ -125,21 +183,21 @@ class Media {
 public:
     inline Media() { m_ignore = false; }
 
-    inline QString & id() { return m_id; }
-    inline QString & title() { return m_title; }
-    inline QString & description() { return m_description; }
-    inline QImage & image() { return m_image; }
-    inline QUrl & image_url() { return m_image_url; }
-    inline QUrl & url() { return m_url; }
-    inline QDateTime & date() { return m_date; }
-    inline QString & duration() { return m_duration; }
-    inline QString & author() { return m_author; }
-    inline QString & channel_id() { return m_channel_id; }
-    inline double & rating() { return m_rating; }
-    inline QString & category() { return m_category; }
-    inline QUrl & comments_url() { return m_comments_url; }
-    inline QList<VideoInfo> & video_infos() { return m_video_infos; }
-    inline bool & doIgnore() { return m_ignore; }
+    inline QString id() const { return m_id; }
+    inline QString title() const { return m_title; }
+    inline QString description() const { return m_description; }
+    inline QImage image() const { return m_image; }
+    inline QUrl image_url() const { return m_image_url; }
+    inline QUrl url() const { return m_url; }
+    inline QDateTime date() const { return m_date; }
+    inline QString duration() const { return m_duration; }
+    inline QString author() const { return m_author; }
+    inline QString channel_id() const { return m_channel_id; }
+    inline double rating() const { return m_rating; }
+    inline QString category() const { return m_category; }
+    inline QUrl comments_url() const { return m_comments_url; }
+    inline QList<VideoInfo> video_infos() const { return m_video_infos; }
+    inline bool doIgnore() const { return m_ignore; }
 
     VideoInfo best_video() const;
     void download_video_infos();

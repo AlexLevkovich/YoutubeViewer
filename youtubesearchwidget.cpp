@@ -38,10 +38,21 @@ YoutubeSearchWidget::YoutubeSearchWidget(QWidget *parent) : QWidget(parent), ui(
     ui->orderbyCombo->setCurrentIndex(theSettings->value("search_def_orderby",0).toInt());
     ui->timeCombo->setCurrentIndex(theSettings->value("search_def_time_id",0).toInt());
     ui->timeEdit->setDateTime(theSettings->value("search_def_time",QDateTime::currentDateTime()).toDateTime());
+
+    connect(ui->prevButton,SIGNAL(clicked()),this,SIGNAL(previousTermsClicked()));
 }
 
 YoutubeSearchWidget::~YoutubeSearchWidget() {
     delete ui;
+}
+
+void YoutubeSearchWidget::setFieldsValues(const QString & query,const QString & category,const QString & author,YoutubeOrderBy orderby,YoutubeTime time) {
+    ui->searchEdit->setText(query);
+    ui->categoryCombo->setCurrentText(category);
+    ui->channelidEdit->setText(author);
+    ui->orderbyCombo->setCurrentIndex((int)orderby);
+    ui->timeCombo->setCurrentIndex(time.operation());
+    ui->timeEdit->setDateTime(time.date());
 }
 
 void YoutubeSearchWidget::on_buttonBox_accepted() {
@@ -59,4 +70,8 @@ void YoutubeSearchWidget::on_buttonBox_rejected() {
 
 void YoutubeSearchWidget::setChannelId(const QString & channel_id) {
     ui->channelidEdit->setText(channel_id);
+}
+
+void YoutubeSearchWidget::setEnableFillButton(bool flag) {
+    ui->prevButton->setEnabled(flag);
 }

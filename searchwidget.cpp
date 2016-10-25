@@ -8,7 +8,7 @@ SearchWidget::SearchWidget(QWidget *parent) : QWidget(parent), ui(new Ui::Search
                                                  const QString &,
                                                  YoutubeOrderBy,
                                                  YoutubeTime)),
-                    this,SIGNAL(search_requested(const QString &,
+        ui->searchButton,SLOT(on_search_requested(const QString &,
                                                  const QString &,
                                                  const QString &,
                                                  YoutubeOrderBy,
