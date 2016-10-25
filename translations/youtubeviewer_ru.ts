@@ -340,12 +340,12 @@
         <translation>После</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+78"/>
         <source>days</source>
         <translation>дней</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="+54"/>
+        <location filename="../main.cpp" line="+58"/>
         <source>Critical error!</source>
         <translation type="unfinished">Критическая ошибка!</translation>
     </message>
@@ -361,12 +361,12 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Без видео</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.h" line="+66"/>
+        <location filename="../youtubesearch.h" line="+93"/>
         <source>No audio</source>
         <translation type="unfinished">Без звука</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-40"/>
         <source>Audio only</source>
         <translation type="unfinished">Только звук</translation>
     </message>
@@ -736,6 +736,11 @@ You can change it in Settings dialog.</source>
         <source>Channel ID:</source>
         <translation type="unfinished">ID канала:</translation>
     </message>
+    <message>
+        <location/>
+        <source>Previous terms</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>YoutubeSettingsWidget</name>
@@ -748,7 +753,7 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YoutubeView</name>
     <message>
-        <location filename="../youtubeview.cpp" line="+108"/>
+        <location filename="../youtubeview.cpp" line="+112"/>
         <location line="+9"/>
         <source>Download...</source>
         <translation>Скачать...</translation>
@@ -760,7 +765,7 @@ You can change it in Settings dialog.</source>
         <translation>Проиграть внешним проигрывателем...</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>View channel</source>
         <translation type="unfinished">Просмотр канала</translation>
     </message>

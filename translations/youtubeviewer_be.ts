@@ -344,12 +344,12 @@
         <translation type="unfinished">Пасля</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+78"/>
         <source>days</source>
         <translation type="unfinished">дзён</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="+54"/>
+        <location filename="../main.cpp" line="+58"/>
         <source>Critical error!</source>
         <translation type="unfinished">Крытычная памылка!</translation>
     </message>
@@ -365,12 +365,12 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Без відэа</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.h" line="+66"/>
+        <location filename="../youtubesearch.h" line="+93"/>
         <source>No audio</source>
         <translation type="unfinished">Без гуку</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-40"/>
         <source>Audio only</source>
         <translation type="unfinished">Толькi гук</translation>
     </message>
@@ -885,6 +885,11 @@ You can change it in Settings dialog.</source>
         <source>Channel ID:</source>
         <translation type="unfinished">ID канала:</translation>
     </message>
+    <message>
+        <location/>
+        <source>Previous terms</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>YoutubeSettingsWidget</name>
@@ -909,7 +914,7 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Калі ласка, усталюйце VLC або MPV!</translation>
     </message>
     <message>
-        <location filename="../youtubeview.cpp" line="+108"/>
+        <location filename="../youtubeview.cpp" line="+112"/>
         <location line="+9"/>
         <source>Download...</source>
         <translation type="unfinished">Запампаваць...</translation>
@@ -921,7 +926,7 @@ You can change it in Settings dialog.</source>
         <translation type="unfinished">Прайграць знешнім прайгравальнікам...</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+19"/>
         <source>View channel</source>
         <translation type="unfinished">Прагляд канала</translation>
     </message>
