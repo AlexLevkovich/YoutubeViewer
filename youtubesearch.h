@@ -11,10 +11,13 @@
 extern QDateTime MINIMUM_DATE;
 
 #define MAX_QUERY_COUNT 50
-#define YOUTUBE_API "https://www.googleapis.com/youtube/v3/search?part=snippet&order=%1&type=video&key=%2&maxResults=%3"
-#define YOUTUBE_COMMENT_API "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=%1&videoId=%2"
-#define YOUTUBE_VIDEO "https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails,statistics,snippet&key=%1&id=%2"
+#define YOUTUBE_VIDEOLIST_SEARCH "https://www.googleapis.com/youtube/v3/search?part=snippet&order=%1&type=video&key=%2&maxResults=%3"
+#define YOUTUBE_CHANNELLIST_SEARCH "https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&key=%1&maxResults=1"
+#define YOUTUBE_COMMENTS_SEARCH "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=%1&videoId=%2"
+#define YOUTUBE_VIDEOINFO_SEARCH "https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails,statistics,snippet&key=%1&id=%2"
 #define YOUTUBE_VIDEO_CATEGORIES "https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&key=%1&regionCode=US"
+#define YOUTUBE_PLAYLIST_SEARCH "https://www.googleapis.com/youtube/v3/search?part=snippet&type=playlist&key=%1&channelId=%2&maxResults=%3"
+#define YOUTUBE_PLAYLISTITEMS_SEARCH "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=%1&playlistId=%2&maxResults=%3"
 #define YOUTUBE_VIDEO_URLS_PROCESS "%2/youtube-dl --skip-download --print-json %1"
 #define CATEGORY_PART "&videoCategoryId=%1"
 #define QUERY_PART "&q=%1"
@@ -238,7 +241,7 @@ public slots:
     bool search(const QString & userKey,
                 const QString & query,
                 const QString & category = QString(),
-                const QString & channel_id = QString(),
+                const QString & channel = QString(),
                 YoutubeOrderBy orderby = relevance,
                 const YoutubeTime & time = YoutubeTime(),
                 const QString & pageToken = QString());
@@ -258,6 +261,7 @@ signals:
 
 private slots:
     void was_error(QNetworkReply::NetworkError error);
+    void get_channel_was_error(QNetworkReply::NetworkError error);
     void finished();
     void image_finished();
     void desc_finished();
@@ -266,6 +270,7 @@ private slots:
 private:
     QNetworkReply * getImageDownloadReply(const QUrl & image_url);
     QNetworkReply * getDescriptionDownloadReply(const QUrl & url);
+    void downloadChannelId(const QString & channel_name);
     void start_download_previews();
     void start_download_full_descriptions();
 

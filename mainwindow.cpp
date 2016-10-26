@@ -26,15 +26,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->mainToolBar,SIGNAL(search_started()),this,SLOT(search_started()));
     connect(youtube_view,SIGNAL(download_request(const QUrl &,const QString &)),this,SLOT(adding_download(const QUrl &,const QString &)));
     connect(youtube_view,SIGNAL(search_requested(const QString &,
-                                                  const QString &,
-                                                  const QString &,
-                                                  YoutubeOrderBy,
-                                                  YoutubeTime)),
-                       ui->mainToolBar,SLOT(search_requested(const QString &,
-                                                  const QString &,
-                                                  const QString &,
-                                                  YoutubeOrderBy,
-                                                  YoutubeTime)));
+                                                 const QString &,
+                                                 const QString &,
+                                                 YoutubeOrderBy,
+                                                 YoutubeTime)),
+                       ui->mainToolBar,SIGNAL(search_requested(const QString &,
+                                                               const QString &,
+                                                               const QString &,
+                                                               YoutubeOrderBy,
+                                                               YoutubeTime)));
     connect(youtube_view,SIGNAL(channel_videos_popup_requested(const QString &)),ui->mainToolBar,SLOT(show_search_videos_popup(const QString &)));
 
     start_getting_categories();

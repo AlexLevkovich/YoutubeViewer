@@ -28,21 +28,22 @@ void YoutubeBar::init() {
     m_first_page->setEnabled(false);
     addWidget((settings_widget = new YoutubeSettingsWidget(this)));
 
+
     connect(search_widget,SIGNAL(search_requested(const QString &,
                                                   const QString &,
                                                   const QString &,
                                                   YoutubeOrderBy,
                                                   YoutubeTime)),
-                       this,SLOT(search_requested(const QString &,
-                                                  const QString &,
-                                                  const QString &,
-                                                  YoutubeOrderBy,
-                                                  YoutubeTime)));
+                       this,SLOT(on_search_requested(const QString &,
+                                                     const QString &,
+                                                     const QString &,
+                                                     YoutubeOrderBy,
+                                                     YoutubeTime)));
     connect(&youtube_search,SIGNAL(completed(const QList<Media> &)),this,SLOT(search_was_completed(const QList<Media> &)));
     connect(&youtube_search,SIGNAL(error(int,const QString &)),this,SLOT(search_error(int,const QString &)));
 }
 
-void YoutubeBar::search_requested(const QString & query,
+void YoutubeBar::on_search_requested(const QString & query,
                                   const QString & category,
                                   const QString & author,
                                   YoutubeOrderBy orderby,
@@ -112,7 +113,7 @@ void YoutubeBar::addNewDownload(const QUrl & url,const QString & out_file_name,i
     settings_widget->addNewDownload(url,out_file_name,threads_count);
 }
 
-void YoutubeBar::show_search_videos_popup(const QString & channel_id) {
-    search_widget->setSearchButtonPopupChannelId(channel_id);
+void YoutubeBar::show_search_videos_popup(const QString & channel) {
+    search_widget->setSearchButtonPopupChannel(channel);
     search_widget->showSearchButtonPopup();
 }

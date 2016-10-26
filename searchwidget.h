@@ -14,7 +14,7 @@ class SearchWidget : public QWidget {
 public:
     explicit SearchWidget(QWidget *parent = 0);
     ~SearchWidget();
-    void setSearchButtonPopupChannelId(const QString & channel_id);
+    void setSearchButtonPopupChannel(const QString & channel);
     void showSearchButtonPopup();
 
 signals:

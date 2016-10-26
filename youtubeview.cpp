@@ -147,7 +147,7 @@ void YoutubeView::show_channel_videos_popup() {
     if (sel_list.count() <= 0) return;
 
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
-    emit channel_videos_popup_requested(media->channel_id());
+    emit channel_videos_popup_requested(media->author());
 }
 
 void YoutubeView::view_uploader_channel() {
@@ -155,7 +155,7 @@ void YoutubeView::view_uploader_channel() {
     if (sel_list.count() <= 0) return;
 
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
-    emit search_requested("","",media->channel_id(),relevance,YoutubeTime());
+    emit search_requested("","",media->author(),relevance,YoutubeTime());
 }
 
 void YoutubeView::show_info() {

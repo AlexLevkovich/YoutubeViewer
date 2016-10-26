@@ -19,17 +19,21 @@ public:
 signals:
     void search_completed(const QList<Media> & medias);
     void search_started();
-
-
-private slots:
-    void show_search_videos_popup(const QString & channel_id = QString());
-    void search_was_completed(const QList<Media> & medias);
-    void search_was_started();
     void search_requested(const QString & query,
                           const QString & category,
                           const QString & author,
                           YoutubeOrderBy orderby,
                           YoutubeTime time);
+
+private slots:
+    void show_search_videos_popup(const QString & channel = QString());
+    void search_was_completed(const QList<Media> & medias);
+    void search_was_started();
+    void on_search_requested(const QString & query,
+                             const QString & category,
+                             const QString & author,
+                             YoutubeOrderBy orderby,
+                             YoutubeTime time);
     void search_error(int code,const QString & err_str);
     void previous_page();
     void next_page();

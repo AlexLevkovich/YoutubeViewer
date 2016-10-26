@@ -13,7 +13,7 @@ class AdvancedSearchButton : public ComboToolButton {
 public:
     explicit AdvancedSearchButton(QWidget *parent = 0);
     void setSearchLinePointer(QLineEdit * edit);
-    void setPopupChannelId(const QString & channel_id);
+    void setPopupChannel(const QString & channel);
 
 signals:
     void search_requested(const QString & query,

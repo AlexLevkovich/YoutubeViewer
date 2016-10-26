@@ -23,6 +23,17 @@ SearchWidget::SearchWidget(QWidget *parent) : QWidget(parent), ui(new Ui::Search
                                                      const QString &,
                                                      YoutubeOrderBy,
                                                      YoutubeTime)));
+    connect(parent,SIGNAL(search_requested(const QString &,
+                                           const QString &,
+                                           const QString &,
+                                           YoutubeOrderBy,
+                                           YoutubeTime)),
+            ui->lineEdit,SIGNAL(search_requested(const QString &,
+                                                 const QString &,
+                                                 const QString &,
+                                                 YoutubeOrderBy,
+                                                 YoutubeTime)));
+
     ui->searchButton->setSearchLinePointer(ui->lineEdit);
 }
 
@@ -30,8 +41,8 @@ SearchWidget::~SearchWidget() {
     delete ui;
 }
 
-void SearchWidget::setSearchButtonPopupChannelId(const QString & channel_id) {
-    ui->searchButton->setPopupChannelId(channel_id);
+void SearchWidget::setSearchButtonPopupChannel(const QString & channel) {
+    ui->searchButton->setPopupChannel(channel);
 }
 
 void SearchWidget::showSearchButtonPopup() {

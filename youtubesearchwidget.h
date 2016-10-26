@@ -14,7 +14,7 @@ class YoutubeSearchWidget : public QWidget {
 public:
     explicit YoutubeSearchWidget(QWidget *parent = 0);
     ~YoutubeSearchWidget();
-    void setChannelId(const QString & channel_id);
+    void setChannel(const QString & channel);
     void setEnableFillButton(bool flag);
     void setFieldsValues(const QString & query,
                          const QString & category,

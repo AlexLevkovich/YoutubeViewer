@@ -67,7 +67,7 @@ void AdvancedSearchButton::setSearchLinePointer(QLineEdit * edit) {
     m_edit = edit;
 }
 
-void AdvancedSearchButton::setPopupChannelId(const QString & channel_id) {
-    m_searchWidget->setChannelId(channel_id);
+void AdvancedSearchButton::setPopupChannel(const QString & channel) {
+    m_searchWidget->setChannel(channel);
 }
 
