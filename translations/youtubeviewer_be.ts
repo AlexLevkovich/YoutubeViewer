@@ -304,7 +304,7 @@
         <translation type="unfinished">Прайгравальнік MPC-HC</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+19"/>
+        <location filename="../youtubesearch.cpp" line="+20"/>
         <source>Relevance</source>
         <translation type="unfinished">Дарэчнасць</translation>
     </message>
@@ -365,7 +365,7 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Без відэа</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.h" line="+93"/>
+        <location filename="../youtubesearch.h" line="+96"/>
         <source>No audio</source>
         <translation type="unfinished">Без гуку</translation>
     </message>
@@ -592,7 +592,8 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Памылка XML: (%1)</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+113"/>
+        <location filename="../youtubesearch.cpp" line="+63"/>
+        <location line="+104"/>
         <location line="+68"/>
         <location line="+108"/>
         <source>JSON parsing error!</source>
@@ -627,7 +628,7 @@ You can change it in Settings dialog.</source>
         <translation type="unfinished">Спыніць апрацоўку</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+35"/>
         <source>Network error!</source>
         <translation type="unfinished">Памылка сеткі!</translation>
     </message>
@@ -881,14 +882,18 @@ You can change it in Settings dialog.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location/>
         <source>Channel ID:</source>
-        <translation type="unfinished">ID канала:</translation>
+        <translation type="obsolete">ID канала:</translation>
     </message>
     <message>
         <location/>
         <source>Previous terms</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel:</source>
+        <translation type="unfinished">Канал:</translation>
     </message>
 </context>
 <context>

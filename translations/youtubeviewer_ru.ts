@@ -300,7 +300,7 @@
         <translation type="unfinished">Проигрыватель MPC-HC</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+19"/>
+        <location filename="../youtubesearch.cpp" line="+20"/>
         <source>Relevance</source>
         <translation>Релевантность</translation>
     </message>
@@ -361,7 +361,7 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Без видео</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.h" line="+93"/>
+        <location filename="../youtubesearch.h" line="+96"/>
         <source>No audio</source>
         <translation type="unfinished">Без звука</translation>
     </message>
@@ -531,7 +531,8 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YouTubeSearch</name>
     <message>
-        <location filename="../youtubesearch.cpp" line="+113"/>
+        <location filename="../youtubesearch.cpp" line="+63"/>
+        <location line="+104"/>
         <location line="+68"/>
         <location line="+108"/>
         <source>JSON parsing error!</source>
@@ -566,7 +567,7 @@ You can change it in Settings dialog.</source>
         <translation>Остановить текущую обработку</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+35"/>
         <source>Network error!</source>
         <translation>Ошибка сети!</translation>
     </message>
@@ -732,14 +733,18 @@ You can change it in Settings dialog.</source>
         <translation></translation>
     </message>
     <message>
-        <location/>
         <source>Channel ID:</source>
-        <translation type="unfinished">ID канала:</translation>
+        <translation type="obsolete">ID канала:</translation>
     </message>
     <message>
         <location/>
         <source>Previous terms</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Channel:</source>
+        <translation type="unfinished">Канал:</translation>
     </message>
 </context>
 <context>
