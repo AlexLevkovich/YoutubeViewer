@@ -21,6 +21,7 @@ signals:
     void search_requested(const QString & query,
                           const QString & category,
                           const QString & author,
+                          const QString & playlist_id,
                           YoutubeOrderBy orderby,
                           YoutubeTime time);
 
