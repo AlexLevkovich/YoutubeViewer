@@ -84,7 +84,8 @@ SOURCES += main.cpp\
     providersdialog.cpp \
     mpvsettingsdialog.cpp \
     json.cpp \
-    createnewyoutubekeydialog.cpp
+    createnewyoutubekeydialog.cpp \
+    ycombobox.cpp
 
 HEADERS  += mainwindow.h \
     youtubeview.h \
@@ -119,7 +120,8 @@ HEADERS  += mainwindow.h \
     providersdialog.h \
     mpvsettingsdialog.h \
     json.h \
-    createnewyoutubekeydialog.h
+    createnewyoutubekeydialog.h \
+    ycombobox.h
 
 FORMS    += mainwindow.ui \
     searchwidget.ui \
