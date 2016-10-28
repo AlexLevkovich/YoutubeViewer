@@ -56,8 +56,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Se
     ui->categoryCombo->setCurrentIndex(theSettings->value("search_def_category",0).toInt());
     ui->authorEdit->setText(theSettings->value("search_def_author","").toString());
     ui->orderbyCombo->setCurrentIndex(theSettings->value("search_def_orderby",0).toInt());
-    ui->timeCombo->setCurrentIndex(theSettings->value("search_def_time_id",0).toInt());
-    ui->timeEdit->setDateTime(theSettings->value("search_def_time",QDateTime::currentDateTime()).toDateTime());
+    YoutubeTime time;
+    ui->timeCombo->setCurrentIndex(theSettings->value("search_def_time_id",(int)time.operation()).toInt());
+    ui->timeEdit->setDateTime(theSettings->value("search_def_time",time.date()).toDateTime());
     ui->previewHeightSpin->setValue(theSettings->value("preview_size",QSize(PREVIEW_WIDTH,PREVIEW_HEIGHT)).toSize().height());
     ui->symMaxCountSpin->setValue(theSettings->value("desc_sym_max_count",DESC_MAX_SYM_COUNT).toInt());
     ui->threadsSpin->setValue(theSettings->value("threads_count",THREADS_COUNT).toInt());
