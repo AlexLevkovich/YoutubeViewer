@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtNetwork>
 #include <QDateTime>
+#include <QByteArray>
 #include <QImage>
 #include <QMap>
 #include "json.h"
@@ -228,58 +229,90 @@ private:
     bool m_ignore;
 };
 
+class YPlayList {
+public:
+    inline QString title() const {
+        return m_title;
+    }
+    inline QString id() const {
+        return m_id;
+    }
+    inline QUrl image_url() const {
+        return m_img_url;
+    }
+    QImage image() const;
+private:
+    YPlayList() {}
+
+    QString m_id;
+    QString m_title;
+    QUrl m_img_url;
+    QImage m_img;
+
+    friend class YouTubeSearch;
+};
+
 class YouTubeSearch : public QObject {
     Q_OBJECT
 
 public:
     explicit YouTubeSearch(QObject *parent = 0);
     ~YouTubeSearch();
+    static const QStringList categories();
+    static const QString orderByParameterString(YoutubeOrderBy id);
+    static QString downloadChannelId(const QString & channel_name,const QString & userKey,QString & error);
+    static QList<YPlayList> downloadChannelPlaylists(const QString & channel_id,const QString & userKey,QString & error);
+    inline bool hasNextPage() { return !m_nextPageToken.isEmpty(); }
+    inline bool hasPrevPage() { return !m_prevPageToken.isEmpty(); }
+    inline QString prevPageToken() const { return m_prevPageToken; }
+    inline QString nextPageToken() const { return m_nextPageToken; }
+    bool is_in_processing();
+    void terminate_processing(QIODevice * ignore_device = NULL);
 
 public slots:
-    bool download_categories(const QString & userKey);
-    static const QStringList categories();
     bool search(const QString & userKey,
                 const QString & query,
                 const QString & category = QString(),
                 const QString & channel = QString(),
+                const QString & playlist_id = QString(),
                 YoutubeOrderBy orderby = relevance,
                 const YoutubeTime & time = YoutubeTime(),
                 const QString & pageToken = QString());
     bool search_again(const QString & pageToken);
-    bool is_in_processing();
-    void terminate_processing(QIODevice * ignore_device = NULL);
-    inline QString prevPageToken() const { return m_prevPageToken; }
-    inline QString nextPageToken() const { return m_nextPageToken; }
-    inline bool hasNextPage() { return !m_nextPageToken.isEmpty(); }
-    inline bool hasPrevPage() { return !m_prevPageToken.isEmpty(); }
-    static const QString orderByParameterString(YoutubeOrderBy id);
 
 signals:
     void error(int code,const QString & error);
     void completed(const QList<Media> & medias);
-    void categories_completed();
 
 private slots:
     void was_error(QNetworkReply::NetworkError error);
-    void get_channel_was_error(QNetworkReply::NetworkError error);
+    void get_channel_id_was_error(QNetworkReply::NetworkError error);
+    void get_categories_was_error(QNetworkReply::NetworkError error);
     void finished();
     void image_finished();
     void desc_finished();
-    void categories_finished();
+    void on_categories_finished();
+    void on_channel_id_finished();
 
 private:
+    static QByteArray downloadResource(const QUrl & url,QString & error);
+    static QList<YPlayList> downloadChannelPlaylists(const QString & channel_id,const QString & userKey,QString & error,const QString & pageToken);
+    void download_channel_id(const QString & channel_name);
+    void download_categories(const QString & userKey,bool do_loop = false);
     QNetworkReply * getImageDownloadReply(const QUrl & image_url);
     QNetworkReply * getDescriptionDownloadReply(const QUrl & url);
-    void downloadChannelId(const QString & channel_name);
     void start_download_previews();
     void start_download_full_descriptions();
 
-    QNetworkAccessManager manager;
     QString m_userKey;
     QString m_query;
     QString m_channel_id;
     QList<Media> m_medias;
     int m_categoryId;
+    QString m_category;
+    QString m_pageToken;
+    QString m_channel;
+    QString m_playlist_id;
     YoutubeOrderBy m_orderby;
     YoutubeTime m_time;
     int m_thread_count;
@@ -288,6 +321,9 @@ private:
     QString m_nextPageToken;
     QString m_prevPageToken;
     static QStringList m_categories;
+    static QNetworkAccessManager * manager;
+
+    friend class YPlayList;
 };
 
 #endif // YOUTUBESEARCH_H
