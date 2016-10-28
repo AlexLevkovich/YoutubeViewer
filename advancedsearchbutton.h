@@ -19,6 +19,7 @@ signals:
     void search_requested(const QString & query,
                           const QString & category,
                           const QString & author,
+                          const QString & playlist_id,
                           YoutubeOrderBy orderby,
                           YoutubeTime time);
 
@@ -29,6 +30,7 @@ private slots:
     void on_search_requested(const QString & query,
                              const QString & category,
                              const QString & author,
+                             const QString & playlist_id,
                              YoutubeOrderBy orderby,
                              YoutubeTime time);
 
@@ -37,6 +39,7 @@ private:
         QString query;
         QString category;
         QString author;
+        QString playlist_id;
         YoutubeOrderBy orderby;
         YoutubeTime time;
 
@@ -45,7 +48,8 @@ private:
                    category == other.category &&
                    author == other.author &&
                    orderby == other.orderby &&
-                   time == other.time;
+                   time == other.time &&
+                   playlist_id == other.playlist_id;
         }
 
         bool operator!=(const SearchTerms & other) const {
