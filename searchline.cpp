@@ -11,5 +11,5 @@ SearchLine::SearchLine(QWidget *parent) : FancyLineEdit(parent) {
 }
 
 void SearchLine::returnPressed() {
-    emit search_requested(text(),"","",relevance,YoutubeTime());
+    emit search_requested(text(),"","","",relevance,YoutubeTime());
 }
