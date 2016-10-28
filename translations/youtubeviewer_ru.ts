@@ -152,12 +152,11 @@
         <translation>Текущий номер страницы</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+77"/>
         <source>Error during Categories returning!</source>
-        <translation>Ошибка при попытке вернуть список Категорий!</translation>
+        <translation type="vanished">Ошибка при попытке вернуть список Категорий!</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location filename="../mainwindow.cpp" line="+88"/>
         <source>Save File</source>
         <translation>Сохранить в файл</translation>
     </message>
@@ -300,7 +299,7 @@
         <translation type="unfinished">Проигрыватель MPC-HC</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+20"/>
+        <location filename="../youtubesearch.cpp" line="+32"/>
         <source>Relevance</source>
         <translation>Релевантность</translation>
     </message>
@@ -361,7 +360,7 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Без видео</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.h" line="+96"/>
+        <location filename="../youtubesearch.h" line="+97"/>
         <source>No audio</source>
         <translation type="unfinished">Без звука</translation>
     </message>
@@ -531,10 +530,12 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YouTubeSearch</name>
     <message>
-        <location filename="../youtubesearch.cpp" line="+63"/>
-        <location line="+104"/>
-        <location line="+68"/>
-        <location line="+108"/>
+        <location filename="../youtubesearch.cpp" line="+85"/>
+        <location line="+60"/>
+        <location line="+48"/>
+        <location line="+114"/>
+        <location line="+85"/>
+        <location line="+147"/>
         <source>JSON parsing error!</source>
         <translation>Ошибка при разборе JSON!</translation>
     </message>
@@ -567,7 +568,7 @@ You can change it in Settings dialog.</source>
         <translation>Остановить текущую обработку</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+38"/>
         <source>Network error!</source>
         <translation>Ошибка сети!</translation>
     </message>
@@ -699,9 +700,14 @@ You can change it in Settings dialog.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../youtubesearchwidget.cpp" line="+12"/>
+        <location filename="../youtubesearchwidget.cpp" line="+15"/>
         <source>Search</source>
         <translation>Поиск</translation>
+    </message>
+    <message>
+        <location line="+124"/>
+        <source>Error during downloading!</source>
+        <translation type="unfinished">Ошибка во время загрузки!</translation>
     </message>
     <message>
         <location filename="../youtubesearchwidget.ui"/>
@@ -745,6 +751,11 @@ You can change it in Settings dialog.</source>
         <location/>
         <source>Channel:</source>
         <translation type="unfinished">Канал:</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Playlist:</source>
+        <translation type="unfinished">Плейлист:</translation>
     </message>
 </context>
 <context>

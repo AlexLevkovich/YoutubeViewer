@@ -152,12 +152,11 @@
         <translation type="obsolete">Памылка сеткі!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+77"/>
         <source>Error during Categories returning!</source>
-        <translation type="unfinished">Памылка пры вяртаннi Катэгорый!</translation>
+        <translation type="obsolete">Памылка пры вяртаннi Катэгорый!</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location filename="../mainwindow.cpp" line="+88"/>
         <source>Save File</source>
         <translation type="unfinished">Захаваць у файл</translation>
     </message>
@@ -304,7 +303,7 @@
         <translation type="unfinished">Прайгравальнік MPC-HC</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+20"/>
+        <location filename="../youtubesearch.cpp" line="+32"/>
         <source>Relevance</source>
         <translation type="unfinished">Дарэчнасць</translation>
     </message>
@@ -365,7 +364,7 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Без відэа</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.h" line="+96"/>
+        <location filename="../youtubesearch.h" line="+97"/>
         <source>No audio</source>
         <translation type="unfinished">Без гуку</translation>
     </message>
@@ -592,10 +591,12 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Памылка XML: (%1)</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+63"/>
-        <location line="+104"/>
-        <location line="+68"/>
-        <location line="+108"/>
+        <location filename="../youtubesearch.cpp" line="+85"/>
+        <location line="+60"/>
+        <location line="+48"/>
+        <location line="+114"/>
+        <location line="+85"/>
+        <location line="+147"/>
         <source>JSON parsing error!</source>
         <translation type="unfinished">Памылка разбору JSON!</translation>
     </message>
@@ -628,7 +629,7 @@ You can change it in Settings dialog.</source>
         <translation type="unfinished">Спыніць апрацоўку</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+38"/>
         <source>Network error!</source>
         <translation type="unfinished">Памылка сеткі!</translation>
     </message>
@@ -824,9 +825,14 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete"> зап</translation>
     </message>
     <message>
-        <location filename="../youtubesearchwidget.cpp" line="+12"/>
+        <location filename="../youtubesearchwidget.cpp" line="+15"/>
         <source>Search</source>
         <translation type="unfinished">Пошук</translation>
+    </message>
+    <message>
+        <location line="+124"/>
+        <source>Error during downloading!</source>
+        <translation type="unfinished">Памылка пры загрузке!</translation>
     </message>
     <message>
         <location filename="../youtubesearchwidget.ui"/>
@@ -894,6 +900,11 @@ You can change it in Settings dialog.</source>
         <location/>
         <source>Channel:</source>
         <translation type="unfinished">Канал:</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Playlist:</source>
+        <translation type="unfinished">Плэйліст:</translation>
     </message>
 </context>
 <context>
