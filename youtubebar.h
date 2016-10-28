@@ -22,6 +22,7 @@ signals:
     void search_requested(const QString & query,
                           const QString & category,
                           const QString & author,
+                          const QString & playlist_id,
                           YoutubeOrderBy orderby,
                           YoutubeTime time);
 
@@ -32,6 +33,7 @@ private slots:
     void on_search_requested(const QString & query,
                              const QString & category,
                              const QString & author,
+                             const QString & playlist_id,
                              YoutubeOrderBy orderby,
                              YoutubeTime time);
     void search_error(int code,const QString & err_str);

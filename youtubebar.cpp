@@ -32,9 +32,11 @@ void YoutubeBar::init() {
     connect(search_widget,SIGNAL(search_requested(const QString &,
                                                   const QString &,
                                                   const QString &,
+                                                  const QString &,
                                                   YoutubeOrderBy,
                                                   YoutubeTime)),
                        this,SLOT(on_search_requested(const QString &,
+                                                     const QString &,
                                                      const QString &,
                                                      const QString &,
                                                      YoutubeOrderBy,
@@ -46,11 +48,12 @@ void YoutubeBar::init() {
 void YoutubeBar::on_search_requested(const QString & query,
                                   const QString & category,
                                   const QString & author,
+                                  const QString & playlist_id,
                                   YoutubeOrderBy orderby,
                                   YoutubeTime time) {
     current_page = 1;
     current_page_token.clear();
-    if (youtube_search.search(theSettings->value("youtube_user_key","").toString(),query,category,author,orderby,time)) search_was_started();
+    if (youtube_search.search(theSettings->value("youtube_user_key","").toString(),query,category,author,playlist_id,orderby,time)) search_was_started();
 }
 
 void YoutubeBar::search_error(int /*code*/,const QString & err_str) {
