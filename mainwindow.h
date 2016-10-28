@@ -24,16 +24,12 @@ private slots:
     void search_started();
     void set_window_size();
     void adding_download(const QUrl & url,const QString & title);
-    void categories_completed();
-    void categories_error(int code,const QString & err);
 
 protected:
     void closeEvent(QCloseEvent * event);
     void showEvent(QShowEvent * event);
 
 private:
-    void start_getting_categories();
-
     Ui::MainWindow *ui;
     YoutubeView * youtube_view;
     WaitView * wait_view;

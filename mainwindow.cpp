@@ -6,9 +6,7 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include "default_values.h"
-#include "youtubesearch.h"
 #include <QMessageBox>
-#include "createnewyoutubekeydialog.h"
 
 extern QSettings *theSettings;
 #define VIDEO_TAG "=video%2F"
@@ -28,54 +26,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(youtube_view,SIGNAL(search_requested(const QString &,
                                                  const QString &,
                                                  const QString &,
+                                                 const QString &,
                                                  YoutubeOrderBy,
                                                  YoutubeTime)),
                        ui->mainToolBar,SIGNAL(search_requested(const QString &,
+                                                               const QString &,
                                                                const QString &,
                                                                const QString &,
                                                                YoutubeOrderBy,
                                                                YoutubeTime)));
     connect(youtube_view,SIGNAL(channel_videos_popup_requested(const QString &)),ui->mainToolBar,SLOT(show_search_videos_popup(const QString &)));
 
-    start_getting_categories();
-}
-
-MainWindow::~MainWindow() {
-    delete ui;
-}
-
-void MainWindow::start_getting_categories() {
-    wait_view->setVisible(true);
-    youtube_view->setVisible(false);
-
-    YouTubeSearch * youtube_search = new YouTubeSearch(this);
-    connect(youtube_search,SIGNAL(categories_completed()),this,SLOT(categories_completed()));
-    connect(youtube_search,SIGNAL(error(int,const QString &)),this,SLOT(categories_error(int,const QString &)));
-    youtube_search->download_categories(theSettings->value("youtube_user_key","").toString());
-}
-
-void MainWindow::categories_completed() {
     ui->mainToolBar->init();
     wait_view->setVisible(false);
     youtube_view->setVisible(true);
 }
 
-void MainWindow::categories_error(int code,const QString & err) {
-    YouTubeSearch * m_search = (YouTubeSearch *)QObject::sender();
-
-    if ((code == 400) || (code == 403)) {
-        CreateNewYoutubeKeyDialog dlg(this);
-        if (dlg.exec() == QDialog::Rejected) {
-            qApp->quit();
-            return;
-        }
-        theSettings->setValue("youtube_user_key",dlg.key());
-        m_search->deleteLater();
-        start_getting_categories();
-        return;
-    }
-    QMessageBox::critical(this,tr("Error during Categories returning!"),err);
-    qApp->quit();
+MainWindow::~MainWindow() {
+    delete ui;
 }
 
 void MainWindow::search_completed(const QList<Media> & medias) {
