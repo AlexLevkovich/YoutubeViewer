@@ -8,6 +8,10 @@ class YComboBox : public QComboBox {
 public:
     YComboBox(QWidget *parent = NULL);
     void showPopup();
+
+private slots:
+    void popup_list();
+
 signals:
     void aboutShowPopup();
 };
