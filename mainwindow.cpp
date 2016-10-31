@@ -5,6 +5,7 @@
 #include <QSettings>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QCloseEvent>
 #include "default_values.h"
 #include <QMessageBox>
 
@@ -66,6 +67,13 @@ void MainWindow::showEvent(QShowEvent * event) {
 }
 
 void MainWindow::closeEvent(QCloseEvent * event) {
+    if (ui->mainToolBar->areDownloadsInProgress()) {
+        if (QMessageBox::question(this,tr("Exit confirmation"),tr("Some downloads are in progress.\nAre you sure about exiting?"),QMessageBox::Yes|QMessageBox::No) == QMessageBox::No) {
+            event->ignore();
+            return;
+        }
+    }
+
     theSettings->setValue("is_main_maximized",isMaximized());
     theSettings->setValue("mainwindow_geometry",saveGeometry());
     theSettings->setValue("mainwindow_state",saveState());
