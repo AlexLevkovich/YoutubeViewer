@@ -30,7 +30,7 @@
 <context>
     <name>DownloadButton</name>
     <message>
-        <location filename="../downloadbutton.cpp" line="+11"/>
+        <location filename="../downloadbutton.cpp" line="+12"/>
         <source>Download manager...</source>
         <translation type="unfinished">Менеджэр запамповак...</translation>
     </message>
@@ -156,7 +156,19 @@
         <translation type="obsolete">Памылка пры вяртаннi Катэгорый!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+88"/>
+        <location filename="../mainwindow.cpp" line="+71"/>
+        <source>Exit confirmation</source>
+        <translation type="unfinished">Пацверджанне выхаду</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Some downloads are in progress.
+Are you sure about exiting?</source>
+        <translation type="unfinished">Некаторыя загрузкі яшчэ не скончылiся.
+Вы ўпэўненыя, што хочаце выйсцi?</translation>
+    </message>
+    <message>
+        <location line="+25"/>
         <source>Save File</source>
         <translation type="unfinished">Захаваць у файл</translation>
     </message>
@@ -303,7 +315,7 @@
         <translation type="unfinished">Прайгравальнік MPC-HC</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+32"/>
+        <location filename="../youtubesearch.cpp" line="+30"/>
         <source>Relevance</source>
         <translation type="unfinished">Дарэчнасць</translation>
     </message>
@@ -343,7 +355,7 @@
         <translation type="unfinished">Пасля</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+104"/>
         <source>days</source>
         <translation type="unfinished">дзён</translation>
     </message>
@@ -364,12 +376,12 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Без відэа</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.h" line="+97"/>
+        <location filename="../youtubesearch.h" line="+126"/>
         <source>No audio</source>
         <translation type="unfinished">Без гуку</translation>
     </message>
     <message>
-        <location line="-40"/>
+        <location line="-57"/>
         <source>Audio only</source>
         <translation type="unfinished">Толькi гук</translation>
     </message>
@@ -591,12 +603,11 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Памылка XML: (%1)</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+85"/>
-        <location line="+60"/>
-        <location line="+48"/>
-        <location line="+114"/>
-        <location line="+85"/>
-        <location line="+147"/>
+        <location filename="../youtubesearch.cpp" line="+96"/>
+        <location line="+43"/>
+        <location line="+168"/>
+        <location line="+90"/>
+        <location line="+148"/>
         <source>JSON parsing error!</source>
         <translation type="unfinished">Памылка разбору JSON!</translation>
     </message>
@@ -825,12 +836,12 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete"> зап</translation>
     </message>
     <message>
-        <location filename="../youtubesearchwidget.cpp" line="+15"/>
+        <location filename="../youtubesearchwidget.cpp" line="+16"/>
         <source>Search</source>
         <translation type="unfinished">Пошук</translation>
     </message>
     <message>
-        <location line="+124"/>
+        <location line="+127"/>
         <source>Error during downloading!</source>
         <translation type="unfinished">Памылка пры загрузке!</translation>
     </message>
@@ -883,11 +894,6 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Нумар старонкі:</translation>
     </message>
     <message>
-        <location/>
-        <source>dd.MM.yy H:mm:ss</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Channel ID:</source>
         <translation type="obsolete">ID канала:</translation>
     </message>
@@ -931,13 +937,13 @@ You can change it in Settings dialog.</source>
     </message>
     <message>
         <location filename="../youtubeview.cpp" line="+112"/>
-        <location line="+9"/>
+        <location line="+8"/>
         <source>Download...</source>
         <translation type="unfinished">Запампаваць...</translation>
     </message>
     <message>
-        <location line="-6"/>
-        <location line="+5"/>
+        <location line="-5"/>
+        <location line="+4"/>
         <source>Play with external player...</source>
         <translation type="unfinished">Прайграць знешнім прайгравальнікам...</translation>
     </message>
@@ -996,9 +1002,14 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YoutubeDownloader</name>
     <message>
-        <location filename="../youtubedownloader.cpp" line="+34"/>
+        <location filename="../youtubedownloader.cpp" line="+41"/>
         <source>Cannot start %1/aria2c!!!</source>
         <translation type="unfinished">Не ўдаецца запусціць %1/aria2c!!!</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Unknown aria&apos;s error!!!</source>
+        <translation type="unfinished">aria: Невядомая памылка!!!</translation>
     </message>
 </context>
 </TS>
