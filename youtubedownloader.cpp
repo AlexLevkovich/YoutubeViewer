@@ -9,10 +9,12 @@ extern QString TOOLS_BIN_PATH;
 YoutubeDownloader::YoutubeDownloader(const QUrl & url,const QString & out_file_name,int threads_count,QObject *parent) : QObject(parent) {
     m_threads_count = threads_count;
     m_url = url;
+    is_working = false;
 
     m_file_name = QFileInfo(out_file_name).fileName();
     m_dir_name = QFileInfo(out_file_name).dir().path();
     downloader.setEnvironment(downloader.systemEnvironment() << "LANG=C");
+    connect(&downloader,SIGNAL(started()),this,SLOT(aria_started()));
     connect(&downloader,SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(aria_finished(int,QProcess::ExitStatus)));
     connect(&downloader,SIGNAL(readyReadStandardOutput()),SLOT(aria_ready_read()));
 #if QT_VERSION >= 0x050000
@@ -20,6 +22,10 @@ YoutubeDownloader::YoutubeDownloader(const QUrl & url,const QString & out_file_n
 #else
     connect(&downloader,SIGNAL(error(QProcess::ProcessError)),SLOT(aria_error()));
 #endif
+}
+
+void YoutubeDownloader::aria_started() {
+    is_working = true;
 }
 
 void YoutubeDownloader::start() {
@@ -31,12 +37,16 @@ void YoutubeDownloader::start() {
 }
 
 void YoutubeDownloader::aria_error() {
+    is_working = false;
     emit finished(tr("Cannot start %1/aria2c!!!").arg(TOOLS_BIN_PATH));
 }
 
 void YoutubeDownloader::aria_finished(int code,QProcess::ExitStatus /*status*/) {
     if (code == 0) aria_ready_read();
-    emit finished((code == 0)?"":downloader.readAllStandardError());
+    QString error = downloader.readAllStandardError();
+    if (error.isEmpty() && (code != 0)) error = tr("Unknown aria's error!!!");
+    is_working = false;
+    emit finished((code == 0)?"":error);
 }
 
 void YoutubeDownloader::aria_ready_read() {
@@ -63,4 +73,8 @@ void YoutubeDownloader::aria_ready_read() {
 
 void YoutubeDownloader::terminate() {
     downloader.kill();
+}
+
+bool YoutubeDownloader::isDownloading() const {
+    return is_working;
 }

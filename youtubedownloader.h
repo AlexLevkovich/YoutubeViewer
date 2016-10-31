@@ -11,6 +11,7 @@ public:
     explicit YoutubeDownloader(const QUrl & url,const QString & out_file_name,int threads_count = 8,QObject *parent = 0);
     void terminate();
     void start();
+    bool isDownloading() const;
 
 signals:
     void finished(const QString & err);
@@ -20,6 +21,7 @@ private slots:
     void aria_finished(int code,QProcess::ExitStatus status);
     void aria_ready_read();
     void aria_error();
+    void aria_started();
 
 private:
     QProcess downloader;
@@ -28,6 +30,7 @@ private:
     QString m_file_name;
     QString m_dir_name;
     QUrl m_url;
+    bool is_working;
 };
 
 #endif // YOUTUBEDOWNLOADER_H

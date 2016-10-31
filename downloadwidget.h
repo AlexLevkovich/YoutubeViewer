@@ -16,6 +16,7 @@ class DownloadWidget : public QWidget {
 public:
     explicit DownloadWidget(const QUrl & url,const QString & out_file_name,int threads_count,QWidget *parent = 0);
     ~DownloadWidget();
+    bool isDownloading() const;
 
 private slots:
     void download_finished(const QString & err);

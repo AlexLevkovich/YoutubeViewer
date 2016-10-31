@@ -9,6 +9,7 @@ class DownloadButton : public QToolButton {
 public:
     explicit DownloadButton(QWidget *parent = 0);
     void addNewDownload(const QUrl & url,const QString & out_file_name,int threads_count);
+    bool areDownloadsInProgress();
 };
 
 #endif // DOWNLOADBUTTON_H

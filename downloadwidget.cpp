@@ -88,3 +88,7 @@ void DownloadWidget::on_stopStartButton_clicked() {
         downloader->terminate();
     }
 }
+
+bool DownloadWidget::isDownloading() const {
+    return (downloader != NULL) && downloader->isDownloading();
+}
