@@ -3,6 +3,7 @@
 #include <QSettings>
 #include <QFileInfo>
 #include <QIcon>
+#include <QLocale>
 #include "default_values.h"
 #include "youtubesearch.h"
 
@@ -59,6 +60,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Se
     YoutubeTime time;
     ui->timeCombo->setCurrentIndex(theSettings->value("search_def_time_id",(int)time.operation()).toInt());
     ui->timeEdit->setDateTime(theSettings->value("search_def_time",time.date()).toDateTime());
+    QLocale locale = QLocale::system();
+    ui->timeEdit->setDisplayFormat(locale.dateFormat(QLocale::ShortFormat) + " " + locale.timeFormat(QLocale::ShortFormat));
     ui->previewHeightSpin->setValue(theSettings->value("preview_size",QSize(PREVIEW_WIDTH,PREVIEW_HEIGHT)).toSize().height());
     ui->symMaxCountSpin->setValue(theSettings->value("desc_sym_max_count",DESC_MAX_SYM_COUNT).toInt());
     ui->threadsSpin->setValue(theSettings->value("threads_count",THREADS_COUNT).toInt());

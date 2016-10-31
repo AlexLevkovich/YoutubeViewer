@@ -43,6 +43,7 @@ private slots:
     void on_playlistCombo_currentIndexChanged(int index);
     void on_searchEdit_textChanged(const QString &arg1);
     void update_menu_size();
+    void on_orderbyCombo_currentIndexChanged(int index);
 
 private:
     Ui::YoutubeSearchWidget *ui;

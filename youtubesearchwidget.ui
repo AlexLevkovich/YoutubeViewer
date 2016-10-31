@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>358</width>
-    <height>221</height>
+    <height>280</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -49,23 +49,33 @@
       </widget>
      </item>
      <item row="2" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Order by:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QComboBox" name="orderbyCombo"/>
+     </item>
+     <item row="3" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
         <string>Channel:</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
+     <item row="3" column="1">
       <widget class="FancyLineEdit" name="channelEdit"/>
      </item>
-     <item row="3" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="label_6">
        <property name="text">
         <string>Playlist:</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="4" column="1">
       <widget class="YComboBox" name="playlistCombo">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -83,16 +93,6 @@
         </size>
        </property>
       </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Order by:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QComboBox" name="orderbyCombo"/>
      </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_5">
@@ -121,9 +121,6 @@
            <month>1</month>
            <day>1</day>
           </datetime>
-         </property>
-         <property name="displayFormat">
-          <string>dd.MM.yy H:mm:ss</string>
          </property>
          <property name="calendarPopup">
           <bool>true</bool>

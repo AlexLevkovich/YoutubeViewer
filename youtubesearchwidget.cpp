@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QFontMetrics>
 #include <QPixmap>
+#include <QLocale>
 #include "default_values.h"
 #include "youtubesearch.h"
 
@@ -15,6 +16,8 @@ YoutubeSearchWidget::YoutubeSearchWidget(QWidget *parent) : QWidget(parent), ui(
     setWindowTitle(tr("Search"));
 
     ui->playlistCombo->setEnabled(false);
+    QLocale locale = QLocale::system();
+    ui->timeEdit->setDisplayFormat(locale.dateFormat(QLocale::ShortFormat) + " " + locale.timeFormat(QLocale::ShortFormat));
 
     okButton = ui->buttonBox->button(QDialogButtonBox::Ok);
     okButton->setEnabled(false);
@@ -116,8 +119,9 @@ void YoutubeSearchWidget::on_playlistShowPopup() {
     QString error;
     QString userKey = theSettings->value("youtube_user_key","").toString();
     QString channel_id = YouTubeSearch::downloadChannelId(ui->channelEdit->text(),userKey,error);
+    YoutubeOrderBy order_by = (YoutubeOrderBy)ui->orderbyCombo->currentIndex();
     if (!channel_id.isEmpty() && error.isEmpty()) {
-        QList<YPlayList> list = YouTubeSearch::downloadChannelPlaylists(channel_id,userKey,error);
+        QList<YPlayList> list = YouTubeSearch::downloadChannelPlaylists(channel_id,userKey,order_by,error);
         if (error.isEmpty() && list.count() > 0) {
             ui->playlistCombo->addItem("","");
             for (int i=0;i<list.count();i++) {
@@ -149,7 +153,6 @@ void YoutubeSearchWidget::update_menu_size() {
 void YoutubeSearchWidget::on_playlistCombo_currentIndexChanged(int index) {
     ui->timeEdit->setEnabled(index <= 0 || !ui->playlistCombo->isEnabled());
     ui->categoryCombo->setEnabled(index <= 0 || !ui->playlistCombo->isEnabled());
-    ui->orderbyCombo->setEnabled(index <= 0 || !ui->playlistCombo->isEnabled());
     ui->searchEdit->setEnabled(index <= 0 || !ui->playlistCombo->isEnabled());
     ui->timeCombo->setEnabled(index <= 0 || !ui->playlistCombo->isEnabled());
     ui->timeEdit->setEnabled(index <= 0 || !ui->playlistCombo->isEnabled());
@@ -158,4 +161,8 @@ void YoutubeSearchWidget::on_playlistCombo_currentIndexChanged(int index) {
 void YoutubeSearchWidget::on_searchEdit_textChanged(const QString &text) {
     okButton->setEnabled((!text.isEmpty() && ui->searchEdit->isEnabled()) ||
                          (!ui->channelEdit->text().isEmpty() && ui->channelEdit->isEnabled()));
+}
+
+void YoutubeSearchWidget::on_orderbyCombo_currentIndexChanged(int) {
+    if (ui->playlistCombo->count() > 0) ui->playlistCombo->clear();
 }
