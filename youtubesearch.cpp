@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <QLocale>
 #include <QApplication>
 #include <QEventLoop>
@@ -8,7 +7,6 @@
 #endif
 #include "youtubesearch.h"
 #include "default_values.h"
-#include <search.h>
 #include <QDebug>
 #include "createnewyoutubekeydialog.h"
 
@@ -61,8 +59,34 @@ VideoInfo Media::best_video() const {
     return infos.at(infos.count()-1);
 }
 
+VideoInfo Media::video(int height,const QString & vcodec) const {
+    Media * p_this = (Media *)this;
+    QList<VideoInfo> infos = p_this->video_infos();
+    if (infos.count() <= 0) return VideoInfo();
+
+    VideoInfo min_height_info;
+    VideoInfo min_info;
+    VideoInfo equal_height_info;
+    VideoInfo equal_info;
+    for (int i=0;i<infos.count();i++) {
+        if (infos[i].isAudioOnly()) continue;
+
+        if (infos[i].desc().height() < height && min_height_info.desc().height() < infos[i].desc().height()) min_height_info = infos[i];
+        if (infos[i].desc().height() < height && min_info.desc().height() < infos[i].desc().height() && infos[i].desc().vcodec().startsWith(vcodec)) min_info = infos[i];
+        if (infos[i].desc().height() == height) equal_height_info = infos[i];
+        if (infos[i].desc().height() == height && infos[i].desc().vcodec().startsWith(vcodec)) equal_info = infos[i];
+    }
+
+    if (equal_info.isValid()) return equal_info;
+    if (equal_height_info.isValid()) return equal_height_info;
+    if (min_info.isValid()) return min_info;
+    if (min_height_info.isValid()) return min_height_info;
+
+    return VideoInfo();
+}
+
 void Media::download_video_infos() {
-    if (!video_infos().isEmpty()) return;
+    if (!m_video_infos.isEmpty()) return;
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
     QProcess links_process;
@@ -87,13 +111,13 @@ void Media::download_video_infos() {
     }
 
     QUrl audio_url;
-    for (int i=0;i<video_infos().count();i++) {
-        VideoInfo info = video_infos().at(i);
+    for (int i=0;i<m_video_infos.count();i++) {
+        VideoInfo info = m_video_infos.at(i);
         if (info.isAudioOnly()) audio_url = info.url();
     }
 
-    for (int i=0;i<video_infos().count();i++) {
-        VideoInfo info = video_infos()[i];
+    for (int i=0;i<m_video_infos.count();i++) {
+        VideoInfo info = m_video_infos[i];
         if (info.hasExternalAudio()) {
             info.m_audio_url = audio_url;
             m_video_infos[i] = info;
@@ -148,7 +172,16 @@ YouTubeSearch::YouTubeSearch(QObject *parent) : QObject(parent) {
         ::exit(1);
         return;
     }
-    if (manager == NULL) manager = new QNetworkAccessManager(qApp);
+    if (manager == NULL) {
+        manager = new QNetworkAccessManager(qApp);
+        connect(manager,SIGNAL(networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)),this,SLOT(on_network_accessible_changed(QNetworkAccessManager::NetworkAccessibility)));
+    }
+}
+
+void YouTubeSearch::on_network_accessible_changed(QNetworkAccessManager::NetworkAccessibility accessible) {
+    if (accessible != QNetworkAccessManager::Accessible) {
+        manager->setNetworkAccessible(QNetworkAccessManager::Accessible);
+    }
 }
 
 YouTubeSearch::~YouTubeSearch() {}
@@ -187,13 +220,15 @@ bool YouTubeSearch::search(const QString & userKey,
     return true;
 }
 
-QList<YPlayList> YouTubeSearch::downloadChannelPlaylists(const QString & channel_id,const QString & userKey,QString & error) {
-    return downloadChannelPlaylists(channel_id,userKey,error,"");
+QList<YPlayList> YouTubeSearch::downloadChannelPlaylists(const QString & channel_id,const QString & userKey,YoutubeOrderBy orderby,QString & error) {
+    return downloadChannelPlaylists(channel_id,userKey,error,"",orderby);
 }
 
-QList<YPlayList> YouTubeSearch::downloadChannelPlaylists(const QString & channel_id,const QString & userKey,QString & error,const QString & pageToken) {
+QList<YPlayList> YouTubeSearch::downloadChannelPlaylists(const QString & channel_id,const QString & userKey,QString & error,const QString & pageToken,YoutubeOrderBy orderby) {
     QString url = QString(YOUTUBE_PLAYLIST_SEARCH).arg(userKey).arg(channel_id).arg(MAX_QUERY_COUNT);
     if (!pageToken.isEmpty()) url += QString(PAGE_TOKEN_PART).arg(pageToken);
+    QString order = orderby_values_en[orderby];
+    if (!order.isEmpty()) url += QString(ORDER_PART).arg(order);
 
     YPlayList playlist;
     QList<YPlayList> ret_list;
@@ -233,10 +268,11 @@ QList<YPlayList> YouTubeSearch::downloadChannelPlaylists(const QString & channel
                         if (!def.isEmpty()) playlist.m_img_url = QUrl(def["url"].toString());
                     }
                 }
+                if (playlist.m_img_url.isEmpty()) playlist.m_img = QImage(":/images/res/default.png");
                 ret_list.append(playlist);
             }
             error.clear();
-            if (!nextPageToken.isEmpty()) ret_list += downloadChannelPlaylists(channel_id,userKey,error,nextPageToken);
+            if (!nextPageToken.isEmpty()) ret_list += downloadChannelPlaylists(channel_id,userKey,error,nextPageToken,orderby);
         }
 
         if (ok) {
@@ -248,6 +284,32 @@ QList<YPlayList> YouTubeSearch::downloadChannelPlaylists(const QString & channel
     }
 
     return ret_list;
+}
+
+QString YouTubeSearch::parseChannelId(const QByteArray & data,const QString & channel_name,QString & error) {
+    bool ok;
+    QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(data),ok).toMap();
+    if (!ok) {
+        error = tr("JSON parsing error!");
+    }
+    else {
+        foreach(QVariant v_item, result["items"].toList()) {
+            QtJson::JsonObject item = v_item.value<QtJson::JsonObject>();
+            QtJson::JsonObject snippet = item["snippet"].toMap();
+            if (channel_name == snippet["title"].toString()) {
+                return snippet["channelId"].toString();
+            }
+        }
+    }
+
+    if (ok) {
+        foreach(QVariant v_error, result["error"].toMap()) {
+            QtJson::JsonObject error_tag = v_error.value<QtJson::JsonObject>();
+            error = error_tag["message"].toString();
+        }
+    }
+
+    return QString();
 }
 
 QString YouTubeSearch::downloadChannelId(const QString & channel_name,const QString & userKey,QString & error) {
@@ -269,27 +331,7 @@ QString YouTubeSearch::downloadChannelId(const QString & channel_name,const QStr
 
     int statusCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (statusCode >= 200 && statusCode < 300) {
-        bool ok;
-        QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(m_reply->readAll()),ok).toMap();
-        if (!ok) {
-            error = tr("JSON parsing error!");
-        }
-        else {
-            foreach(QVariant v_item, result["items"].toList()) {
-                QtJson::JsonObject item = v_item.value<QtJson::JsonObject>();
-                QtJson::JsonObject snippet = item["snippet"].toMap();
-                if (channel_name == snippet["title"].toString()) {
-                    channel_id = snippet["channelId"].toString();
-                }
-            }
-        }
-
-        if (ok) {
-            foreach(QVariant v_error, result["error"].toMap()) {
-                QtJson::JsonObject error_tag = v_error.value<QtJson::JsonObject>();
-                error = error_tag["message"].toString();
-            }
-        }
+        channel_id = parseChannelId(m_reply->readAll(),channel_name,error);
     }
     else error = m_reply->errorString();
 
@@ -307,8 +349,10 @@ void YouTubeSearch::download_channel_id(const QString & channel_name) {
 
     QNetworkReply * m_reply = manager->get(QNetworkRequest(url));
     m_reply->setProperty("channel_name",channel_name);
+    m_reply->setProperty("type","main");
     m_reply->ignoreSslErrors();
-    connect(m_reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(get_channel_id_was_error(QNetworkReply::NetworkError)));
+    resources_map[m_reply] = 0;
+    connect(m_reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(was_error(QNetworkReply::NetworkError)));
     connect(m_reply,SIGNAL(finished()),this,SLOT(on_channel_id_finished()));
 }
 
@@ -317,39 +361,17 @@ void YouTubeSearch::on_channel_id_finished() {
 
     int statusCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (statusCode >= 200 && statusCode < 300) {
-        bool ok;
-        QtJson::JsonObject result = QtJson::parse(QString::fromUtf8(m_reply->readAll()),ok).toMap();
-        if (!ok) {
-            emit error(100,tr("JSON parsing error!"));
-        }
-        else {
-            foreach(QVariant v_item, result["items"].toList()) {
-                QtJson::JsonObject item = v_item.value<QtJson::JsonObject>();
-                QtJson::JsonObject snippet = item["snippet"].toMap();
-                if (m_reply->property("channel_name").toString() == snippet["title"].toString()) {
-                    m_channel_id = snippet["channelId"].toString();
-                    search_again(m_pageToken);
-                }
-            }
-        }
-
-        if (ok) {
-            foreach(QVariant v_error, result["error"].toMap()) {
-                QtJson::JsonObject error_tag = v_error.value<QtJson::JsonObject>();
-                emit error(error_tag["code"].toInt(),error_tag["message"].toString());
-            }
-        }
+        QString err;
+        m_channel_id = parseChannelId(m_reply->readAll(),m_reply->property("channel_name").toString(),err);
+        if (!err.isEmpty()) emit error(100,err);
+        else search_again(m_pageToken);
     }
 
+    if (m_channel_id.isEmpty()) emit completed(m_medias);
+
+    resources_map.remove(m_reply);
     m_reply->abort();
     m_reply->deleteLater();
-}
-
-void YouTubeSearch::get_channel_id_was_error(QNetworkReply::NetworkError err) {
-    QNetworkReply * m_device = (QNetworkReply *)QObject::sender();
-    if (err == QNetworkReply::ContentNotFoundError) return;
-
-    emit error(m_device->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(),m_device->errorString());
 }
 
 const QStringList YouTubeSearch::categories() {
@@ -371,7 +393,7 @@ bool YouTubeSearch::search_again(const QString & pageToken) {
 
     QString url;
     if (m_playlist_id.isEmpty()) {
-        url = QString(YOUTUBE_VIDEOLIST_SEARCH).arg(orderby_values_en[m_orderby]).arg(m_userKey).arg(MAX_QUERY_COUNT);
+        url = QString(YOUTUBE_VIDEOLIST_SEARCH).arg(m_userKey).arg(MAX_QUERY_COUNT);
         if (m_categoryId > 0) url += QString(CATEGORY_PART).arg(m_categoryId);
         if (!m_query.isEmpty()) url += QString(QUERY_PART).arg(m_query);
         if (!m_channel_id.isEmpty()) url += QString(AUTHOR_PART).arg(m_channel_id);
@@ -379,6 +401,8 @@ bool YouTubeSearch::search_again(const QString & pageToken) {
     }
     else url = QString(YOUTUBE_PLAYLISTITEMS_SEARCH).arg(m_userKey).arg(m_playlist_id).arg(MAX_QUERY_COUNT);
     if (!pageToken.isEmpty()) url += QString(PAGE_TOKEN_PART).arg(pageToken);
+    QString order = orderby_values_en[m_orderby];
+    if (!order.isEmpty()) url += QString(ORDER_PART).arg(order);
 
 
     QNetworkReply * m_reply = manager->get(QNetworkRequest(url));
@@ -461,6 +485,7 @@ void YouTubeSearch::finished() {
                         if (!def.isEmpty()) media.m_image_url = QUrl(def["url"].toString());
                     }
                 }
+                if (media.m_image_url.isEmpty()) media.m_image = QImage(":/images/res/default.png");
                 media.m_author = snippet["channelTitle"].toString();
                 media.m_url = QUrl(QString(YOUTUBE_URL_FORMAT).arg(media.id()));
                 media.m_comments_url = QUrl(QString(YOUTUBE_COMMENTS_SEARCH).arg(m_userKey).arg(media.id()));
@@ -493,13 +518,17 @@ void YouTubeSearch::download_categories(const QString & userKey,bool do_loop) {
     QEventLoop loop;
     QNetworkReply * m_reply = manager->get(QNetworkRequest(url));
     m_reply->ignoreSslErrors();
-    connect(m_reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(get_categories_was_error(QNetworkReply::NetworkError)));
     connect(m_reply,SIGNAL(finished()),this,SLOT(on_categories_finished()));
     if (do_loop) {
+        connect(m_reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(get_categories_was_error(QNetworkReply::NetworkError)));
         connect(m_reply,SIGNAL(finished()),&loop,SLOT(quit()));
         loop.exec(QEventLoop::ExcludeUserInputEvents);
     }
-
+    else {
+        m_reply->setProperty("type","main");
+        resources_map[m_reply] = 0;
+        connect(m_reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(was_error(QNetworkReply::NetworkError)));
+    }
 }
 
 void YouTubeSearch::get_categories_was_error(QNetworkReply::NetworkError err) {
@@ -535,6 +564,7 @@ void YouTubeSearch::on_categories_finished() {
             }
         }
     }
+    resources_map.remove(m_reply);
     m_reply->abort();
     m_reply->deleteLater();
 

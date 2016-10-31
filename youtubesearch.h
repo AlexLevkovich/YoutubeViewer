@@ -12,7 +12,7 @@
 extern QDateTime MINIMUM_DATE;
 
 #define MAX_QUERY_COUNT 50
-#define YOUTUBE_VIDEOLIST_SEARCH "https://www.googleapis.com/youtube/v3/search?part=snippet&order=%1&type=video&key=%2&maxResults=%3"
+#define YOUTUBE_VIDEOLIST_SEARCH "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&key=%1&maxResults=%2"
 #define YOUTUBE_CHANNELLIST_SEARCH "https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&key=%1&maxResults=1"
 #define YOUTUBE_COMMENTS_SEARCH "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&key=%1&videoId=%2"
 #define YOUTUBE_VIDEOINFO_SEARCH "https://www.googleapis.com/youtube/v3/videos?part=status,contentDetails,statistics,snippet&key=%1&id=%2"
@@ -21,6 +21,7 @@ extern QDateTime MINIMUM_DATE;
 #define YOUTUBE_PLAYLISTITEMS_SEARCH "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=%1&playlistId=%2&maxResults=%3"
 #define YOUTUBE_VIDEO_URLS_PROCESS "%2/youtube-dl --skip-download --print-json %1"
 #define CATEGORY_PART "&videoCategoryId=%1"
+#define ORDER_PART "&order=%1"
 #define QUERY_PART "&q=%1"
 #define AUTHOR_PART "&channelId=%1"
 #define PAGE_TOKEN_PART "&pageToken=%1"
@@ -50,12 +51,28 @@ private:
     QString m_vcodec;
     int m_bitrate;
     int m_id;
+    int m_width;
+    int m_height;
 
-    inline FmtDesc() {}
+    inline FmtDesc() {
+        m_width = 0;
+        m_height = 0;
+        m_bitrate = 0;
+        m_id = -1;
+    }
+
     inline FmtDesc(QtJson::JsonObject format) {
         m_id = format["format_id"].toInt();
-        if (format["width"].isNull() || format["height"].isNull()) m_resolution = QObject::tr("Audio only");
-        else m_resolution = format["width"].toString() + "x" + format["height"].toString();
+        if (format["width"].isNull() || format["height"].isNull()) {
+            m_width = 0;
+            m_height = 0;
+            m_resolution = QObject::tr("Audio only");
+        }
+        else {
+            m_width = format["width"].toInt();
+            m_height = format["height"].toInt();
+            m_resolution = QString("%1x%2").arg(m_width).arg(m_height);
+        }
         m_vcodec = format["vcodec"].toString();
         if (m_vcodec == "none") m_vcodec = QString();
         m_acodec = format["acodec"].toString();
@@ -65,27 +82,39 @@ private:
     }
 
 public:
-    QString resolution() const {
+    inline bool isValid() const {
+        return (!m_vcodec.isEmpty() || !m_acodec.isEmpty()) && (m_id >= 0);
+    }
+
+    inline QString resolution() const {
         return m_resolution;
     }
 
-    QString description() const {
+    inline QString description() const {
         return m_description;
     }
 
-    QString acodec() const {
+    inline QString acodec() const {
         return m_acodec;
     }
 
-    QString vcodec() const {
+    inline QString vcodec() const {
         return m_vcodec;
     }
 
-    int bitrate() const {
+    inline int width() const {
+        return m_width;
+    }
+
+    inline int height() const {
+        return m_height;
+    }
+
+    inline int bitrate() const {
         return m_bitrate;
     }
 
-    int id() const {
+    inline int id() const {
         return m_id;
     }
 
@@ -95,6 +124,14 @@ public:
 
     inline QString toStringFull() const {
         return QString("%1 (%2%3)").arg(m_resolution).arg((m_vcodec.isEmpty()?(m_acodec):m_vcodec)).arg(m_vcodec.isEmpty()?QString(", %1 Kbps").arg(m_bitrate):(m_acodec.isEmpty()?" ,"+QObject::tr("No audio"):""));
+    }
+
+    inline bool isAudioOnly() {
+        return (m_vcodec.isEmpty());
+    }
+
+    inline bool hasExternalAudio() {
+        return (m_acodec.isEmpty() && !m_vcodec.isEmpty());
     }
 
     friend class VideoInfo;
@@ -111,27 +148,31 @@ private:
     inline VideoInfo() {}
 
 public:
-    QUrl url() const {
+    inline bool isValid() const {
+        return (m_url.isValid() || m_audio_url.isValid()) && m_desc.isValid();
+    }
+
+    inline QUrl url() const {
         return m_url;
     }
 
-    QUrl audio_url() const {
+    inline QUrl audio_url() const {
         return m_audio_url;
     }
 
-    FmtDesc desc() const {
+    inline FmtDesc desc() const {
         return m_desc;
     }
 
-    QString filename() const {
+    inline QString filename() const {
         return m_filename;
     }
 
-    bool isAudioOnly() {
-        return (m_desc.m_vcodec.isEmpty());
+    inline bool isAudioOnly() {
+        return m_desc.isAudioOnly();
     }
-    bool hasExternalAudio() {
-        return (m_desc.m_acodec.isEmpty() && !m_desc.m_vcodec.isEmpty());
+    inline bool hasExternalAudio() {
+        return m_desc.hasExternalAudio();
     }
 
     friend class Media;
@@ -145,16 +186,16 @@ enum YoutubeTimeId {
 class YoutubeTime {
 public:
 
-    YoutubeTime() {
+    inline YoutubeTime() {
         m_operation = after;
         m_date = MINIMUM_DATE;
     }
-    YoutubeTime(YoutubeTimeId operation,const QDateTime & date) {
+    inline YoutubeTime(YoutubeTimeId operation,const QDateTime & date) {
         m_operation = operation;
         m_date = date;
     }
 
-    QString toString() const {
+    inline QString toString() const {
         YoutubeTime * p_this = (YoutubeTime *)this;
         switch (p_this->m_operation) {
             case before:
@@ -165,12 +206,12 @@ public:
         return QString();
     }
 
-    YoutubeTimeId operation() { return m_operation; }
-    QDateTime date() const { return m_date; }
-    bool isNull() { return m_date.isNull(); }
+    inline YoutubeTimeId operation() { return m_operation; }
+    inline QDateTime date() const { return m_date; }
+    inline bool isNull() { return m_date.isNull(); }
     static const QString timeParameterString(YoutubeTimeId id);
 
-    bool operator==(const YoutubeTime & other) const {
+    inline bool operator==(const YoutubeTime & other) const {
         return m_operation == other.m_operation &&
                m_date == other.m_date;
     }
@@ -200,12 +241,15 @@ public:
     inline double rating() const { return m_rating; }
     inline QString category() const { return m_category; }
     inline QUrl comments_url() const { return m_comments_url; }
-    inline QList<VideoInfo> video_infos() const { return m_video_infos; }
-    inline bool doIgnore() const { return m_ignore; }
-
+    inline QList<VideoInfo> video_infos() const {
+        ((Media *)this)->download_video_infos();
+        return m_video_infos;
+    }
     VideoInfo best_video() const;
-    void download_video_infos();
+    VideoInfo video(int height,const QString & vcodec) const;
 private:
+    inline bool doIgnore() const { return m_ignore; }
+    void download_video_infos();
     void sort_video_urls_by_quality();
     static void download_video_categories();
     static bool sort_by_quality(const QUrl & url1, const QUrl & url2);
@@ -242,7 +286,7 @@ public:
     }
     QImage image() const;
 private:
-    YPlayList() {}
+    inline YPlayList() {}
 
     QString m_id;
     QString m_title;
@@ -261,7 +305,7 @@ public:
     static const QStringList categories();
     static const QString orderByParameterString(YoutubeOrderBy id);
     static QString downloadChannelId(const QString & channel_name,const QString & userKey,QString & error);
-    static QList<YPlayList> downloadChannelPlaylists(const QString & channel_id,const QString & userKey,QString & error);
+    static QList<YPlayList> downloadChannelPlaylists(const QString & channel_id,const QString & userKey,YoutubeOrderBy orderby,QString & error);
     inline bool hasNextPage() { return !m_nextPageToken.isEmpty(); }
     inline bool hasPrevPage() { return !m_prevPageToken.isEmpty(); }
     inline QString prevPageToken() const { return m_prevPageToken; }
@@ -285,8 +329,8 @@ signals:
     void completed(const QList<Media> & medias);
 
 private slots:
+    void on_network_accessible_changed(QNetworkAccessManager::NetworkAccessibility accessible);
     void was_error(QNetworkReply::NetworkError error);
-    void get_channel_id_was_error(QNetworkReply::NetworkError error);
     void get_categories_was_error(QNetworkReply::NetworkError error);
     void finished();
     void image_finished();
@@ -295,8 +339,9 @@ private slots:
     void on_channel_id_finished();
 
 private:
+    static QString parseChannelId(const QByteArray & data,const QString & channel_name,QString & error);
     static QByteArray downloadResource(const QUrl & url,QString & error);
-    static QList<YPlayList> downloadChannelPlaylists(const QString & channel_id,const QString & userKey,QString & error,const QString & pageToken);
+    static QList<YPlayList> downloadChannelPlaylists(const QString & channel_id,const QString & userKey,QString & error,const QString & pageToken,YoutubeOrderBy orderby = relevance);
     void download_channel_id(const QString & channel_name);
     void download_categories(const QString & userKey,bool do_loop = false);
     QNetworkReply * getImageDownloadReply(const QUrl & image_url);

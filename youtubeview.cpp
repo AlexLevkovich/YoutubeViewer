@@ -114,7 +114,6 @@ void YoutubeView::contextMenuEvent(QContextMenuEvent * e) {
     playerMenu.setIcon(QIcon(":/images/res/media-playback-start.png"));
     playerMenu.setTitle(tr("Play with external player..."));
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
-    media->download_video_infos();
     QList<VideoInfo> real_links = media->video_infos();
     if (real_links.count() <= 0) {
         menu.addAction(QIcon(":/images/res/media-playback-start.png"),tr("Play with external player..."),this,SLOT(execPlayer()));
