@@ -15,6 +15,7 @@ public:
     explicit YoutubeSettingsWidget(QWidget *parent = 0);
     ~YoutubeSettingsWidget();
     void addNewDownload(const QUrl & url,const QString & out_file_name,int threads_count);
+    bool areDownloadsInProgress();
 
 private:
     Ui::YoutubeSettingsWidget *ui;

@@ -116,6 +116,10 @@ void YoutubeBar::addNewDownload(const QUrl & url,const QString & out_file_name,i
     settings_widget->addNewDownload(url,out_file_name,threads_count);
 }
 
+bool YoutubeBar::areDownloadsInProgress() {
+    return settings_widget->areDownloadsInProgress();
+}
+
 void YoutubeBar::show_search_videos_popup(const QString & channel) {
     search_widget->setSearchButtonPopupChannel(channel);
     search_widget->showSearchButtonPopup();

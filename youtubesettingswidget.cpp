@@ -12,3 +12,7 @@ YoutubeSettingsWidget::~YoutubeSettingsWidget() {
 void YoutubeSettingsWidget::addNewDownload(const QUrl & url,const QString & out_file_name,int threads_count) {
     ui->downloadButton->addNewDownload(url,out_file_name,threads_count);
 }
+
+bool YoutubeSettingsWidget::areDownloadsInProgress() {
+    return ui->downloadButton->areDownloadsInProgress();
+}

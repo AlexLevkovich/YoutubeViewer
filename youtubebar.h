@@ -15,6 +15,7 @@ public:
     explicit YoutubeBar(QWidget *parent = 0);
     void init();
     void addNewDownload(const QUrl & url,const QString & out_file_name,int threads_count);
+    bool areDownloadsInProgress();
 
 signals:
     void search_completed(const QList<Media> & medias);
