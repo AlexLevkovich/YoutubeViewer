@@ -5,19 +5,18 @@
 #include <QMessageBox>
 #include <QFontMetrics>
 #include <QPixmap>
-#include <QLocale>
 #include "default_values.h"
 #include "youtubesearch.h"
 
 extern QSettings *theSettings;
+extern QString LOCALE_DATETIME_FORMAT();
 
 YoutubeSearchWidget::YoutubeSearchWidget(QWidget *parent) : QWidget(parent), ui(new Ui::YoutubeSearchWidget) {
     ui->setupUi(this);
     setWindowTitle(tr("Search"));
 
     ui->playlistCombo->setEnabled(false);
-    QLocale locale = QLocale::system();
-    ui->timeEdit->setDisplayFormat(locale.dateFormat(QLocale::ShortFormat) + " " + locale.timeFormat(QLocale::ShortFormat));
+    ui->timeEdit->setDisplayFormat(LOCALE_DATETIME_FORMAT());
 
     okButton = ui->buttonBox->button(QDialogButtonBox::Ok);
     okButton->setEnabled(false);
