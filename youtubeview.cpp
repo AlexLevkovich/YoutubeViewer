@@ -2,6 +2,7 @@
 #include "youtubelistmodel.h"
 #include "youtubelistitemdelegate.h"
 #include "default_values.h"
+#include <QApplication>
 #include <QKeyEvent>
 #include <QSettings>
 #include <QMenu>
@@ -65,8 +66,10 @@ void YoutubeView::execPlayer(const QUrl & video_url,const QUrl & audio_url) {
     QUrl m_audio_url = audio_url;
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
     if (!video_url.isValid()) {
+        QApplication::setOverrideCursor(Qt::WaitCursor);
         m_video_url = media->best_video().url();
         m_audio_url = media->best_video().audio_url();
+        QApplication::restoreOverrideCursor();
     }
     if (!video_url.isValid() && (source_object != NULL) && source_object->property("video_url").isValid()) {
         m_video_url = source_object->property("video_url").toUrl();
@@ -89,7 +92,9 @@ void YoutubeView::download(const QUrl & url) {
 
     QUrl m_url = url;
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     VideoInfo info = media->best_video();
+    QApplication::restoreOverrideCursor();
     QString m_filename = info.filename();
     if (!url.isValid()) m_url = info.url();
     if (!url.isValid() && (source_object != NULL) && source_object->property("video_url").isValid()) {
@@ -114,7 +119,9 @@ void YoutubeView::contextMenuEvent(QContextMenuEvent * e) {
     playerMenu.setIcon(QIcon(":/images/res/media-playback-start.png"));
     playerMenu.setTitle(tr("Play with external player..."));
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     QList<VideoInfo> real_links = media->video_infos();
+    QApplication::restoreOverrideCursor();
     if (real_links.count() <= 0) {
         menu.addAction(QIcon(":/images/res/media-playback-start.png"),tr("Play with external player..."),this,SLOT(execPlayer()));
         menu.addAction(QIcon(":/images/res/download.png"),tr("Download..."),this,SLOT(download()));
