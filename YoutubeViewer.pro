@@ -72,7 +72,6 @@ SOURCES += main.cpp\
     settingsdialog.cpp \
     vlcsettingsdialog.cpp \
     errordialog.cpp \
-    externalplayer.cpp \
     youtubesettingswidget.cpp \
     youtubecommentsreader.cpp \
     youtubecommentsdialog.cpp \
@@ -85,7 +84,8 @@ SOURCES += main.cpp\
     mpvsettingsdialog.cpp \
     json.cpp \
     createnewyoutubekeydialog.cpp \
-    ycombobox.cpp
+    ycombobox.cpp \
+    externalplayer.cpp
 
 HEADERS  += mainwindow.h \
     youtubeview.h \
@@ -108,7 +108,6 @@ HEADERS  += mainwindow.h \
     settingsdialog.h \
     vlcsettingsdialog.h \
     errordialog.h \
-    externalplayer.h \
     youtubesettingswidget.h \
     youtubecommentsreader.h \
     youtubecommentsdialog.h \
@@ -121,7 +120,8 @@ HEADERS  += mainwindow.h \
     mpvsettingsdialog.h \
     json.h \
     createnewyoutubekeydialog.h \
-    ycombobox.h
+    ycombobox.h \
+    externalplayer.h
 
 FORMS    += mainwindow.ui \
     searchwidget.ui \

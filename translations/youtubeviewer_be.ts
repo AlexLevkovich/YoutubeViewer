@@ -98,12 +98,12 @@
 <context>
     <name>ExternalPlayer</name>
     <message>
-        <location filename="../externalplayer.cpp" line="+21"/>
+        <location filename="../externalplayer.cpp" line="+36"/>
         <source>Error during player starting!</source>
         <translation type="unfinished">Памылка пры старце прайгравальніка!</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+12"/>
         <source>Error(s) for the command:
 %1</source>
         <translation type="unfinished">Памылка(i) для каманды:
@@ -315,7 +315,7 @@ Are you sure about exiting?</source>
         <translation type="unfinished">Прайгравальнік MPC-HC</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+30"/>
+        <location filename="../youtubesearch.cpp" line="+29"/>
         <source>Relevance</source>
         <translation type="unfinished">Дарэчнасць</translation>
     </message>
@@ -355,12 +355,12 @@ Are you sure about exiting?</source>
         <translation type="unfinished">Пасля</translation>
     </message>
     <message>
-        <location line="+104"/>
+        <location line="+103"/>
         <source>days</source>
         <translation type="unfinished">дзён</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="+58"/>
+        <location filename="../main.cpp" line="+67"/>
         <source>Critical error!</source>
         <translation type="unfinished">Крытычная памылка!</translation>
     </message>
@@ -556,6 +556,36 @@ You can change it in Settings dialog.</source>
         <location/>
         <source>Path to external TOOLS:</source>
         <translation type="unfinished">Шлях да знешніх праграм:</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Base</source>
+        <translation type="unfinished">Асноўныя</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Search defaults</source>
+        <translation type="unfinished">Змаўчанні для пошуку</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Player</source>
+        <translation type="unfinished">Прайгравальнік</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Preferred size:</source>
+        <translation type="unfinished">Пераважны памер:</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Prefered codec:</source>
+        <translation type="unfinished">Пераважны кодэк:</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Open in fullscreen</source>
+        <translation type="unfinished">Адкрываць у поўнаэкранным рэжыме</translation>
     </message>
 </context>
 <context>
@@ -841,7 +871,7 @@ You can change it in Settings dialog.</source>
         <translation type="unfinished">Пошук</translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+126"/>
         <source>Error during downloading!</source>
         <translation type="unfinished">Памылка пры загрузке!</translation>
     </message>
@@ -936,14 +966,14 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Калі ласка, усталюйце VLC або MPV!</translation>
     </message>
     <message>
-        <location filename="../youtubeview.cpp" line="+112"/>
-        <location line="+8"/>
+        <location filename="../youtubeview.cpp" line="+117"/>
+        <location line="+10"/>
         <source>Download...</source>
         <translation type="unfinished">Запампаваць...</translation>
     </message>
     <message>
-        <location line="-5"/>
-        <location line="+4"/>
+        <location line="-7"/>
+        <location line="+6"/>
         <source>Play with external player...</source>
         <translation type="unfinished">Прайграць знешнім прайгравальнікам...</translation>
     </message>
