@@ -4,6 +4,7 @@
 #include <QNetworkAccessManager>
 #include <QMessageBox>
 #include <QDateTimeEdit>
+#include <QLocale>
 #include "default_values.h"
 #ifdef WIN32
 #include "explorerstyle.h"
@@ -22,6 +23,14 @@ QMainWindow * findMainWindow() {
 
     return NULL;
 }
+
+QString LOCALE_DATETIME_FORMAT() {
+    QLocale locale = QLocale::system();
+    QString ret = locale.dateFormat(QLocale::ShortFormat) + " " + locale.timeFormat(QLocale::ShortFormat);
+    if (!ret.contains("yyyy")) ret.replace("yy","yyyy");
+    return ret;
+}
+
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
