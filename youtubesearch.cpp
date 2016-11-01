@@ -1,5 +1,4 @@
 #include <QLocale>
-#include <QApplication>
 #include <QEventLoop>
 #include <QMainWindow>
 #if QT_VERSION >= 0x050000
@@ -53,10 +52,11 @@ const QString YoutubeTime::timeParameterString(YoutubeTimeId id) {
 }
 
 VideoInfo Media::best_video() const {
-    Media * p_this = (Media *)this;
-    QList<VideoInfo> infos = p_this->video_infos();
-    if (infos.count() <= 0) return VideoInfo();
-    return infos.at(infos.count()-1);
+    QString height_str = theSettings->value("pref_video_size",QString("%1p").arg(DEF_VIDEO_HEIGHT)).toString();
+    bool ok;
+    int height = height_str.left(height_str.length()-1).toInt(&ok);
+    if (!ok) height = DEF_VIDEO_HEIGHT;
+    return video(height,theSettings->value("pref_video_codec",DEF_VIDEO_CODEC).toString());
 }
 
 VideoInfo Media::video(int height,const QString & vcodec) const {
@@ -88,7 +88,6 @@ VideoInfo Media::video(int height,const QString & vcodec) const {
 void Media::download_video_infos() {
     if (!m_video_infos.isEmpty()) return;
 
-    QApplication::setOverrideCursor(Qt::WaitCursor);
     QProcess links_process;
     links_process.setProcessChannelMode(QProcess::MergedChannels);
     links_process.start(QString(YOUTUBE_VIDEO_URLS_PROCESS).arg(url().toString()).arg(TOOLS_BIN_PATH));
@@ -123,7 +122,6 @@ void Media::download_video_infos() {
             m_video_infos[i] = info;
         }
     }
-    QApplication::restoreOverrideCursor();
 }
 
 static const QString convertYoutubeDuration(const QString & str) {
