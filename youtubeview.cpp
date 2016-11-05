@@ -36,6 +36,7 @@ void YoutubeView::setData(const QList<Media> & medias) {
     if (prev_sel_model != NULL) prev_sel_model->deleteLater();
     prev_model = model();
     prev_sel_model = selectionModel();
+    connect(selectionModel(),SIGNAL(selectionChanged(const QItemSelection &,const QItemSelection &)),this,SLOT(on_selectionChanged(const QItemSelection &,const QItemSelection &)));
     QMetaObject::invokeMethod(this,"_updateGeometry",Qt::QueuedConnection);
 }
 
@@ -67,9 +68,10 @@ void YoutubeView::execPlayer(const QUrl & video_url,const QUrl & audio_url) {
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
     if (!video_url.isValid()) {
         QApplication::setOverrideCursor(Qt::WaitCursor);
-        m_video_url = media->best_video().url();
-        m_audio_url = media->best_video().audio_url();
+        VideoInfo info_best = media->best_video();
         QApplication::restoreOverrideCursor();
+        m_video_url = info_best.url();
+        m_audio_url = info_best.audio_url();
     }
     if (!video_url.isValid() && (source_object != NULL) && source_object->property("video_url").isValid()) {
         m_video_url = source_object->property("video_url").toUrl();
@@ -83,6 +85,21 @@ void YoutubeView::execPlayer(const QUrl & video_url,const QUrl & audio_url) {
     ProvidersDialog providers(m_video_url,m_audio_url,this);
     if (providers.exec() == QDialog::Rejected) return;
     new ExternalPlayer(providers.command());
+}
+
+void YoutubeView::execPlayer(const QObject *receiver,const char * execute_at_exit) {
+    if (receiver == NULL || execute_at_exit == NULL) return;
+    QModelIndexList sel_list = selectionModel()->selectedRows();
+    if (sel_list.count() <= 0) return;
+
+    Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    VideoInfo info_best = media->best_video();
+    QApplication::restoreOverrideCursor();
+
+    ProvidersDialog providers(info_best.url(),info_best.audio_url(),this);
+    if (providers.exec() == QDialog::Rejected) return;
+    new ExternalPlayer(providers.command(),receiver,execute_at_exit);
 }
 
 void YoutubeView::download(const QUrl & url) {
@@ -169,4 +186,22 @@ void YoutubeView::show_info() {
     if (sel_list.count() <= 0) return;
 
     YoutubeCommentsDialog((Media *)sel_list.at(0).data(Qt::UserRole).value<void *>(),this).exec();
+}
+
+void YoutubeView::on_selectionChanged(const QItemSelection & selected,const QItemSelection &) {
+    if (selected.isEmpty()) emit mediaListIsEmpty();
+    else emit indexSelected(selected.indexes().at(0));
+}
+
+QModelIndex YoutubeView::selectNextIndexAfter(const QModelIndex & index) {
+    if ((index.row() + 1) >= model()->rowCount()) return QModelIndex();
+
+    QModelIndex next = model()->index(index.row()+1,index.column());
+    if (!next.isValid()) return QModelIndex();
+
+    QItemSelectionModel * sel_model = selectionModel();
+    if (sel_model == NULL) return QModelIndex();
+
+    sel_model->select(next,QItemSelectionModel::ClearAndSelect|QItemSelectionModel::Current);
+    return next;
 }
