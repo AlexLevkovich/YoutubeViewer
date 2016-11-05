@@ -38,12 +38,14 @@ int main(int argc, char *argv[]) {
     a.setStyle(new ExplorerStyle());
 #endif
 
+    qRegisterMetaType<const QObject *>("const QObject *");
+    qRegisterMetaType<const char *>("const char *");
     MINIMUM_DATE = QDateTimeEdit().minimumDateTime();
 
     QTranslator m_translator;
     QString lang = QLocale::system().name().split("_").at(0);
-    if(!m_translator.load("youtubeviewer_" + lang, TRANS_DIR2))
-        if (!m_translator.load("youtubeviewer_" + lang, TRANS_DIR1))
+    if(!m_translator.load("youtubeviewer_" + lang, TRANS_DIR1))
+        if (!m_translator.load("youtubeviewer_" + lang, TRANS_DIR2))
             m_translator.load("youtubeviewer_" + lang, QFileInfo(QCoreApplication::applicationFilePath()).dir().path());
     QApplication::installTranslator(&m_translator);
 
