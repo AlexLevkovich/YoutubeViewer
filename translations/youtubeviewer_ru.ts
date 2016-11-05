@@ -96,7 +96,7 @@
     <message>
         <location filename="../errordialog.h" line="+10"/>
         <source>Error...</source>
-        <translation type="unfinished">Ошибка...</translation>
+        <translation>Ошибка...</translation>
     </message>
 </context>
 <context>
@@ -156,19 +156,19 @@
         <translation type="vanished">Ошибка при попытке вернуть список Категорий!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+71"/>
+        <location filename="../mainwindow.cpp" line="+76"/>
         <source>Exit confirmation</source>
-        <translation type="unfinished">Подтверждение выхода</translation>
+        <translation>Подтверждение выхода</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Some downloads are in progress.
 Are you sure about exiting?</source>
-        <translation type="unfinished">Некоторые загрузки еще не закончились.
+        <translation>Некоторые загрузки еще не закончились.
 Вы уверены, что хотите выйти?</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+23"/>
         <source>Save File</source>
         <translation>Сохранить в файл</translation>
     </message>
@@ -176,6 +176,12 @@ Are you sure about exiting?</source>
         <location line="+0"/>
         <source>Videos</source>
         <translation>Видео</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <location line="+25"/>
+        <source>The last errors</source>
+        <translation>Последние ошибки</translation>
     </message>
 </context>
 <context>
@@ -241,7 +247,7 @@ Are you sure about exiting?</source>
     <message>
         <location line="+0"/>
         <source>Please install some supported one!</source>
-        <translation type="unfinished">Пожалуйста, установите что-нибудь поддерживаемое!</translation>
+        <translation>Пожалуйста, установите что-нибудь поддерживаемое!</translation>
     </message>
     <message>
         <source>Please install vlc or mpv!</source>
@@ -308,7 +314,7 @@ Are you sure about exiting?</source>
     <message>
         <location line="+2"/>
         <source>MPC-HC media player</source>
-        <translation type="unfinished">Проигрыватель MPC-HC</translation>
+        <translation>Проигрыватель MPC-HC</translation>
     </message>
     <message>
         <location filename="../youtubesearch.cpp" line="+29"/>
@@ -356,15 +362,15 @@ Are you sure about exiting?</source>
         <translation>дней</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="+67"/>
+        <location filename="../main.cpp" line="+70"/>
         <source>Critical error!</source>
-        <translation type="unfinished">Критическая ошибка!</translation>
+        <translation>Критическая ошибка!</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Looks like TOOL directory is incorrect!
 You can change it in Settings dialog.</source>
-        <translation type="unfinished">Похоже, каталог инструментов указан неправильно!
+        <translation>Похоже, каталог инструментов указан неправильно!
 Вы можете изменить его в диалоге Настройки.</translation>
     </message>
     <message>
@@ -374,12 +380,12 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../youtubesearch.h" line="+126"/>
         <source>No audio</source>
-        <translation type="unfinished">Без звука</translation>
+        <translation>Без звука</translation>
     </message>
     <message>
         <location line="-57"/>
         <source>Audio only</source>
-        <translation type="unfinished">Только звук</translation>
+        <translation>Только звук</translation>
     </message>
 </context>
 <context>
@@ -498,37 +504,37 @@ You can change it in Settings dialog.</source>
     <message>
         <location/>
         <source>Path to external TOOLS:</source>
-        <translation type="unfinished">Путь к внешним программам:</translation>
+        <translation>Путь к внешним программам:</translation>
     </message>
     <message>
         <location/>
         <source>Base</source>
-        <translation type="unfinished">Основные</translation>
+        <translation>Основные</translation>
     </message>
     <message>
         <location/>
         <source>Search defaults</source>
-        <translation type="unfinished">Умолчания для поиска</translation>
+        <translation>Умолчания для поиска</translation>
     </message>
     <message>
         <location/>
         <source>Player</source>
-        <translation type="unfinished">Проигрыватель</translation>
+        <translation>Проигрыватель</translation>
     </message>
     <message>
         <location/>
         <source>Preferred size:</source>
-        <translation type="unfinished">Предпочтительный размер:</translation>
+        <translation>Предпочтительный размер:</translation>
     </message>
     <message>
         <location/>
         <source>Prefered codec:</source>
-        <translation type="unfinished">Предпочтительный кодек:</translation>
+        <translation>Предпочтительный кодек:</translation>
     </message>
     <message>
         <location/>
         <source>Open in fullscreen</source>
-        <translation type="unfinished">Открывать в полноэкранном режиме</translation>
+        <translation>Открывать в полноэкранном режиме</translation>
     </message>
 </context>
 <context>
@@ -584,7 +590,7 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YoutubeBar</name>
     <message>
-        <location filename="../youtubebar.cpp" line="+18"/>
+        <location filename="../youtubebar.cpp" line="+19"/>
         <source>Go to the first page</source>
         <translation>Перейти к первой странице</translation>
     </message>
@@ -599,7 +605,17 @@ You can change it in Settings dialog.</source>
         <translation>Перейти к следующей странице</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+114"/>
+        <source>Start the playing of playlist</source>
+        <translation>Запуск воспроизведения списка</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Stop the playing</source>
+        <translation>Остановить воспроизведение</translation>
+    </message>
+    <message>
+        <location line="-118"/>
         <source>Refresh the current page</source>
         <translation>Обновить текущую страницу</translation>
     </message>
@@ -609,7 +625,7 @@ You can change it in Settings dialog.</source>
         <translation>Остановить текущую обработку</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+41"/>
         <source>Network error!</source>
         <translation>Ошибка сети!</translation>
     </message>
@@ -689,12 +705,12 @@ You can change it in Settings dialog.</source>
     <message>
         <location/>
         <source>Channel ID:</source>
-        <translation type="unfinished">ID канала:</translation>
+        <translation>ID канала:</translation>
     </message>
     <message>
         <location/>
         <source>Video ID:</source>
-        <translation type="unfinished">ID видео:</translation>
+        <translation>ID видео:</translation>
     </message>
 </context>
 <context>
@@ -746,9 +762,9 @@ You can change it in Settings dialog.</source>
         <translation>Поиск</translation>
     </message>
     <message>
-        <location line="+126"/>
+        <location line="+127"/>
         <source>Error during downloading!</source>
-        <translation type="unfinished">Ошибка во время загрузки!</translation>
+        <translation>Ошибка во время загрузки!</translation>
     </message>
     <message>
         <location filename="../youtubesearchwidget.ui"/>
@@ -781,17 +797,17 @@ You can change it in Settings dialog.</source>
     <message>
         <location/>
         <source>Previous terms</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Channel:</source>
-        <translation type="unfinished">Канал:</translation>
+        <translation>Канал:</translation>
     </message>
     <message>
         <location/>
         <source>Playlist:</source>
-        <translation type="unfinished">Плейлист:</translation>
+        <translation>Плейлист:</translation>
     </message>
 </context>
 <context>
@@ -801,11 +817,15 @@ You can change it in Settings dialog.</source>
         <source>Form</source>
         <translation></translation>
     </message>
+    <message>
+        <source>PushButton</source>
+        <translation type="obsolete">Кнопка</translation>
+    </message>
 </context>
 <context>
     <name>YoutubeView</name>
     <message>
-        <location filename="../youtubeview.cpp" line="+117"/>
+        <location filename="../youtubeview.cpp" line="+134"/>
         <location line="+10"/>
         <source>Download...</source>
         <translation>Скачать...</translation>
@@ -819,12 +839,12 @@ You can change it in Settings dialog.</source>
     <message>
         <location line="+19"/>
         <source>View channel</source>
-        <translation type="unfinished">Просмотр канала</translation>
+        <translation>Просмотр канала</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Search videos on channel</source>
-        <translation type="unfinished">Поиск видео на канале</translation>
+        <translation>Поиск видео на канале</translation>
     </message>
     <message>
         <source>View uploader channel</source>
@@ -845,27 +865,27 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../mpchcsettingsdialog.ui"/>
         <source>Parameters:</source>
-        <translation type="unfinished">Параметры:</translation>
+        <translation>Параметры:</translation>
     </message>
     <message>
         <location/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Path to MPC-HC:</source>
-        <translation type="unfinished">Путь к MPC-HC:</translation>
+        <translation>Путь к MPC-HC:</translation>
     </message>
     <message>
         <location filename="../mpchcsettingsdialog.cpp" line="+20"/>
         <source>Choose MPC-HC executable...</source>
-        <translation type="unfinished">Выбор MPC-HC файла...</translation>
+        <translation>Выбор MPC-HC файла...</translation>
     </message>
     <message>
         <location filename="../mpchcsettingsdialog.ui"/>
         <source>Vlc settings</source>
-        <translation type="unfinished">Настройки Vlc</translation>
+        <translation>Настройки Vlc</translation>
     </message>
 </context>
 <context>
@@ -873,12 +893,12 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../youtubedownloader.cpp" line="+41"/>
         <source>Cannot start %1/aria2c!!!</source>
-        <translation type="unfinished">Не удается запустить %1/aria2c!!!</translation>
+        <translation>Не удается запустить %1/aria2c!!!</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Unknown aria&apos;s error!!!</source>
-        <translation type="unfinished">aria: Неизвестная ошибка!!!</translation>
+        <translation>aria: Неизвестная ошибка!!!</translation>
     </message>
 </context>
 </TS>

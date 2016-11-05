@@ -6,7 +6,7 @@
     <message>
         <location filename="../advancedsearchbutton.cpp" line="+14"/>
         <source>Search with advanced parameters</source>
-        <translation type="unfinished">Пашыраны пошук</translation>
+        <translation>Пашыраны пошук</translation>
     </message>
 </context>
 <context>
@@ -14,17 +14,17 @@
     <message>
         <location filename="../createnewyoutubekeydialog.ui"/>
         <source>Enter the developer key</source>
-        <translation type="unfinished">Увядзіце ключ распрацоўніка</translation>
+        <translation>Увядзіце ключ распрацоўніка</translation>
     </message>
     <message>
         <location/>
         <source>Key: </source>
-        <translation type="unfinished">Ключ:</translation>
+        <translation>Ключ:</translation>
     </message>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;You can get this at &lt;/span&gt;&lt;a href=&quot;https://code.google.com/apis/console&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://code.google.com/apis/console&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt; page.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;1) Log into...&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;2) Select `Credentials`/`Create New Key`&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;3) Press `Server Key` button&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Вы можаце атрымаць гэта на &lt;/span&gt;&lt;a href=&quot;https://code.google.com/apis/console&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://code.google.com/apis/console&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt; старонке.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;1) Увайдзіце у сістэму...&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;2) Выбярыце `Credentials`/`Create New Key`&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;3) Націсніце `Server Key` кнопку&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Вы можаце атрымаць гэта на &lt;/span&gt;&lt;a href=&quot;https://code.google.com/apis/console&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://code.google.com/apis/console&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt; старонке.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;1) Увайдзіце у сістэму...&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;2) Выбярыце `Credentials`/`Create New Key`&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;3) Націсніце `Server Key` кнопку&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -32,7 +32,7 @@
     <message>
         <location filename="../downloadbutton.cpp" line="+12"/>
         <source>Download manager...</source>
-        <translation type="unfinished">Менеджэр запамповак...</translation>
+        <translation>Менеджэр запамповак...</translation>
     </message>
 </context>
 <context>
@@ -40,27 +40,27 @@
     <message>
         <location filename="../downloadwidget.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>filename</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../downloadwidget.cpp" line="+65"/>
         <source>/s</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Error during downloading!</source>
-        <translation type="unfinished">Памылка пры загрузке!</translation>
+        <translation>Памылка пры загрузке!</translation>
     </message>
     <message>
         <location filename="../downloadwidget.ui"/>
         <source>0%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -68,22 +68,22 @@
     <message>
         <location filename="../errordialog.ui"/>
         <source>YoutubeViewer&apos;s error</source>
-        <translation type="unfinished">Памылка YoutubeViewer</translation>
+        <translation>Памылка YoutubeViewer</translation>
     </message>
     <message>
         <location/>
         <source>Shows/Hides the log window</source>
-        <translation type="unfinished">Паказвае / хавае акно з логам</translation>
+        <translation>Паказвае / хавае акно з логам</translation>
     </message>
     <message>
         <location/>
         <source>Show Log</source>
-        <translation type="unfinished">Паказаць лог</translation>
+        <translation>Паказаць лог</translation>
     </message>
     <message>
         <location/>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Hide Log</source>
@@ -92,7 +92,7 @@
     <message>
         <location filename="../errordialog.h" line="+10"/>
         <source>Error...</source>
-        <translation type="unfinished">Памылка...</translation>
+        <translation>Памылка...</translation>
     </message>
 </context>
 <context>
@@ -100,13 +100,13 @@
     <message>
         <location filename="../externalplayer.cpp" line="+36"/>
         <source>Error during player starting!</source>
-        <translation type="unfinished">Памылка пры старце прайгравальніка!</translation>
+        <translation>Памылка пры старце прайгравальніка!</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Error(s) for the command:
 %1</source>
-        <translation type="unfinished">Памылка(i) для каманды:
+        <translation>Памылка(i) для каманды:
 %1</translation>
     </message>
 </context>
@@ -115,37 +115,37 @@
     <message>
         <location filename="../mainwindow.ui"/>
         <source>YoutubeViewer</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Go to previous page</source>
-        <translation type="unfinished">Перайсці да папярэдняй старонцы</translation>
+        <translation>Перайсці да папярэдняй старонцы</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+Left</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Go to next page</source>
-        <translation type="unfinished">Перайсці да наступнай старонцы</translation>
+        <translation>Перайсці да наступнай старонцы</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+Right</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Current page&apos;s number</source>
-        <translation type="unfinished">Цяперашні нумар старонкі</translation>
+        <translation>Цяперашні нумар старонкі</translation>
     </message>
     <message>
         <source>Network error!</source>
@@ -156,26 +156,32 @@
         <translation type="obsolete">Памылка пры вяртаннi Катэгорый!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+71"/>
+        <location filename="../mainwindow.cpp" line="+76"/>
         <source>Exit confirmation</source>
-        <translation type="unfinished">Пацверджанне выхаду</translation>
+        <translation>Пацверджанне выхаду</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Some downloads are in progress.
 Are you sure about exiting?</source>
-        <translation type="unfinished">Некаторыя загрузкі яшчэ не скончылiся.
+        <translation>Некаторыя загрузкі яшчэ не скончылiся.
 Вы ўпэўненыя, што хочаце выйсцi?</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+23"/>
         <source>Save File</source>
-        <translation type="unfinished">Захаваць у файл</translation>
+        <translation>Захаваць у файл</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Videos</source>
-        <translation type="unfinished">Відэа</translation>
+        <translation>Відэа</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <location line="+25"/>
+        <source>The last errors</source>
+        <translation>Апошнія памылкі</translation>
     </message>
 </context>
 <context>
@@ -183,22 +189,22 @@ Are you sure about exiting?</source>
     <message>
         <location filename="../mpvsettingsdialog.ui"/>
         <source>Mpv settings</source>
-        <translation type="unfinished">Налады Mpv</translation>
+        <translation>Налады Mpv</translation>
     </message>
     <message>
         <location/>
         <source>Path to mpv:</source>
-        <translation type="unfinished">Шлях да Mpv:</translation>
+        <translation>Шлях да Mpv:</translation>
     </message>
     <message>
         <location/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Cache size:</source>
-        <translation type="unfinished">Памер кэша:</translation>
+        <translation>Памер кэша:</translation>
     </message>
     <message>
         <source> ms</source>
@@ -207,17 +213,17 @@ Are you sure about exiting?</source>
     <message>
         <location/>
         <source>Parameters:</source>
-        <translation type="unfinished">Параметры:</translation>
+        <translation>Параметры:</translation>
     </message>
     <message>
         <location filename="../mpvsettingsdialog.cpp" line="+27"/>
         <source>Choose mpv executable...</source>
-        <translation type="unfinished">Выберыце MPV exe файл...</translation>
+        <translation>Выберыце MPV exe файл...</translation>
     </message>
     <message>
         <location filename="../mpvsettingsdialog.ui"/>
         <source> Kb</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -225,27 +231,27 @@ Are you sure about exiting?</source>
     <message>
         <location filename="../providersdialog.ui"/>
         <source>Name</source>
-        <translation type="unfinished">Імя</translation>
+        <translation>Імя</translation>
     </message>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Some players are available, select one, please...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Некалькі прайгравальнікаў даступна, абярыце адзін, калі ласка...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Некалькі прайгравальнікаў даступна, абярыце адзін, калі ласка...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Choose the player</source>
-        <translation type="unfinished">Выберыце прайгравальнік</translation>
+        <translation>Выберыце прайгравальнік</translation>
     </message>
     <message>
         <location filename="../providersdialog.cpp" line="+82"/>
         <source>Cannot start the player...</source>
-        <translation type="unfinished">Не ўдаецца запусціць прайгравальнік...</translation>
+        <translation>Не ўдаецца запусціць прайгравальнік...</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Please install some supported one!</source>
-        <translation type="unfinished">Калі ласка, усталюйце што-небудзь падтрымоўванае!</translation>
+        <translation>Калі ласка, усталюйце што-небудзь падтрымоўванае!</translation>
     </message>
     <message>
         <source>Please install vlc or mpv!</source>
@@ -257,118 +263,118 @@ Are you sure about exiting?</source>
     <message>
         <location filename="../byteshumanizer.cpp" line="+6"/>
         <source>B</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>KiB</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>MiB</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>GiB</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>TiB</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>PiB</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>EiB</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>ZiB</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>YiB</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../providersdialog.cpp" line="-67"/>
         <source>VLC media player</source>
-        <translation type="unfinished">Прайгравальнік VLC</translation>
+        <translation>Прайгравальнік VLC</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>MPV media player</source>
-        <translation type="unfinished">Прайгравальнік MPV</translation>
+        <translation>Прайгравальнік MPV</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>MPC-HC media player</source>
-        <translation type="unfinished">Прайгравальнік MPC-HC</translation>
+        <translation>Прайгравальнік MPC-HC</translation>
     </message>
     <message>
         <location filename="../youtubesearch.cpp" line="+29"/>
         <source>Relevance</source>
-        <translation type="unfinished">Дарэчнасць</translation>
+        <translation>Дарэчнасць</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Date</source>
-        <translation type="unfinished">Дата</translation>
+        <translation>Дата</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Rating</source>
-        <translation type="unfinished">Рэйтынг</translation>
+        <translation>Рэйтынг</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Title</source>
-        <translation type="unfinished">Назва</translation>
+        <translation>Назва</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Video count</source>
-        <translation type="unfinished">Колькасць відэяў</translation>
+        <translation>Колькасць відэяў</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>View count</source>
-        <translation type="unfinished">Колькасць праглядаў</translation>
+        <translation>Колькасць праглядаў</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Before</source>
-        <translation type="unfinished">Да</translation>
+        <translation>Да</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>After</source>
-        <translation type="unfinished">Пасля</translation>
+        <translation>Пасля</translation>
     </message>
     <message>
         <location line="+103"/>
         <source>days</source>
-        <translation type="unfinished">дзён</translation>
+        <translation>дзён</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="+67"/>
+        <location filename="../main.cpp" line="+70"/>
         <source>Critical error!</source>
-        <translation type="unfinished">Крытычная памылка!</translation>
+        <translation>Крытычная памылка!</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Looks like TOOL directory is incorrect!
 You can change it in Settings dialog.</source>
-        <translation type="unfinished">Падобна на тое, што каталог інструмента няправільны!
+        <translation>Падобна на тое, што каталог інструмента няправільны!
 Вы можаце змяніць яго ў дыялогу Налады.</translation>
     </message>
     <message>
@@ -378,12 +384,20 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../youtubesearch.h" line="+126"/>
         <source>No audio</source>
-        <translation type="unfinished">Без гуку</translation>
+        <translation>Без гуку</translation>
     </message>
     <message>
         <location line="-57"/>
         <source>Audio only</source>
-        <translation type="unfinished">Толькi гук</translation>
+        <translation>Толькi гук</translation>
+    </message>
+    <message>
+        <source>Start the playing of playlist</source>
+        <translation type="obsolete">Запуск прайгравання спісу</translation>
+    </message>
+    <message>
+        <source>Stop the playing</source>
+        <translation type="obsolete">Спыніць прайграванне</translation>
     </message>
 </context>
 <context>
@@ -391,7 +405,7 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../searchwidget.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -399,17 +413,17 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../settingsbutton.cpp" line="+19"/>
         <source>Configure the program&apos;s parameters</source>
-        <translation type="unfinished">Налады параметраў праграмы</translation>
+        <translation>Налады параметраў праграмы</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Settings...</source>
-        <translation type="unfinished">Налады...</translation>
+        <translation>Налады...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Change the developer key...</source>
-        <translation type="unfinished">Змяніць ключ распрацоўніка...</translation>
+        <translation>Змяніць ключ распрацоўніка...</translation>
     </message>
     <message>
         <source>Change the developer key...</source>
@@ -419,17 +433,17 @@ You can change it in Settings dialog.</source>
     <message>
         <location line="+6"/>
         <source>About...</source>
-        <translation type="unfinished">Аб праграме...</translation>
+        <translation>Аб праграме...</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>About YoutubeViewer...</source>
-        <translation type="unfinished">Аб YoutubeViewer...</translation>
+        <translation>Аб YoutubeViewer...</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;YoutubeViewer&lt;/span&gt; is youtube viewer.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;YoutubeViewer version is %1.&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Developer: Alex Levkovich (&lt;a href=&quot;mailto:alevkovich@tut.by&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;alevkovich@tut.by&lt;/span&gt;&lt;/a&gt;)&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;License: GPL&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;YoutubeViewer&lt;/span&gt; - прасматрывальшчык для Youtube.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Версія YoutubeViewer - %1.&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Распрацоўшчык: Alex Levkovich (&lt;a href=&quot;mailto:alevkovich@tut.by&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;alevkovich@tut.by&lt;/span&gt;&lt;/a&gt;)&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;License: GPL&lt;/p&gt;</translation>
+        <translation>&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;YoutubeViewer&lt;/span&gt; - прасматрывальшчык для Youtube.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Версія YoutubeViewer - %1.&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Распрацоўшчык: Alex Levkovich (&lt;a href=&quot;mailto:alevkovich@tut.by&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;alevkovich@tut.by&lt;/span&gt;&lt;/a&gt;)&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;License: GPL&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -437,12 +451,12 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../settingsdialog.ui"/>
         <source>Default settings</source>
-        <translation type="unfinished">Налады па змаўчанні</translation>
+        <translation>Налады па змаўчанні</translation>
     </message>
     <message>
         <location/>
         <source>Preview height:</source>
-        <translation type="unfinished">Вышыня папярэдняга прагляду:</translation>
+        <translation>Вышыня папярэдняга прагляду:</translation>
     </message>
     <message>
         <source> px</source>
@@ -459,27 +473,27 @@ You can change it in Settings dialog.</source>
     <message>
         <location/>
         <source>Description&apos;s max symbol count:</source>
-        <translation type="unfinished">Масімальная колькасць сімвалаў у апісанні:</translation>
+        <translation>Масімальная колькасць сімвалаў у апісанні:</translation>
     </message>
     <message>
         <location/>
         <source>Download thread count:</source>
-        <translation type="unfinished">Колькасць патокаў запампоўкі:</translation>
+        <translation>Колькасць патокаў запампоўкі:</translation>
     </message>
     <message>
         <location/>
         <source> threads</source>
-        <translation type="unfinished"> патокаў</translation>
+        <translation> патокаў</translation>
     </message>
     <message>
         <location/>
         <source> pixels</source>
-        <translation type="unfinished"> пікселяў</translation>
+        <translation> пікселяў</translation>
     </message>
     <message>
         <location/>
         <source> symbols</source>
-        <translation type="unfinished"> сімвалаў</translation>
+        <translation> сімвалаў</translation>
     </message>
     <message>
         <source>Search string:</source>
@@ -488,17 +502,17 @@ You can change it in Settings dialog.</source>
     <message>
         <location/>
         <source>Category:</source>
-        <translation type="unfinished">Катэгорыя:</translation>
+        <translation>Катэгорыя:</translation>
     </message>
     <message>
         <location/>
         <source>Author:</source>
-        <translation type="unfinished">Аўтар:</translation>
+        <translation>Аўтар:</translation>
     </message>
     <message>
         <location/>
         <source>Order by:</source>
-        <translation type="unfinished">Сартаваць па:</translation>
+        <translation>Сартаваць па:</translation>
     </message>
     <message>
         <source>relevance</source>
@@ -519,7 +533,7 @@ You can change it in Settings dialog.</source>
     <message>
         <location/>
         <source>Time:</source>
-        <translation type="unfinished">Час:</translation>
+        <translation>Час:</translation>
     </message>
     <message>
         <source>all time</source>
@@ -540,52 +554,52 @@ You can change it in Settings dialog.</source>
     <message>
         <location/>
         <source>Player:</source>
-        <translation type="unfinished">Прайгравальнік:</translation>
+        <translation>Прайгравальнік:</translation>
     </message>
     <message>
         <location/>
         <source>Ask</source>
-        <translation type="unfinished">Запытвацца</translation>
+        <translation>Запытвацца</translation>
     </message>
     <message>
         <location/>
         <source>dd.MM.yy H:mm:ss</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Path to external TOOLS:</source>
-        <translation type="unfinished">Шлях да знешніх праграм:</translation>
+        <translation>Шлях да знешніх праграм:</translation>
     </message>
     <message>
         <location/>
         <source>Base</source>
-        <translation type="unfinished">Асноўныя</translation>
+        <translation>Асноўныя</translation>
     </message>
     <message>
         <location/>
         <source>Search defaults</source>
-        <translation type="unfinished">Змаўчанні для пошуку</translation>
+        <translation>Змаўчанні для пошуку</translation>
     </message>
     <message>
         <location/>
         <source>Player</source>
-        <translation type="unfinished">Прайгравальнік</translation>
+        <translation>Прайгравальнік</translation>
     </message>
     <message>
         <location/>
         <source>Preferred size:</source>
-        <translation type="unfinished">Пераважны памер:</translation>
+        <translation>Пераважны памер:</translation>
     </message>
     <message>
         <location/>
         <source>Prefered codec:</source>
-        <translation type="unfinished">Пераважны кодэк:</translation>
+        <translation>Пераважны кодэк:</translation>
     </message>
     <message>
         <location/>
         <source>Open in fullscreen</source>
-        <translation type="unfinished">Адкрываць у поўнаэкранным рэжыме</translation>
+        <translation>Адкрываць у поўнаэкранным рэжыме</translation>
     </message>
 </context>
 <context>
@@ -593,37 +607,37 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../vlcsettingsdialog.ui"/>
         <source>Vlc settings</source>
-        <translation type="unfinished">Налады Vlc</translation>
+        <translation>Налады Vlc</translation>
     </message>
     <message>
         <location/>
         <source>Path to vlc:</source>
-        <translation type="unfinished">Шлях да Vlc:</translation>
+        <translation>Шлях да Vlc:</translation>
     </message>
     <message>
         <location/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Cache size:</source>
-        <translation type="unfinished">Памер кэша:</translation>
+        <translation>Памер кэша:</translation>
     </message>
     <message>
         <location/>
         <source> ms</source>
-        <translation type="unfinished"> мс</translation>
+        <translation> мс</translation>
     </message>
     <message>
         <location/>
         <source>Parameters:</source>
-        <translation type="unfinished">Параметры:</translation>
+        <translation>Параметры:</translation>
     </message>
     <message>
         <location filename="../vlcsettingsdialog.cpp" line="+27"/>
         <source>Choose vlc executable...</source>
-        <translation type="unfinished">Выберыце VLC exe файл ...</translation>
+        <translation>Выберыце VLC exe файл ...</translation>
     </message>
 </context>
 <context>
@@ -639,40 +653,54 @@ You can change it in Settings dialog.</source>
         <location line="+90"/>
         <location line="+148"/>
         <source>JSON parsing error!</source>
-        <translation type="unfinished">Памылка разбору JSON!</translation>
+        <translation>Памылка разбору JSON!</translation>
     </message>
 </context>
 <context>
     <name>YoutubeBar</name>
     <message>
-        <location filename="../youtubebar.cpp" line="+18"/>
+        <location filename="../youtubebar.cpp" line="+19"/>
         <source>Go to the first page</source>
-        <translation type="unfinished">Перайсці да першай старонцы</translation>
+        <translation>Перайсці да першай старонцы</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Go to previous page</source>
-        <translation type="unfinished">Перайсці да папярэдняй старонцы</translation>
+        <translation>Перайсці да папярэдняй старонцы</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Go to next page</source>
-        <translation type="unfinished">Перайсці да наступнай старонцы</translation>
+        <translation>Перайсці да наступнай старонцы</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Refresh the current page</source>
-        <translation type="unfinished">Абнавіць цяперашнюю старонку</translation>
+        <translation>Абнавіць цяперашнюю старонку</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Stop the current processing</source>
-        <translation type="unfinished">Спыніць апрацоўку</translation>
+        <translation>Спыніць апрацоўку</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+41"/>
         <source>Network error!</source>
-        <translation type="unfinished">Памылка сеткі!</translation>
+        <translation>Памылка сеткі!</translation>
+    </message>
+    <message>
+        <location line="+71"/>
+        <source>Start the playing of playlist</source>
+        <translation type="unfinished">Запуск прайгравання спісу</translation>
+    </message>
+    <message>
+        <source>Start playlist playing</source>
+        <translation type="vanished">Запуск прайгравання спісу</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Stop the playing</source>
+        <translation>Спыніць прайграванне</translation>
     </message>
 </context>
 <context>
@@ -680,82 +708,82 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../youtubecommentsdialog.ui"/>
         <source>Video information</source>
-        <translation type="unfinished">Iнфармацыя аб відэа</translation>
+        <translation>Iнфармацыя аб відэа</translation>
     </message>
     <message>
         <location/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Category:</source>
-        <translation type="unfinished">Катэгорыя:</translation>
+        <translation>Катэгорыя:</translation>
     </message>
     <message>
         <location/>
         <source>Rating:</source>
-        <translation type="unfinished">Ацэнка:</translation>
+        <translation>Ацэнка:</translation>
     </message>
     <message>
         <location/>
         <source>Uploader:</source>
-        <translation type="unfinished">Загрузнік:</translation>
+        <translation>Загрузнік:</translation>
     </message>
     <message>
         <location/>
         <source>Added:</source>
-        <translation type="unfinished">Даданы:</translation>
+        <translation>Даданы:</translation>
     </message>
     <message>
         <location/>
         <source>Length:</source>
-        <translation type="unfinished">Даўжыня:</translation>
+        <translation>Даўжыня:</translation>
     </message>
     <message>
         <location/>
         <source>URL:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Comments</source>
-        <translation type="unfinished">Каментары</translation>
+        <translation>Каментары</translation>
     </message>
     <message>
         <location/>
         <source>&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Go to previous page</source>
-        <translation type="unfinished">Перайсці да папярэдняй старонцы</translation>
+        <translation>Перайсці да папярэдняй старонцы</translation>
     </message>
     <message>
         <location/>
         <source>Go to next page</source>
-        <translation type="unfinished">Перайсці да наступнай старонцы</translation>
+        <translation>Перайсці да наступнай старонцы</translation>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation type="unfinished">Апісанне</translation>
+        <translation>Апісанне</translation>
     </message>
     <message>
         <location/>
         <source>Channel ID:</source>
-        <translation type="unfinished">ID канала:</translation>
+        <translation>ID канала:</translation>
     </message>
     <message>
         <location/>
         <source>Video ID:</source>
-        <translation type="unfinished">ID вiдэа:</translation>
+        <translation>ID вiдэа:</translation>
     </message>
 </context>
 <context>
@@ -767,7 +795,7 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../youtubecommentsreader.cpp" line="+67"/>
         <source>JSON parsing error!</source>
-        <translation type="unfinished">Памылка разбору JSON!</translation>
+        <translation>Памылка разбору JSON!</translation>
     </message>
 </context>
 <context>
@@ -775,27 +803,27 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../youtubelistmodel.cpp" line="+63"/>
         <source>Category:</source>
-        <translation type="unfinished">Катэгорыя:</translation>
+        <translation>Катэгорыя:</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Uploader:</source>
-        <translation type="unfinished">Загрузнік:</translation>
+        <translation>Загрузнік:</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Length:</source>
-        <translation type="unfinished">Даўжыня:</translation>
+        <translation>Даўжыня:</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Rating:</source>
-        <translation type="unfinished">Ацэнка:</translation>
+        <translation>Ацэнка:</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Added:</source>
-        <translation type="unfinished">Даданы:</translation>
+        <translation>Даданы:</translation>
     </message>
 </context>
 <context>
@@ -803,7 +831,7 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../youtubesearchwidget.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Search string</source>
@@ -868,22 +896,22 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../youtubesearchwidget.cpp" line="+16"/>
         <source>Search</source>
-        <translation type="unfinished">Пошук</translation>
+        <translation>Пошук</translation>
     </message>
     <message>
-        <location line="+126"/>
+        <location line="+127"/>
         <source>Error during downloading!</source>
-        <translation type="unfinished">Памылка пры загрузке!</translation>
+        <translation>Памылка пры загрузке!</translation>
     </message>
     <message>
         <location filename="../youtubesearchwidget.ui"/>
         <source>Search string:</source>
-        <translation type="unfinished">Радок пошуку:</translation>
+        <translation>Радок пошуку:</translation>
     </message>
     <message>
         <location/>
         <source>Category:</source>
-        <translation type="unfinished">Катэгорыя:</translation>
+        <translation>Катэгорыя:</translation>
     </message>
     <message>
         <source>Author:</source>
@@ -892,7 +920,7 @@ You can change it in Settings dialog.</source>
     <message>
         <location/>
         <source>Order by:</source>
-        <translation type="unfinished">Сартаваць па:</translation>
+        <translation>Сартаваць па:</translation>
     </message>
     <message>
         <source>view count</source>
@@ -901,7 +929,7 @@ You can change it in Settings dialog.</source>
     <message>
         <location/>
         <source>Time:</source>
-        <translation type="unfinished">Час:</translation>
+        <translation>Час:</translation>
     </message>
     <message>
         <source>all time</source>
@@ -930,17 +958,17 @@ You can change it in Settings dialog.</source>
     <message>
         <location/>
         <source>Previous terms</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Channel:</source>
-        <translation type="unfinished">Канал:</translation>
+        <translation>Канал:</translation>
     </message>
     <message>
         <location/>
         <source>Playlist:</source>
-        <translation type="unfinished">Плэйліст:</translation>
+        <translation>Плэйліст:</translation>
     </message>
 </context>
 <context>
@@ -948,7 +976,7 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../youtubesettingswidget.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -966,26 +994,26 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Калі ласка, усталюйце VLC або MPV!</translation>
     </message>
     <message>
-        <location filename="../youtubeview.cpp" line="+117"/>
+        <location filename="../youtubeview.cpp" line="+134"/>
         <location line="+10"/>
         <source>Download...</source>
-        <translation type="unfinished">Запампаваць...</translation>
+        <translation>Запампаваць...</translation>
     </message>
     <message>
         <location line="-7"/>
         <location line="+6"/>
         <source>Play with external player...</source>
-        <translation type="unfinished">Прайграць знешнім прайгравальнікам...</translation>
+        <translation>Прайграць знешнім прайгравальнікам...</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>View channel</source>
-        <translation type="unfinished">Прагляд канала</translation>
+        <translation>Прагляд канала</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Search videos on channel</source>
-        <translation type="unfinished">Пошук вiдэа на канале</translation>
+        <translation>Пошук вiдэа на канале</translation>
     </message>
     <message>
         <source>View uploader channel</source>
@@ -998,7 +1026,7 @@ You can change it in Settings dialog.</source>
     <message>
         <location line="+1"/>
         <source>Information...</source>
-        <translation type="unfinished">Інфармацыя...</translation>
+        <translation>Інфармацыя...</translation>
     </message>
 </context>
 <context>
@@ -1006,27 +1034,27 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../mpchcsettingsdialog.ui"/>
         <source>Parameters:</source>
-        <translation type="unfinished">Параметры:</translation>
+        <translation>Параметры:</translation>
     </message>
     <message>
         <location/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Path to MPC-HC:</source>
-        <translation type="unfinished">Шлях да MPC-HC:</translation>
+        <translation>Шлях да MPC-HC:</translation>
     </message>
     <message>
         <location filename="../mpchcsettingsdialog.cpp" line="+20"/>
         <source>Choose MPC-HC executable...</source>
-        <translation type="unfinished">Выберыце MPC-HC exe файл ...</translation>
+        <translation>Выберыце MPC-HC exe файл ...</translation>
     </message>
     <message>
         <location filename="../mpchcsettingsdialog.ui"/>
         <source>Vlc settings</source>
-        <translation type="unfinished">Налады Vlc</translation>
+        <translation>Налады Vlc</translation>
     </message>
 </context>
 <context>
@@ -1034,12 +1062,12 @@ You can change it in Settings dialog.</source>
     <message>
         <location filename="../youtubedownloader.cpp" line="+41"/>
         <source>Cannot start %1/aria2c!!!</source>
-        <translation type="unfinished">Не ўдаецца запусціць %1/aria2c!!!</translation>
+        <translation>Не ўдаецца запусціць %1/aria2c!!!</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Unknown aria&apos;s error!!!</source>
-        <translation type="unfinished">aria: Невядомая памылка!!!</translation>
+        <translation>aria: Невядомая памылка!!!</translation>
     </message>
 </context>
 </TS>
