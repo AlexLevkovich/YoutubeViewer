@@ -105,6 +105,7 @@ void YoutubeSearchWidget::on_channelEdit_textChanged(const QString &text) {
 
 void YoutubeSearchWidget::on_playlistShowPopup() {
     if (ui->playlistCombo->count() > 0) return;
+    if (ui->channelEdit->text().isEmpty()) return;
 
     QApplication::setOverrideCursor(Qt::WaitCursor);
 
