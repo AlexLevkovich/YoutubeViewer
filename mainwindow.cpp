@@ -7,6 +7,7 @@
 #include <QFileInfo>
 #include <QCloseEvent>
 #include "default_values.h"
+#include "errordialog.h"
 #include <QMessageBox>
 
 extern QSettings *theSettings;
@@ -22,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->centralWidget->addWidget(youtube_view);
     ui->centralWidget->addWidget(wait_view);
     connect(ui->mainToolBar,SIGNAL(search_completed(const QList<Media> &)),this,SLOT(search_completed(const QList<Media> &)));
+    connect(ui->mainToolBar,SIGNAL(play_stop_requested()),this,SLOT(play_stop_requested()));
     connect(ui->mainToolBar,SIGNAL(search_started()),this,SLOT(search_started()));
     connect(youtube_view,SIGNAL(download_request(const QUrl &,const QString &)),this,SLOT(adding_download(const QUrl &,const QString &)));
     connect(youtube_view,SIGNAL(search_requested(const QString &,
@@ -37,6 +39,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
                                                                YoutubeOrderBy,
                                                                YoutubeTime)));
     connect(youtube_view,SIGNAL(channel_videos_popup_requested(const QString &)),ui->mainToolBar,SLOT(show_search_videos_popup(const QString &)));
+    connect(youtube_view,SIGNAL(mediaListIsEmpty()),this,SLOT(mediaListIsEmpty()));
+    connect(youtube_view,SIGNAL(model_changed()),this,SLOT(mediaListIsEmpty()));
+    connect(youtube_view,SIGNAL(indexSelected(const QModelIndex &)),this,SLOT(indexSelected(const QModelIndex &)));
 
     ui->mainToolBar->init();
     wait_view->setVisible(false);
@@ -87,8 +92,6 @@ void MainWindow::set_window_size() {
 }
 
 void MainWindow::adding_download(const QUrl & url,const QString & filename) {
-    QString url_str = url.toString();
-
     QString save_name = filename;
     if (save_name.isEmpty()) save_name="video.mp4";
     QString ext = QFileInfo(save_name).suffix();
@@ -98,4 +101,39 @@ void MainWindow::adding_download(const QUrl & url,const QString & filename) {
         ui->mainToolBar->addNewDownload(url,fileName,theSettings->value("threads_count",THREADS_COUNT).toInt());
         theSettings->setValue("saved_download_path",QFileInfo(fileName).dir().path());
     }
+}
+
+void MainWindow::play_stop_requested() {
+    if (ui->mainToolBar->isPlaying()) {
+        ui->mainToolBar->setPlayMode(Play);
+        if (!m_play_errors.isEmpty()) ErrorDialog(tr("The last errors"),m_play_errors,this).exec();
+    }
+    else {
+        m_play_errors.clear();
+        ui->mainToolBar->setPlayMode(Stop);
+        QMetaObject::invokeMethod(youtube_view,"execPlayer",Qt::QueuedConnection,Q_ARG(const QObject *,this),Q_ARG(const char *,"play_next"));
+    }
+}
+
+void MainWindow::indexSelected(const QModelIndex & index) {
+    if (!ui->mainToolBar->isPlaying()) m_current_index = index;
+    if (ui->mainToolBar->playMode() == Disabled) ui->mainToolBar->setPlayMode(Play);
+}
+
+void MainWindow::mediaListIsEmpty() {
+    if (ui->mainToolBar->isPlaying()) ui->mainToolBar->setPlayMode(Disabled);
+    m_current_index = QModelIndex();
+}
+
+void MainWindow::play_next(const QString & error) {
+    if (!error.isEmpty()) m_play_errors += error + "\n";
+    if (!ui->mainToolBar->isPlaying()) return;
+    m_current_index = youtube_view->selectNextIndexAfter(m_current_index);
+    if (!m_current_index.isValid()) {
+        ui->mainToolBar->setPlayMode(Play);
+        if (!m_play_errors.isEmpty()) ErrorDialog(tr("The last errors"),m_play_errors,this).exec();
+        m_play_errors.clear();
+        return;
+    }
+    QMetaObject::invokeMethod(youtube_view,"execPlayer",Qt::QueuedConnection,Q_ARG(const QObject *,this),Q_ARG(const char *,"play_next"));
 }
