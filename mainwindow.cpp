@@ -59,6 +59,7 @@ void MainWindow::search_completed(const QList<Media> & medias) {
 }
 
 void MainWindow::search_started() {
+    ui->mainToolBar->setPlayMode(Disabled);
     youtube_view->setVisible(false);
     wait_view->setVisible(true);
 }
@@ -121,7 +122,7 @@ void MainWindow::indexSelected(const QModelIndex & index) {
 }
 
 void MainWindow::mediaListIsEmpty() {
-    if (ui->mainToolBar->isPlaying()) ui->mainToolBar->setPlayMode(Disabled);
+    ui->mainToolBar->setPlayMode(Disabled);
     m_current_index = QModelIndex();
 }
 
