@@ -170,16 +170,15 @@ YouTubeSearch::YouTubeSearch(QObject *parent) : QObject(parent) {
         ::exit(1);
         return;
     }
-    if (manager == NULL) {
-        manager = new QNetworkAccessManager(qApp);
-        connect(manager,SIGNAL(networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)),this,SLOT(on_network_accessible_changed(QNetworkAccessManager::NetworkAccessibility)));
-    }
+    if (manager == NULL) on_network_accessible_changed(QNetworkAccessManager::NotAccessible);
 }
 
 void YouTubeSearch::on_network_accessible_changed(QNetworkAccessManager::NetworkAccessibility accessible) {
-    if (accessible != QNetworkAccessManager::Accessible) {
-        manager->setNetworkAccessible(QNetworkAccessManager::Accessible);
-    }
+    if (accessible == QNetworkAccessManager::Accessible) return;
+
+    if (manager != NULL) delete manager;
+    manager = new QNetworkAccessManager(qApp);
+    connect(manager,SIGNAL(networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)),this,SLOT(on_network_accessible_changed(QNetworkAccessManager::NetworkAccessibility)),Qt::QueuedConnection);
 }
 
 YouTubeSearch::~YouTubeSearch() {}
