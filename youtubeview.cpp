@@ -203,5 +203,7 @@ QModelIndex YoutubeView::selectNextIndexAfter(const QModelIndex & index) {
     if (sel_model == NULL) return QModelIndex();
 
     sel_model->select(next,QItemSelectionModel::ClearAndSelect|QItemSelectionModel::Current);
+    scrollTo(next);
+
     return next;
 }
