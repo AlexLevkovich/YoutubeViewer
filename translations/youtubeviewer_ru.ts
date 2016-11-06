@@ -156,7 +156,7 @@
         <translation type="vanished">Ошибка при попытке вернуть список Категорий!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+76"/>
+        <location filename="../mainwindow.cpp" line="+77"/>
         <source>Exit confirmation</source>
         <translation>Подтверждение выхода</translation>
     </message>
@@ -578,7 +578,7 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YouTubeSearch</name>
     <message>
-        <location filename="../youtubesearch.cpp" line="+96"/>
+        <location filename="../youtubesearch.cpp" line="+95"/>
         <location line="+43"/>
         <location line="+168"/>
         <location line="+90"/>

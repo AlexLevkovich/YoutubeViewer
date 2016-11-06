@@ -156,7 +156,7 @@
         <translation type="obsolete">Памылка пры вяртаннi Катэгорый!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+76"/>
+        <location filename="../mainwindow.cpp" line="+77"/>
         <source>Exit confirmation</source>
         <translation>Пацверджанне выхаду</translation>
     </message>
@@ -647,7 +647,7 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Памылка XML: (%1)</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+96"/>
+        <location filename="../youtubesearch.cpp" line="+95"/>
         <location line="+43"/>
         <location line="+168"/>
         <location line="+90"/>
