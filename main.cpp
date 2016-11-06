@@ -40,6 +40,7 @@ int main(int argc, char *argv[]) {
 
     qRegisterMetaType<const QObject *>("const QObject *");
     qRegisterMetaType<const char *>("const char *");
+    qRegisterMetaType<QNetworkAccessManager::NetworkAccessibility>("QNetworkAccessManager::NetworkAccessibility");
     MINIMUM_DATE = QDateTimeEdit().minimumDateTime();
 
     QTranslator m_translator;
