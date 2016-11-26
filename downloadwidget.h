@@ -3,18 +3,20 @@
 
 #include <QWidget>
 #include <QUrl>
+#include "youtubesearch.h"
 
 namespace Ui {
 class DownloadWidget;
 }
 
-class YoutubeDownloader;
+class DownloaderInterface;
 
 class DownloadWidget : public QWidget {
     Q_OBJECT
 
 public:
-    explicit DownloadWidget(const QUrl & url,const QString & out_file_name,int threads_count,QWidget *parent = 0);
+    DownloadWidget(const QUrl & url,const QString & out_file_name,int threads_count,QWidget *parent = 0);
+    DownloadWidget(const Subtitle & subtitle,const QString & out_file_name,QWidget *parent = 0);
     ~DownloadWidget();
     bool isDownloading() const;
 
@@ -27,12 +29,15 @@ private slots:
 
 private:
     void init_new_downloader();
+    void init_new_subs_downloader();
+    void init();
 
     Ui::DownloadWidget *ui;
-    YoutubeDownloader * downloader;
+    DownloaderInterface * downloader;
     QString lastError;
     QUrl url;
     QString out_file_name;
+    Subtitle subtitle;
     int threads_count;
     bool is_terminated;
     bool is_paused;

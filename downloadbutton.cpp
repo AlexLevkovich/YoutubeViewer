@@ -20,6 +20,11 @@ void DownloadButton::addNewDownload(const QUrl & url,const QString & out_file_na
     showMenu();
 }
 
+void DownloadButton::addNewDownload(const Subtitle & subtitle,const QString & out_file_name) {
+    ((WidgetsMenu *)menu())->addWidgetItem(new DownloadWidget(subtitle,out_file_name));
+    showMenu();
+}
+
 bool DownloadButton::areDownloadsInProgress() {
     QList<QAction *> actions = ((WidgetsMenu *)menu())->actions();
     for (int i=0;i<actions.count();i++) {

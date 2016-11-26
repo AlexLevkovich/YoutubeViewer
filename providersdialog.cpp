@@ -29,10 +29,11 @@ const QString icons[PROVIDERS_COUNT] = {":/images/res/vlc.png",":/images/res/mpv
 #endif
                                        };
 
-ProvidersDialog::ProvidersDialog(const QUrl & video_url,const QUrl & audio_url,QWidget *parent) : QDialog(parent), ui(new Ui::ProvidersDialog) {
+ProvidersDialog::ProvidersDialog(const QUrl & video_url,const QUrl & audio_url,QWidget *parent,const QStringList & tempFilesNames) : QDialog(parent), ui(new Ui::ProvidersDialog) {
     ui->setupUi(this);
     m_video_url = video_url;
     m_audio_url = audio_url;
+    m_tempFilesNames = tempFilesNames;
 
     paths[0] = theSettings->value("vlc_path",VLC_PATH).toString();
     paths[1] = theSettings->value("mpv_path",MPV_PATH).toString();
@@ -95,27 +96,41 @@ void ProvidersDialog::on_buttonBox_rejected() {
 
 QString ProvidersDialog::command() const {
     bool show_fullscreen = theSettings->value("player_fullscreen",false).toBool();
+    QString ret;
     if (ui->providersList->currentItem() != NULL) {
         switch (ui->providersList->currentItem()->data(0,Qt::UserRole).toInt()) {
             case 0:
-            return "\"" + paths[0] + "\" --play-and-exit --no-video-title-show "+
+            {
+                ret = "\"" + paths[0] + "\" --play-and-exit --no-video-title-show "+
                     (show_fullscreen?"-f ":"")+
                     theSettings->value("vlc_parms","").toString()+" "+
                     QString("--network-caching %1").arg(theSettings->value("vlc_cache",VLC_CACHE_SIZE).toInt())+" "+
                     QString("\"%1\"").arg(m_video_url.toString()) +
-                    (!m_audio_url.isEmpty()?QString(" --input-slave \"%1\"").arg(m_audio_url.toString()):"");
+                    (!m_audio_url.isEmpty()?QString(" --input-slave \"%1\" ").arg(m_audio_url.toString()):" ");
+                for (int i=0;i<m_tempFilesNames.count();i++) {
+                    ret += QString("--sub-file \"%1\" ").arg(m_tempFilesNames[i]);
+                }
+                break;
+            }
             case 1:
-            return "\"" + paths[1] + "\" "+ theSettings->value("mpv_parms","").toString()+" "+
+            {
+                ret = "\"" + paths[1] + "\" "+ theSettings->value("mpv_parms","").toString()+" "+
                     (show_fullscreen?"--fullscreen ":"")+
                     QString("--ytdl-format=bestvideo+bestaudio --cache=%1").arg(theSettings->value("mpv_cache",MPV_CACHE_SIZE).toInt())+" "+
                     QString("\"%1\"").arg(m_video_url.toString()) +
-                    (!m_audio_url.isEmpty()?QString(" --audio-file \"%1\"").arg(m_audio_url.toString()):"");
+                    (!m_audio_url.isEmpty()?QString(" --audio-file \"%1\" ").arg(m_audio_url.toString()):" ");
+                for (int i=0;i<m_tempFilesNames.count();i++) {
+                    ret += QString("--sub-file \"%1\" ").arg(m_tempFilesNames[i]);
+                }
+                break;
+            }
             case 2:
-            return "\"" + paths[2] + "\" "+ theSettings->value("mpc_parms","").toString()+" "+
+                ret = "\"" + paths[2] + "\" "+ theSettings->value("mpc_parms","").toString()+" "+
                     (show_fullscreen?"/fullscreen ":"")+
                     QString("\"%1\"").arg(m_video_url.toString());
-            }
-
+                break;
+        }
+        return ret;
     }
     return QString();
 }

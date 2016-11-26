@@ -4,8 +4,9 @@
 #include <QObject>
 #include <QUrl>
 #include <QProcess>
+#include "downloaderinterface.h"
 
-class YoutubeDownloader : public QObject {
+class YoutubeDownloader : public DownloaderInterface {
     Q_OBJECT
 public:
     explicit YoutubeDownloader(const QUrl & url,const QString & out_file_name,int threads_count = 8,QObject *parent = 0);

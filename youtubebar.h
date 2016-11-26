@@ -21,6 +21,7 @@ public:
     explicit YoutubeBar(QWidget *parent = 0);
     void init();
     void addNewDownload(const QUrl & url,const QString & out_file_name,int threads_count);
+    void addNewDownload(const Subtitle & subtitle,const QString & out_file_name);
     bool areDownloadsInProgress();
     inline PlayMode playMode() const { return m_play_mode; }
     void setPlayMode(PlayMode play_mode);

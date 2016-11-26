@@ -34,6 +34,7 @@ private slots:
 signals:
     void model_changed();
     void download_request(const QUrl & url,const QString & title);
+    void download_subs_request(const Subtitle & subtitle,const QString & title);
     void search_requested(const QString & query,
                           const QString & category,
                           const QString & author,

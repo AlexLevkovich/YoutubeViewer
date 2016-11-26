@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network
+QT       += core gui network xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 win32 {
@@ -85,7 +85,10 @@ SOURCES += main.cpp\
     json.cpp \
     createnewyoutubekeydialog.cpp \
     ycombobox.cpp \
-    externalplayer.cpp
+    externalplayer.cpp \
+    xmltosrtconverter.cpp \
+    startextplayerhelper.cpp \
+    subtitlesdownloader.cpp
 
 HEADERS  += mainwindow.h \
     youtubeview.h \
@@ -121,7 +124,11 @@ HEADERS  += mainwindow.h \
     json.h \
     createnewyoutubekeydialog.h \
     ycombobox.h \
-    externalplayer.h
+    externalplayer.h \
+    xmltosrtconverter.h \
+    startextplayerhelper.h \
+    downloaderinterface.h \
+    subtitlesdownloader.h
 
 FORMS    += mainwindow.ui \
     searchwidget.ui \

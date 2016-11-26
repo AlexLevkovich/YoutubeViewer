@@ -120,6 +120,10 @@ void YoutubeBar::addNewDownload(const QUrl & url,const QString & out_file_name,i
     settings_widget->addNewDownload(url,out_file_name,threads_count);
 }
 
+void YoutubeBar::addNewDownload(const Subtitle & subtitle,const QString & out_file_name) {
+    settings_widget->addNewDownload(subtitle,out_file_name);
+}
+
 bool YoutubeBar::areDownloadsInProgress() {
     return settings_widget->areDownloadsInProgress();
 }

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QUrl>
+#include "youtubesearch.h"
 
 namespace Ui {
 class YoutubeSettingsWidget;
@@ -15,6 +16,7 @@ public:
     explicit YoutubeSettingsWidget(QWidget *parent = 0);
     ~YoutubeSettingsWidget();
     void addNewDownload(const QUrl & url,const QString & out_file_name,int threads_count);
+    void addNewDownload(const Subtitle & subtitle,const QString & out_file_name);
     bool areDownloadsInProgress();
 
 private:

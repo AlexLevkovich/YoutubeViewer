@@ -24,6 +24,7 @@ private slots:
     void search_started();
     void set_window_size();
     void adding_download(const QUrl & url,const QString & title);
+    void adding_subs_download(const Subtitle & subtitle,const QString & title);
     void play_stop_requested();
     void indexSelected(const QModelIndex & index);
     void mediaListIsEmpty();

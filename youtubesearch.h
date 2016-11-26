@@ -7,6 +7,7 @@
 #include <QByteArray>
 #include <QImage>
 #include <QMap>
+#include <QList>
 #include "json.h"
 
 extern QDateTime MINIMUM_DATE;
@@ -19,6 +20,8 @@ extern QDateTime MINIMUM_DATE;
 #define YOUTUBE_VIDEO_CATEGORIES "https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&key=%1&regionCode=US"
 #define YOUTUBE_PLAYLIST_SEARCH "https://www.googleapis.com/youtube/v3/search?part=snippet&type=playlist&key=%1&channelId=%2&maxResults=%3"
 #define YOUTUBE_PLAYLISTITEMS_SEARCH "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=%1&playlistId=%2&maxResults=%3"
+#define YOUTUBE_SUBLISTITEMS_SEARCH "https://www.youtube.com/api/timedtext?key=%1&v=%2&asrs=1&type=list&tlangs=1"
+#define YOUTUBE_SUBITEM_URL "https://www.youtube.com/api/timedtext?key=%1&v=%2&type=track&lang=%3"
 #define YOUTUBE_VIDEO_URLS_PROCESS "%2/youtube-dl --skip-download --print-json %1"
 #define CATEGORY_PART "&videoCategoryId=%1"
 #define ORDER_PART "&order=%1"
@@ -138,6 +141,43 @@ public:
     friend class Media;
 };
 
+class Subtitle {
+private:
+    QUrl m_url;
+    QString m_lang_code;
+    QString m_lang_original;
+    QByteArray m_data;
+
+    void download_data() const;
+    inline QUrl url() const {
+        return m_url;
+    }
+public:
+    Subtitle() {}
+    inline bool isValid() const {
+        return (m_url.isValid() && !m_lang_code.isEmpty() && !m_lang_original.isEmpty());
+    }
+    inline QString langCode() const {
+        return m_lang_code;
+    }
+    inline QString langOriginal() const {
+        return m_lang_original;
+    }
+    inline QByteArray data() const {
+        if (m_data.isEmpty()) download_data();
+        return m_data;
+    }
+    inline bool downloaded() const { return !m_data.isEmpty(); }
+    inline QString toString() const {
+        return m_lang_original;
+    }
+
+    friend class Media;
+};
+
+Q_DECLARE_METATYPE(Subtitle)
+
+
 class VideoInfo {
 private:
     QUrl m_url;
@@ -241,6 +281,8 @@ public:
     inline double rating() const { return m_rating; }
     inline QString category() const { return m_category; }
     inline QUrl comments_url() const { return m_comments_url; }
+    inline QList<Subtitle> subtitles() const { return m_subtitles; }
+    QList<QByteArray> subtitlesData() const;
     inline QList<VideoInfo> video_infos() const {
         ((Media *)this)->download_video_infos();
         return m_video_infos;
@@ -250,6 +292,7 @@ public:
 private:
     inline bool doIgnore() const { return m_ignore; }
     void download_video_infos();
+    void download_subtitles_list();
     void sort_video_urls_by_quality();
     static void download_video_categories();
     static bool sort_by_quality(const QUrl & url1, const QUrl & url2);
@@ -270,6 +313,7 @@ private:
     QString m_category;
     QUrl m_comments_url;
     QList<VideoInfo> m_video_infos;
+    QList<Subtitle> m_subtitles;
     bool m_ignore;
 };
 
@@ -329,7 +373,6 @@ signals:
     void completed(const QList<Media> & medias);
 
 private slots:
-    void on_network_accessible_changed(QNetworkAccessManager::NetworkAccessibility accessible);
     void was_error(QNetworkReply::NetworkError error);
     void get_categories_was_error(QNetworkReply::NetworkError error);
     void finished();
@@ -369,6 +412,8 @@ private:
     static QNetworkAccessManager * manager;
 
     friend class YPlayList;
+    friend class Media;
+    friend class Subtitle;
 };
 
 #endif // YOUTUBESEARCH_H

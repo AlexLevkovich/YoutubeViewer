@@ -8,6 +8,7 @@
 #include "default_values.h"
 #include <QDebug>
 #include "createnewyoutubekeydialog.h"
+#include <QXmlStreamReader>
 
 
 extern QSettings *theSettings;
@@ -85,6 +86,61 @@ VideoInfo Media::video(int height,const QString & vcodec) const {
     return VideoInfo();
 }
 
+void Subtitle::download_data() const {
+    QEventLoop loop;
+    QNetworkReply * subtitle_reply = YouTubeSearch::manager->get(QNetworkRequest(url()));
+    subtitle_reply->ignoreSslErrors();
+    QObject::connect(subtitle_reply,SIGNAL(finished()),&loop,SLOT(quit()));
+    loop.exec(QEventLoop::ExcludeUserInputEvents);
+
+    int statusCode = subtitle_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    if (statusCode >= 200 && statusCode < 300) {
+        ((Subtitle *)this)->m_data = subtitle_reply->readAll();
+    }
+
+    subtitle_reply->abort();
+    subtitle_reply->deleteLater();
+}
+
+QList<QByteArray> Media::subtitlesData() const {
+    QList<QByteArray> ret;
+    for (int i=0;i<m_subtitles.count();i++) {
+        ret.append(m_subtitles[i].data());
+    }
+    return ret;
+}
+
+void Media::download_subtitles_list() {
+    m_subtitles.clear();
+
+    Subtitle subtitle;
+    QEventLoop loop;
+    QString user_key = theSettings->value("youtube_user_key","").toString();
+    QNetworkReply * subtitle_reply = YouTubeSearch::manager->get(QNetworkRequest(QString(YOUTUBE_SUBLISTITEMS_SEARCH).arg(user_key).arg(id())));
+    subtitle_reply->ignoreSslErrors();
+    QObject::connect(subtitle_reply,SIGNAL(finished()),&loop,SLOT(quit()));
+    loop.exec(QEventLoop::ExcludeUserInputEvents);
+
+    int statusCode = subtitle_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    if (statusCode >= 200 && statusCode < 300) {
+        QXmlStreamReader xml_reader(subtitle_reply->readAll());
+        if (xml_reader.readNextStartElement() && xml_reader.name() == "transcript_list") {
+            while (xml_reader.readNextStartElement()) {
+                QXmlStreamAttributes attributes = xml_reader.attributes();
+                if (xml_reader.name() == "track" && attributes.hasAttribute("lang_code") && attributes.hasAttribute("lang_original")) {
+                    subtitle.m_lang_code = attributes.value("lang_code").toString();
+                    subtitle.m_url = QUrl(QString(YOUTUBE_SUBITEM_URL).arg(user_key).arg(id()).arg(subtitle.m_lang_code));
+                    subtitle.m_lang_original = attributes.value("lang_original").toString();
+                    m_subtitles.append(subtitle);
+                }
+            }
+        }
+    }
+
+    subtitle_reply->abort();
+    subtitle_reply->deleteLater();
+}
+
 void Media::download_video_infos() {
     if (!m_video_infos.isEmpty()) return;
 
@@ -122,6 +178,8 @@ void Media::download_video_infos() {
             m_video_infos[i] = info;
         }
     }
+
+    download_subtitles_list();
 }
 
 static const QString convertYoutubeDuration(const QString & str) {
@@ -170,15 +228,10 @@ YouTubeSearch::YouTubeSearch(QObject *parent) : QObject(parent) {
         ::exit(1);
         return;
     }
-    if (manager == NULL) on_network_accessible_changed(QNetworkAccessManager::NotAccessible);
-}
-
-void YouTubeSearch::on_network_accessible_changed(QNetworkAccessManager::NetworkAccessibility accessible) {
-    if (accessible == QNetworkAccessManager::Accessible) return;
-
-    if (manager != NULL) delete manager;
-    manager = new QNetworkAccessManager(qApp);
-    connect(manager,SIGNAL(networkAccessibleChanged(QNetworkAccessManager::NetworkAccessibility)),this,SLOT(on_network_accessible_changed(QNetworkAccessManager::NetworkAccessibility)),Qt::QueuedConnection);
+    if (manager == NULL) {
+        manager = new QNetworkAccessManager(qApp);
+        manager->setConfiguration(QNetworkConfigurationManager().defaultConfiguration());
+    }
 }
 
 YouTubeSearch::~YouTubeSearch() {}
@@ -204,7 +257,7 @@ bool YouTubeSearch::search(const QString & userKey,
     m_channel_id.clear();
     m_channel = channel;
 
-    if (m_categories.isEmpty()) download_categories(theSettings->value("youtube_user_key","").toString());
+    if (m_categories.isEmpty()) download_categories(m_userKey);
     else {
         m_categoryId = m_categories.indexOf(category);
         if (m_categoryId < 0) m_categoryId = 0;

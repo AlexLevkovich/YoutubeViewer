@@ -108,6 +108,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Se
     }
 
     ui->fullscreenCheck->setChecked(theSettings->value("player_fullscreen",false).toBool());
+    ui->subtitlesCheck->setChecked(theSettings->value("player_subtitles",true).toBool());
 }
 
 SettingsDialog::~SettingsDialog() {
@@ -129,6 +130,7 @@ void SettingsDialog::on_buttonBox_accepted() {
     theSettings->setValue("pref_video_size",ui->sizeCombo->itemText(ui->sizeCombo->currentIndex()));
     theSettings->setValue("pref_video_codec",ui->codecCombo->itemText(ui->codecCombo->currentIndex()));
     theSettings->setValue("player_fullscreen",ui->fullscreenCheck->isChecked());
+    theSettings->setValue("player_subtitles",ui->subtitlesCheck->isChecked());
     accept();
 }
 

@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->mainToolBar,SIGNAL(play_stop_requested()),this,SLOT(play_stop_requested()));
     connect(ui->mainToolBar,SIGNAL(search_started()),this,SLOT(search_started()));
     connect(youtube_view,SIGNAL(download_request(const QUrl &,const QString &)),this,SLOT(adding_download(const QUrl &,const QString &)));
+    connect(youtube_view,SIGNAL(download_subs_request(const Subtitle &,const QString &)),this,SLOT(adding_subs_download(const Subtitle &,const QString &)));
     connect(youtube_view,SIGNAL(search_requested(const QString &,
                                                  const QString &,
                                                  const QString &,
@@ -100,6 +101,18 @@ void MainWindow::adding_download(const QUrl & url,const QString & filename) {
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),theSettings->value("saved_download_path",QDir::homePath()).toString()+"/"+save_name,tr("Videos")+" (*."+ext+")");
     if (!fileName.isEmpty()) {
         ui->mainToolBar->addNewDownload(url,fileName,theSettings->value("threads_count",THREADS_COUNT).toInt());
+        theSettings->setValue("saved_download_path",QFileInfo(fileName).dir().path());
+    }
+}
+
+void MainWindow::adding_subs_download(const Subtitle & subtitle,const QString & filename) {
+    QString save_name = filename;
+    if (save_name.isEmpty()) save_name="video.srt";
+    QString ext = QFileInfo(save_name).suffix();
+
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),theSettings->value("saved_download_path",QDir::homePath()).toString()+"/"+save_name,tr("Subtitles")+" (*."+ext+")");
+    if (!fileName.isEmpty()) {
+        ui->mainToolBar->addNewDownload(subtitle,fileName);
         theSettings->setValue("saved_download_path",QFileInfo(fileName).dir().path());
     }
 }

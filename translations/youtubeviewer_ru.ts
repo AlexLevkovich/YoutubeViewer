@@ -48,12 +48,12 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../downloadwidget.cpp" line="+65"/>
+        <location filename="../downloadwidget.cpp" line="+96"/>
         <source>/s</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+8"/>
         <source>Error during downloading!</source>
         <translation>Ошибка во время загрузки!</translation>
     </message>
@@ -156,7 +156,7 @@
         <translation type="vanished">Ошибка при попытке вернуть список Категорий!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+77"/>
+        <location filename="../mainwindow.cpp" line="+78"/>
         <source>Exit confirmation</source>
         <translation>Подтверждение выхода</translation>
     </message>
@@ -169,13 +169,19 @@ Are you sure about exiting?</source>
     </message>
     <message>
         <location line="+23"/>
+        <location line="+12"/>
         <source>Save File</source>
         <translation>Сохранить в файл</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-12"/>
         <source>Videos</source>
         <translation>Видео</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Subtitles</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
@@ -240,7 +246,7 @@ Are you sure about exiting?</source>
         <translation>Выберите проигрыватель</translation>
     </message>
     <message>
-        <location filename="../providersdialog.cpp" line="+82"/>
+        <location filename="../providersdialog.cpp" line="+83"/>
         <source>Cannot start the player...</source>
         <translation>Не удается запустить проигрыватель...</translation>
     </message>
@@ -302,7 +308,7 @@ Are you sure about exiting?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../providersdialog.cpp" line="-67"/>
+        <location filename="../providersdialog.cpp" line="-68"/>
         <source>VLC media player</source>
         <translation>Проигрыватель VLC</translation>
     </message>
@@ -317,7 +323,7 @@ Are you sure about exiting?</source>
         <translation>Проигрыватель MPC-HC</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+29"/>
+        <location filename="../youtubesearch.cpp" line="+30"/>
         <source>Relevance</source>
         <translation>Релевантность</translation>
     </message>
@@ -357,7 +363,7 @@ Are you sure about exiting?</source>
         <translation>После</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+160"/>
         <source>days</source>
         <translation>дней</translation>
     </message>
@@ -378,7 +384,7 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Без видео</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.h" line="+126"/>
+        <location filename="../youtubesearch.h" line="+129"/>
         <source>No audio</source>
         <translation>Без звука</translation>
     </message>
@@ -536,6 +542,11 @@ You can change it in Settings dialog.</source>
         <source>Open in fullscreen</source>
         <translation>Открывать в полноэкранном режиме</translation>
     </message>
+    <message>
+        <location/>
+        <source>Enable downloading subtitles</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VlcSettingsDialog</name>
@@ -578,7 +589,7 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YouTubeSearch</name>
     <message>
-        <location filename="../youtubesearch.cpp" line="+95"/>
+        <location filename="../youtubesearch.cpp" line="+90"/>
         <location line="+43"/>
         <location line="+168"/>
         <location line="+90"/>
@@ -605,7 +616,7 @@ You can change it in Settings dialog.</source>
         <translation>Перейти к следующей странице</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+118"/>
         <source>Start the playing of playlist</source>
         <translation>Запуск воспроизведения списка</translation>
     </message>
@@ -615,7 +626,7 @@ You can change it in Settings dialog.</source>
         <translation>Остановить воспроизведение</translation>
     </message>
     <message>
-        <location line="-118"/>
+        <location line="-122"/>
         <source>Refresh the current page</source>
         <translation>Обновить текущую страницу</translation>
     </message>
@@ -825,19 +836,24 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YoutubeView</name>
     <message>
-        <location filename="../youtubeview.cpp" line="+134"/>
-        <location line="+10"/>
+        <location filename="../youtubeview.cpp" line="+142"/>
+        <location line="+4"/>
         <source>Download...</source>
         <translation>Скачать...</translation>
     </message>
     <message>
-        <location line="-7"/>
-        <location line="+6"/>
+        <location line="-5"/>
+        <location line="+7"/>
         <source>Play with external player...</source>
         <translation>Проиграть внешним проигрывателем...</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+2"/>
+        <source>Subtitles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
         <source>View channel</source>
         <translation>Просмотр канала</translation>
     </message>
@@ -899,6 +915,14 @@ You can change it in Settings dialog.</source>
         <location line="+6"/>
         <source>Unknown aria&apos;s error!!!</source>
         <translation>aria: Неизвестная ошибка!!!</translation>
+    </message>
+</context>
+<context>
+    <name>SubtitlesDownloader</name>
+    <message>
+        <location filename="../subtitlesdownloader.cpp" line="+24"/>
+        <source>Netwotk failure!!!</source>
+        <translation type="unfinished">Ошибка сети!!!</translation>
     </message>
 </context>
 </TS>

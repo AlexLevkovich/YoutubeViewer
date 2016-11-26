@@ -6,10 +6,8 @@
 #include <QKeyEvent>
 #include <QSettings>
 #include <QMenu>
-#include "externalplayer.h"
 #include "youtubecommentsdialog.h"
-#include "providersdialog.h"
-
+#include "startextplayerhelper.h"
 
 extern QSettings *theSettings;
 
@@ -82,9 +80,7 @@ void YoutubeView::execPlayer(const QUrl & video_url,const QUrl & audio_url) {
         m_audio_url = QUrl();
     }
 
-    ProvidersDialog providers(m_video_url,m_audio_url,this);
-    if (providers.exec() == QDialog::Rejected) return;
-    new ExternalPlayer(providers.command());
+    new StartExtPlayerHelper(m_video_url,m_audio_url,this,media->subtitlesData());
 }
 
 void YoutubeView::execPlayer(const QObject *receiver,const char * execute_at_exit) {
@@ -97,9 +93,7 @@ void YoutubeView::execPlayer(const QObject *receiver,const char * execute_at_exi
     VideoInfo info_best = media->best_video();
     QApplication::restoreOverrideCursor();
 
-    ProvidersDialog providers(info_best.url(),info_best.audio_url(),this);
-    if (providers.exec() == QDialog::Rejected) return;
-    new ExternalPlayer(providers.command(),receiver,execute_at_exit);
+    new StartExtPlayerHelper(info_best.url(),info_best.audio_url(),this,media->subtitlesData(),receiver,execute_at_exit);
 }
 
 void YoutubeView::download(const QUrl & url) {
@@ -107,12 +101,18 @@ void YoutubeView::download(const QUrl & url) {
     QModelIndexList sel_list = selectionModel()->selectedRows();
     if (sel_list.count() <= 0) return;
 
-    QUrl m_url = url;
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
     QApplication::setOverrideCursor(Qt::WaitCursor);
     VideoInfo info = media->best_video();
     QApplication::restoreOverrideCursor();
+
     QString m_filename = info.filename();
+    if (source_object->property("subtitles").isValid()) {
+         emit download_subs_request(source_object->property("subtitles").value<Subtitle>(),QFileInfo(m_filename).baseName() + ".srt");
+        return;
+    }
+
+    QUrl m_url = url;
     if (!url.isValid()) m_url = info.url();
     if (!url.isValid() && (source_object != NULL) && source_object->property("video_url").isValid()) {
         m_url = source_object->property("video_url").toUrl();
@@ -130,30 +130,39 @@ void YoutubeView::contextMenuEvent(QContextMenuEvent * e) {
 
     QMenu menu(this);
     QMenu download_menu;
-    download_menu.setIcon(QIcon(":/images/res/download.png"));
-    download_menu.setTitle(tr("Download..."));
+    QMenu subtitles_menu;
     QMenu playerMenu;
-    playerMenu.setIcon(QIcon(":/images/res/media-playback-start.png"));
-    playerMenu.setTitle(tr("Play with external player..."));
     Media * media = (Media *)sel_list.at(0).data(Qt::UserRole).value<void *>();
     QApplication::setOverrideCursor(Qt::WaitCursor);
     QList<VideoInfo> real_links = media->video_infos();
+    QList<Subtitle> subtitles = media->subtitles();
     QApplication::restoreOverrideCursor();
     if (real_links.count() <= 0) {
         menu.addAction(QIcon(":/images/res/media-playback-start.png"),tr("Play with external player..."),this,SLOT(execPlayer()));
         menu.addAction(QIcon(":/images/res/download.png"),tr("Download..."),this,SLOT(download()));
     }
     else {
-        for (int i=0;i<real_links.count();i++) {
+        download_menu.setIcon(QIcon(":/images/res/download.png"));
+        download_menu.setTitle(tr("Download..."));
+        playerMenu.setIcon(QIcon(":/images/res/media-playback-start.png"));
+        playerMenu.setTitle(tr("Play with external player..."));
+        subtitles_menu.setIcon(QIcon(":/images/res/subtitles.png"));
+        subtitles_menu.setTitle(tr("Subtitles"));
+        if (subtitles.count() > 0) download_menu.addMenu(&subtitles_menu);
+        int i;
+        for (i=0;i<real_links.count();i++) {
             if (!real_links[i].isAudioOnly()) {
                 QAction * action = playerMenu.addAction(QIcon(":/images/res/tool-animator.png"),real_links[i].desc().toString(),this,SLOT(execPlayer()));
                 action->setProperty("video_url",real_links[i].url());
                 action->setProperty("audio_url",real_links[i].audio_url());
             }
-            QAction *  action = download_menu.addAction(QIcon(":/images/res/tool-animator.png"),real_links[i].desc().toStringFull(),this,SLOT(download()));
+            QAction *  action = download_menu.addAction(QIcon(!real_links[i].isAudioOnly()?":/images/res/tool-animator.png":":/images/res/audio-volume-high.png"),real_links[i].desc().toStringFull(),this,SLOT(download()));
             action->setProperty("video_url",real_links[i].url());
             action->setProperty("video_filename",real_links[i].filename());
-            action->setProperty("audio_url",real_links[i].audio_url());
+        }
+        for (i=0;i<subtitles.count();i++) {
+            QAction *  action = subtitles_menu.addAction(QIcon(":/images/res/srt.png"),subtitles[i].toString(),this,SLOT(download()));
+            action->setProperty("subtitles",QVariant::fromValue<Subtitle>(subtitles[i]));
         }
         menu.addMenu(&playerMenu);
         menu.addMenu(&download_menu);

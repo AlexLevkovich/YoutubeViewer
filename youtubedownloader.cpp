@@ -6,13 +6,11 @@
 
 extern QString TOOLS_BIN_PATH;
 
-YoutubeDownloader::YoutubeDownloader(const QUrl & url,const QString & out_file_name,int threads_count,QObject *parent) : QObject(parent) {
+YoutubeDownloader::YoutubeDownloader(const QUrl & url,const QString & out_file_name,int threads_count,QObject *parent) : DownloaderInterface(out_file_name,parent) {
     m_threads_count = threads_count;
     m_url = url;
     is_working = false;
 
-    m_file_name = QFileInfo(out_file_name).fileName();
-    m_dir_name = QFileInfo(out_file_name).dir().path();
     downloader.setEnvironment(downloader.systemEnvironment() << "LANG=C");
     connect(&downloader,SIGNAL(started()),this,SLOT(aria_started()));
     connect(&downloader,SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(aria_finished(int,QProcess::ExitStatus)));
@@ -29,6 +27,8 @@ void YoutubeDownloader::aria_started() {
 }
 
 void YoutubeDownloader::start() {
+    m_file_name = QFileInfo(outputFileName()).fileName();
+    m_dir_name = QFileInfo(outputFileName()).dir().path();
 #ifndef WIN32
     downloader.start(QString("%1/stdbuf -i0 -o0 -e0 %1/aria2c --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(m_threads_count)+"\""+m_url.toString()+"\" -o \""+m_file_name+"\" --dir=\""+m_dir_name+"\"");
 #else

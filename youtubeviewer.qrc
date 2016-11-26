@@ -25,5 +25,8 @@
         <file>res/mpc-hc.png</file>
         <file>res/find-user.png</file>
         <file>res/find-user-video.png</file>
+        <file>res/subtitles.png</file>
+        <file>res/audio-volume-high.png</file>
+        <file>res/srt.png</file>
     </qresource>
 </RCC>

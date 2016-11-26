@@ -48,12 +48,12 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../downloadwidget.cpp" line="+65"/>
+        <location filename="../downloadwidget.cpp" line="+96"/>
         <source>/s</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+8"/>
         <source>Error during downloading!</source>
         <translation>Памылка пры загрузке!</translation>
     </message>
@@ -156,7 +156,7 @@
         <translation type="obsolete">Памылка пры вяртаннi Катэгорый!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="+77"/>
+        <location filename="../mainwindow.cpp" line="+78"/>
         <source>Exit confirmation</source>
         <translation>Пацверджанне выхаду</translation>
     </message>
@@ -169,13 +169,19 @@ Are you sure about exiting?</source>
     </message>
     <message>
         <location line="+23"/>
+        <location line="+12"/>
         <source>Save File</source>
         <translation>Захаваць у файл</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-12"/>
         <source>Videos</source>
         <translation>Відэа</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Subtitles</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
@@ -244,7 +250,7 @@ Are you sure about exiting?</source>
         <translation>Выберыце прайгравальнік</translation>
     </message>
     <message>
-        <location filename="../providersdialog.cpp" line="+82"/>
+        <location filename="../providersdialog.cpp" line="+83"/>
         <source>Cannot start the player...</source>
         <translation>Не ўдаецца запусціць прайгравальнік...</translation>
     </message>
@@ -306,7 +312,7 @@ Are you sure about exiting?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../providersdialog.cpp" line="-67"/>
+        <location filename="../providersdialog.cpp" line="-68"/>
         <source>VLC media player</source>
         <translation>Прайгравальнік VLC</translation>
     </message>
@@ -321,7 +327,7 @@ Are you sure about exiting?</source>
         <translation>Прайгравальнік MPC-HC</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+29"/>
+        <location filename="../youtubesearch.cpp" line="+30"/>
         <source>Relevance</source>
         <translation>Дарэчнасць</translation>
     </message>
@@ -361,7 +367,7 @@ Are you sure about exiting?</source>
         <translation>Пасля</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+160"/>
         <source>days</source>
         <translation>дзён</translation>
     </message>
@@ -382,7 +388,7 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Без відэа</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.h" line="+126"/>
+        <location filename="../youtubesearch.h" line="+129"/>
         <source>No audio</source>
         <translation>Без гуку</translation>
     </message>
@@ -601,6 +607,11 @@ You can change it in Settings dialog.</source>
         <source>Open in fullscreen</source>
         <translation>Адкрываць у поўнаэкранным рэжыме</translation>
     </message>
+    <message>
+        <location/>
+        <source>Enable downloading subtitles</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VlcSettingsDialog</name>
@@ -647,7 +658,7 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Памылка XML: (%1)</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+95"/>
+        <location filename="../youtubesearch.cpp" line="+90"/>
         <location line="+43"/>
         <location line="+168"/>
         <location line="+90"/>
@@ -689,7 +700,7 @@ You can change it in Settings dialog.</source>
         <translation>Памылка сеткі!</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+75"/>
         <source>Start the playing of playlist</source>
         <translation type="unfinished">Запуск прайгравання спісу</translation>
     </message>
@@ -994,19 +1005,24 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Калі ласка, усталюйце VLC або MPV!</translation>
     </message>
     <message>
-        <location filename="../youtubeview.cpp" line="+134"/>
-        <location line="+10"/>
+        <location filename="../youtubeview.cpp" line="+142"/>
+        <location line="+4"/>
         <source>Download...</source>
         <translation>Запампаваць...</translation>
     </message>
     <message>
-        <location line="-7"/>
-        <location line="+6"/>
+        <location line="-5"/>
+        <location line="+7"/>
         <source>Play with external player...</source>
         <translation>Прайграць знешнім прайгравальнікам...</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+2"/>
+        <source>Subtitles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
         <source>View channel</source>
         <translation>Прагляд канала</translation>
     </message>
@@ -1068,6 +1084,14 @@ You can change it in Settings dialog.</source>
         <location line="+6"/>
         <source>Unknown aria&apos;s error!!!</source>
         <translation>aria: Невядомая памылка!!!</translation>
+    </message>
+</context>
+<context>
+    <name>SubtitlesDownloader</name>
+    <message>
+        <location filename="../subtitlesdownloader.cpp" line="+24"/>
+        <source>Netwotk failure!!!</source>
+        <translation type="unfinished">Збой сеткі!!!</translation>
     </message>
 </context>
 </TS>
