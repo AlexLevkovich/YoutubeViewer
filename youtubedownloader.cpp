@@ -30,9 +30,9 @@ void YoutubeDownloader::start() {
     m_file_name = QFileInfo(outputFileName()).fileName();
     m_dir_name = QFileInfo(outputFileName()).dir().path();
 #ifndef WIN32
-    downloader.start(QString("%1/stdbuf -i0 -o0 -e0 %1/aria2c --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(m_threads_count)+"\""+m_url.toString()+"\" -o \""+m_file_name+"\" --dir=\""+m_dir_name+"\"");
+    downloader.start(QString("%1/stdbuf -i0 -o0 -e0 %1/aria2c --async-dns=false --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(m_threads_count)+"\""+m_url.toString()+"\" -o \""+m_file_name+"\" --dir=\""+m_dir_name+"\"");
 #else
-    downloader.start(QString("%1/aria2c --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(m_threads_count)+"\""+m_url.toString()+"\" -o \""+m_file_name+"\" --dir=\""+m_dir_name+"\"");
+    downloader.start(QString("%1/aria2c --async-dns=false --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(m_threads_count)+"\""+m_url.toString()+"\" -o \""+m_file_name+"\" --dir=\""+m_dir_name+"\"");
 #endif
 }
 
