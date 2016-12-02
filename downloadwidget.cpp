@@ -3,7 +3,7 @@
 #include "youtubedownloader.h"
 #include "subtitlesdownloader.h"
 #include "byteshumanizer.h"
-#include <QMessageBox>
+#include "errordialog.h"
 #include <QMainWindow>
 #include <QDebug>
 
@@ -101,7 +101,7 @@ void DownloadWidget::download_progress(qreal bytes_downloaded,qreal length,int p
 }
 
 void DownloadWidget::on_errorButton_clicked() {
-    QMessageBox::critical(findMainWindow(),tr("Error during downloading!"),lastError);
+    ErrorDialog(tr("Error during downloading!"),lastError,findMainWindow(),"YoutubeViewer").exec();
 }
 
 void DownloadWidget::on_terminateButton_clicked() {

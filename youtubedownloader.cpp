@@ -3,6 +3,8 @@
 #include "default_values.h"
 #include <QFileInfo>
 #include <QDir>
+#include <QRegExp>
+#include <QBuffer>
 
 extern QString TOOLS_BIN_PATH;
 
@@ -30,9 +32,9 @@ void YoutubeDownloader::start() {
     m_file_name = QFileInfo(outputFileName()).fileName();
     m_dir_name = QFileInfo(outputFileName()).dir().path();
 #ifndef WIN32
-    downloader.start(QString("%1/stdbuf -i0 -o0 -e0 %1/aria2c --async-dns=false --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(m_threads_count)+"\""+m_url.toString()+"\" -o \""+m_file_name+"\" --dir=\""+m_dir_name+"\"");
+    downloader.start(QString("%1/stdbuf -i0 -o0 -e0 %1/aria2c --async-dns=false --enable-color=false --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(m_threads_count)+"\""+m_url.toString()+"\" -o \""+m_file_name+"\" --dir=\""+m_dir_name+"\"");
 #else
-    downloader.start(QString("%1/aria2c --async-dns=false --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(m_threads_count)+"\""+m_url.toString()+"\" -o \""+m_file_name+"\" --dir=\""+m_dir_name+"\"");
+    downloader.start(QString("%1/aria2c --async-dns=false --enable-color=false --check-certificate=false --summary-interval=1 -c -j %2 -x %2 -s %2 -k 1M ").arg(TOOLS_BIN_PATH).arg(m_threads_count)+"\""+m_url.toString()+"\" -o \""+m_file_name+"\" --dir=\""+m_dir_name+"\"");
 #endif
 }
 
@@ -43,16 +45,38 @@ void YoutubeDownloader::aria_error() {
 
 void YoutubeDownloader::aria_finished(int code,QProcess::ExitStatus /*status*/) {
     if (code == 0) aria_ready_read();
-    QString error = downloader.readAllStandardError();
-    if (error.isEmpty() && (code != 0)) error = tr("Unknown aria's error!!!");
+    else {
+        error = error + QString::fromLocal8Bit(downloader.readAllStandardError());
+        if (error.isEmpty() && (code != 0)) error = tr("Unknown aria's error!!!");
+    }
     is_working = false;
     emit finished((code == 0)?"":error);
 }
 
 void YoutubeDownloader::aria_ready_read() {
-    const QStringList output = QString (downloader.readAllStandardOutput()).split('\n');
+    QByteArray output = output_remain + downloader.readAllStandardOutput();
+    output_remain.clear();
 
-    foreach (QString line,output) {
+    QString line;
+    QByteArray line_arr;
+    QBuffer output_buff(&output);
+    output_buff.open(QIODevice::ReadOnly);
+    while (!output_buff.atEnd()) {
+        line_arr = output_buff.readLine();
+        if (!line_arr.endsWith('\n') && output_buff.atEnd()) {
+            output_remain += line_arr;
+            break;
+        }
+
+        line = QString::fromLocal8Bit(!line_arr.endsWith('\n')?line_arr:line_arr.left(line_arr.length()-1));
+
+        QRegExp date_reg("(\\d{1,2})/(\\d{2}) (\\d{1,2}):(\\d{2}):(\\d{2})");
+        if (((date_reg.indexIn(line) >= 0) && line.contains(" [ERROR] ")) ||
+            (line.contains("  -> ") && line.contains(" errorCode="))) {
+            error += line + '\n';
+            continue;
+        }
+
         if (line.startsWith("[") && line.endsWith("]")) {
             QStringList parms = line.split(" ");
             if (parms.count() < 5) continue;

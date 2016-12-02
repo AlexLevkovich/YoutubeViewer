@@ -32,6 +32,8 @@ private:
     QString m_dir_name;
     QUrl m_url;
     bool is_working;
+    QString error;
+    QByteArray output_remain;
 };
 
 #endif // YOUTUBEDOWNLOADER_H
