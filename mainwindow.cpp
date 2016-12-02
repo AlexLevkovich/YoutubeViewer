@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->centralWidget->addWidget(youtube_view);
     ui->centralWidget->addWidget(wait_view);
     connect(ui->mainToolBar,SIGNAL(search_completed(const QList<Media> &)),this,SLOT(search_completed(const QList<Media> &)));
-    connect(ui->mainToolBar,SIGNAL(play_stop_requested()),this,SLOT(play_stop_requested()));
+    connect(ui->mainToolBar,SIGNAL(play_stop_requested(ButtonPlayMode)),this,SLOT(play_stop_requested(ButtonPlayMode)));
     connect(ui->mainToolBar,SIGNAL(search_started()),this,SLOT(search_started()));
     connect(youtube_view,SIGNAL(download_request(const QUrl &,const QString &)),this,SLOT(adding_download(const QUrl &,const QString &)));
     connect(youtube_view,SIGNAL(download_subs_request(const Subtitle &,const QString &)),this,SLOT(adding_subs_download(const Subtitle &,const QString &)));
@@ -117,21 +117,21 @@ void MainWindow::adding_subs_download(const Subtitle & subtitle,const QString & 
     }
 }
 
-void MainWindow::play_stop_requested() {
+void MainWindow::play_stop_requested(ButtonPlayMode mode) {
     if (ui->mainToolBar->isPlaying()) {
-        ui->mainToolBar->setPlayMode(Play);
+        ui->mainToolBar->setPlayMode(PlayDown);
         if (!m_play_errors.isEmpty()) ErrorDialog(tr("The last errors"),m_play_errors,this).exec();
     }
     else {
         m_play_errors.clear();
         ui->mainToolBar->setPlayMode(Stop);
-        QMetaObject::invokeMethod(youtube_view,"execPlayer",Qt::QueuedConnection,Q_ARG(const QObject *,this),Q_ARG(const char *,"play_next"));
+        QMetaObject::invokeMethod(youtube_view,"execPlayer",Qt::QueuedConnection,Q_ARG(const QObject *,this),Q_ARG(const char *,(mode == PlayDown)?"play_next":"play_prev"));
     }
 }
 
 void MainWindow::indexSelected(const QModelIndex & index) {
     if (!ui->mainToolBar->isPlaying()) m_current_index = index;
-    if (ui->mainToolBar->playMode() == Disabled) ui->mainToolBar->setPlayMode(Play);
+    if (ui->mainToolBar->playMode() == Disabled) ui->mainToolBar->setPlayMode(PlayDown);
 }
 
 void MainWindow::mediaListIsEmpty() {
@@ -144,10 +144,23 @@ void MainWindow::play_next(const QString & error) {
     if (!ui->mainToolBar->isPlaying()) return;
     m_current_index = youtube_view->selectNextIndexAfter(m_current_index);
     if (!m_current_index.isValid()) {
-        ui->mainToolBar->setPlayMode(Play);
+        ui->mainToolBar->setPlayMode(PlayDown);
         if (!m_play_errors.isEmpty()) ErrorDialog(tr("The last errors"),m_play_errors,this).exec();
         m_play_errors.clear();
         return;
     }
     QMetaObject::invokeMethod(youtube_view,"execPlayer",Qt::QueuedConnection,Q_ARG(const QObject *,this),Q_ARG(const char *,"play_next"));
+}
+
+void MainWindow::play_prev(const QString & error) {
+    if (!error.isEmpty()) m_play_errors += error + "\n";
+    if (!ui->mainToolBar->isPlaying()) return;
+    m_current_index = youtube_view->selectPrevIndexBefore(m_current_index);
+    if (!m_current_index.isValid()) {
+        ui->mainToolBar->setPlayMode(PlayUp);
+        if (!m_play_errors.isEmpty()) ErrorDialog(tr("The last errors"),m_play_errors,this).exec();
+        m_play_errors.clear();
+        return;
+    }
+    QMetaObject::invokeMethod(youtube_view,"execPlayer",Qt::QueuedConnection,Q_ARG(const QObject *,this),Q_ARG(const char *,"play_prev"));
 }

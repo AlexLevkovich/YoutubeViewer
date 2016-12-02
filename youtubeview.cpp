@@ -216,3 +216,18 @@ QModelIndex YoutubeView::selectNextIndexAfter(const QModelIndex & index) {
 
     return next;
 }
+
+QModelIndex YoutubeView::selectPrevIndexBefore(const QModelIndex & index) {
+    if ((index.row() - 1) < 0) return QModelIndex();
+
+    QModelIndex prev = model()->index(index.row()-1,index.column());
+    if (!prev.isValid()) return QModelIndex();
+
+    QItemSelectionModel * sel_model = selectionModel();
+    if (sel_model == NULL) return QModelIndex();
+
+    sel_model->select(prev,QItemSelectionModel::ClearAndSelect|QItemSelectionModel::Current);
+    scrollTo(prev);
+
+    return prev;
+}

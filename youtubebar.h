@@ -8,12 +8,15 @@
 class QAction;
 class SearchWidget;
 class YoutubeSettingsWidget;
+class QToolButton;
 
-enum PlayMode {
-    Disabled = 0,
-    Play,
-    Stop
+enum ButtonPlayMode {
+    PlayDown = 0,
+    PlayUp,
+    Stop,
+    Disabled
 };
+
 
 class YoutubeBar : public QToolBar {
     Q_OBJECT
@@ -23,8 +26,8 @@ public:
     void addNewDownload(const QUrl & url,const QString & out_file_name,int threads_count);
     void addNewDownload(const Subtitle & subtitle,const QString & out_file_name);
     bool areDownloadsInProgress();
-    inline PlayMode playMode() const { return m_play_mode; }
-    void setPlayMode(PlayMode play_mode);
+    inline ButtonPlayMode playMode() const { return m_play_mode; }
+    void setPlayMode(ButtonPlayMode play_mode);
     inline bool isPlaying() const { return m_play_mode == Stop; }
 
 signals:
@@ -36,9 +39,12 @@ signals:
                           const QString & playlist_id,
                           YoutubeOrderBy orderby,
                           YoutubeTime time);
-    void play_stop_requested();
+    void play_stop_requested(ButtonPlayMode mode);
 
 private slots:
+    void start_down_action_clicked();
+    void start_up_action_clicked();
+    void start_stop_button_clicked();
     void show_search_videos_popup(const QString & channel = QString());
     void search_was_completed(const QList<Media> & medias);
     void search_was_started();
@@ -64,12 +70,13 @@ private:
     QAction * m_refresh_page;
     QAction * m_stop_processing;
     QAction * m_play;
+    QToolButton * start_stop_button;
     bool was_error;
     SearchWidget * search_widget;
     YoutubeSettingsWidget * settings_widget;
     int current_page;
     QString current_page_token;
-    PlayMode m_play_mode;
+    ButtonPlayMode m_play_mode;
 };
 
 #endif // YOUTUBEBAR_H

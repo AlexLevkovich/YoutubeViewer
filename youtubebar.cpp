@@ -4,6 +4,8 @@
 #include "youtubesettingswidget.h"
 #include <QMessageBox>
 #include <QAction>
+#include <QMenu>
+#include <QToolButton>
 
 extern QSettings *theSettings;
 
@@ -23,7 +25,15 @@ void YoutubeBar::init() {
     (m_refresh_page = addAction(QIcon(":/images/res/view-refresh.png"),"",this,SLOT(refresh_page())))->setToolTip(tr("Refresh the current page"));
     (m_stop_processing = addAction(QIcon(":/images/res/process-stop.png"),"",this,SLOT(stop_processing())))->setToolTip(tr("Stop the current processing"));
     addSeparator();
-    m_play = addAction(QIcon(":/images/res/media-playback-start.png"),"",this,SIGNAL(play_stop_requested()));
+
+    start_stop_button = new QToolButton(this);
+    start_stop_button->setPopupMode(QToolButton::InstantPopup);
+    setPlayMode(ButtonPlayMode::PlayDown);
+    connect(start_stop_button,SIGNAL(clicked()),this,SLOT(start_stop_button_clicked()));
+    addWidget(start_stop_button);
+
+
+    //m_play = addAction(QIcon(":/images/res/media-playback-start.png"),"",this,SIGNAL(play_stop_requested()));
     setPlayMode(Disabled);
     m_previous_page->setEnabled(false);
     m_next_page->setEnabled(false);
@@ -133,15 +143,38 @@ void YoutubeBar::show_search_videos_popup(const QString & channel) {
     search_widget->showSearchButtonPopup();
 }
 
-void YoutubeBar::setPlayMode(PlayMode play_mode) {
+void YoutubeBar::setPlayMode(ButtonPlayMode play_mode) {
     m_play_mode = play_mode;
-    if (play_mode == Disabled || play_mode == Play) {
-        m_play->setIcon(QIcon(":/images/res/media-playback-start.png"));
-        m_play->setToolTip(tr("Start the playing of playlist"));
+    if (play_mode == Disabled || play_mode == PlayDown || play_mode == PlayUp) {
+        start_stop_button->setIcon(QIcon(":/images/res/media-playback-start.png"));
+        start_stop_button->setToolTip(tr("Start the playing of playlist"));
+        if ( play_mode == PlayDown || play_mode == PlayUp) {
+            QMenu * menu = new QMenu(this);
+            connect(menu->addAction(QIcon(":/images/res/go-down.png"),tr("Move down")),SIGNAL(triggered()),this,SLOT(start_down_action_clicked()));
+            connect(menu->addAction(QIcon(":/images/res/go-up.png"),tr("Move up")),SIGNAL(triggered()),this,SLOT(start_up_action_clicked()));
+            start_stop_button->setMenu(menu);
+        }
     }
-    m_play->setEnabled(play_mode != Disabled);
+    start_stop_button->setEnabled(play_mode != Disabled);
     if (play_mode == Stop) {
-        m_play->setIcon(QIcon(":/images/res/media-playback-stop.png"));
-        m_play->setToolTip(tr("Stop the playing"));
+        start_stop_button->setIcon(QIcon(":/images/res/media-playback-stop.png"));
+        start_stop_button->setToolTip(tr("Stop the playing"));
+        QMenu * menu = start_stop_button->menu();
+        start_stop_button->setMenu(NULL);
+        menu->deleteLater();
     }
+}
+
+void YoutubeBar::start_stop_button_clicked() {
+    if (start_stop_button->menu() != NULL) return;
+
+    emit play_stop_requested(ButtonPlayMode::Stop);
+}
+
+void YoutubeBar::start_down_action_clicked() {
+    emit play_stop_requested(ButtonPlayMode::PlayDown);
+}
+
+void YoutubeBar::start_up_action_clicked() {
+    emit play_stop_requested(ButtonPlayMode::PlayUp);
 }

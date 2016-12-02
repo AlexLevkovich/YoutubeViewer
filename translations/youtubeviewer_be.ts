@@ -90,7 +90,7 @@
         <translation type="obsolete">Схаваць лог</translation>
     </message>
     <message>
-        <location filename="../errordialog.h" line="+10"/>
+        <location filename="../errordialog.h" line="+12"/>
         <source>Error...</source>
         <translation>Памылка...</translation>
     </message>
@@ -186,6 +186,7 @@ Are you sure about exiting?</source>
     <message>
         <location line="+10"/>
         <location line="+25"/>
+        <location line="+13"/>
         <source>The last errors</source>
         <translation>Апошнія памылкі</translation>
     </message>
@@ -670,7 +671,7 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YoutubeBar</name>
     <message>
-        <location filename="../youtubebar.cpp" line="+19"/>
+        <location filename="../youtubebar.cpp" line="+21"/>
         <source>Go to the first page</source>
         <translation>Перайсці да першай старонцы</translation>
     </message>
@@ -695,7 +696,7 @@ You can change it in Settings dialog.</source>
         <translation>Спыніць апрацоўку</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+49"/>
         <source>Network error!</source>
         <translation>Памылка сеткі!</translation>
     </message>
@@ -705,11 +706,21 @@ You can change it in Settings dialog.</source>
         <translation type="unfinished">Запуск прайгравання спісу</translation>
     </message>
     <message>
+        <location line="+3"/>
+        <source>Move down</source>
+        <translation type="unfinished">Перамяшчэнне ўніз</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Move up</source>
+        <translation type="unfinished">Перамяшчэнне ўверх</translation>
+    </message>
+    <message>
         <source>Start playlist playing</source>
         <translation type="vanished">Запуск прайгравання спісу</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+7"/>
         <source>Stop the playing</source>
         <translation>Спыніць прайграванне</translation>
     </message>
@@ -1076,12 +1087,12 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YoutubeDownloader</name>
     <message>
-        <location filename="../youtubedownloader.cpp" line="+41"/>
+        <location filename="../youtubedownloader.cpp" line="+43"/>
         <source>Cannot start %1/aria2c!!!</source>
         <translation>Не ўдаецца запусціць %1/aria2c!!!</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>Unknown aria&apos;s error!!!</source>
         <translation>aria: Невядомая памылка!!!</translation>
     </message>

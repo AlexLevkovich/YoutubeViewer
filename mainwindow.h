@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QUrl>
 #include "youtubesearch.h"
+#include "youtubebar.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,10 +26,11 @@ private slots:
     void set_window_size();
     void adding_download(const QUrl & url,const QString & title);
     void adding_subs_download(const Subtitle & subtitle,const QString & title);
-    void play_stop_requested();
+    void play_stop_requested(ButtonPlayMode mode);
     void indexSelected(const QModelIndex & index);
     void mediaListIsEmpty();
     void play_next(const QString & prev_error);
+    void play_prev(const QString & prev_error);
 
 protected:
     void closeEvent(QCloseEvent * event);

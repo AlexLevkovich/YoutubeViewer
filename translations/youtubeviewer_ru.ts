@@ -94,7 +94,7 @@
         <translation type="obsolete">Ощи</translation>
     </message>
     <message>
-        <location filename="../errordialog.h" line="+10"/>
+        <location filename="../errordialog.h" line="+12"/>
         <source>Error...</source>
         <translation>Ошибка...</translation>
     </message>
@@ -186,6 +186,7 @@ Are you sure about exiting?</source>
     <message>
         <location line="+10"/>
         <location line="+25"/>
+        <location line="+13"/>
         <source>The last errors</source>
         <translation>Последние ошибки</translation>
     </message>
@@ -601,7 +602,7 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YoutubeBar</name>
     <message>
-        <location filename="../youtubebar.cpp" line="+19"/>
+        <location filename="../youtubebar.cpp" line="+21"/>
         <source>Go to the first page</source>
         <translation>Перейти к первой странице</translation>
     </message>
@@ -616,17 +617,27 @@ You can change it in Settings dialog.</source>
         <translation>Перейти к следующей странице</translation>
     </message>
     <message>
-        <location line="+118"/>
+        <location line="+126"/>
         <source>Start the playing of playlist</source>
         <translation>Запуск воспроизведения списка</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+3"/>
+        <source>Move down</source>
+        <translation type="unfinished">Перемещение вниз</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Move up</source>
+        <translation type="unfinished">Перемещение вверх</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Stop the playing</source>
         <translation>Остановить воспроизведение</translation>
     </message>
     <message>
-        <location line="-122"/>
+        <location line="-136"/>
         <source>Refresh the current page</source>
         <translation>Обновить текущую страницу</translation>
     </message>
@@ -636,7 +647,7 @@ You can change it in Settings dialog.</source>
         <translation>Остановить текущую обработку</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+49"/>
         <source>Network error!</source>
         <translation>Ошибка сети!</translation>
     </message>
@@ -907,12 +918,12 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YoutubeDownloader</name>
     <message>
-        <location filename="../youtubedownloader.cpp" line="+41"/>
+        <location filename="../youtubedownloader.cpp" line="+43"/>
         <source>Cannot start %1/aria2c!!!</source>
         <translation>Не удается запустить %1/aria2c!!!</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>Unknown aria&apos;s error!!!</source>
         <translation>aria: Неизвестная ошибка!!!</translation>
     </message>

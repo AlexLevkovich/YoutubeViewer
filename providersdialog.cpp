@@ -114,9 +114,11 @@ QString ProvidersDialog::command() const {
             }
             case 1:
             {
+                int mpv_cache=theSettings->value("mpv_cache",MPV_CACHE_SIZE).toInt();
                 ret = "\"" + paths[1] + "\" "+ theSettings->value("mpv_parms","").toString()+" "+
                     (show_fullscreen?"--fullscreen ":"")+
-                    QString("--ytdl-format=bestvideo+bestaudio --cache=%1").arg(theSettings->value("mpv_cache",MPV_CACHE_SIZE).toInt())+" "+
+                    QString("--ytdl-format=bestvideo+bestaudio --cache=%1").arg(mpv_cache)+" "+
+                    QString("--cache-initial=%1").arg((int)(mpv_cache*0.2))+" "+
                     QString("\"%1\"").arg(m_video_url.toString()) +
                     (!m_audio_url.isEmpty()?QString(" --audio-file \"%1\" ").arg(m_audio_url.toString()):" ");
                 for (int i=0;i<m_tempFilesNames.count();i++) {

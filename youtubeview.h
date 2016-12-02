@@ -11,6 +11,7 @@ public:
     explicit YoutubeView(QWidget *parent = 0);
     void setData(const QList<Media> & medias);
     QModelIndex selectNextIndexAfter(const QModelIndex & index);
+    QModelIndex selectPrevIndexBefore(const QModelIndex & index);
 
 protected:
     void resizeEvent(QResizeEvent * event);
