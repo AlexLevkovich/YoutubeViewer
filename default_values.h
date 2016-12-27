@@ -13,10 +13,7 @@
 #define DEF_VIDEO_HEIGHT 720
 #define DEF_VIDEO_CODEC  "avc"
 #define VERSION "1.0"
-#ifndef WIN32
-const QString VLC_PATH = QString(INSTALL_PREFIX)+"/bin/vlc";
-const QString MPV_PATH = QString(INSTALL_PREFIX)+"/bin/mpv";
-#else
+#ifdef WIN32
 const QString MPV_PATH = "C:/Program Files/mpv/mpv.exe";
 #ifdef __x86_64__
 const QString MPC_PATH = "C:/Program Files/MPC-HC/mpc-hc64.exe";

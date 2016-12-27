@@ -25,6 +25,14 @@ win32 {
 !win32 {
     YOUTUBEDL_BIN = $$system(which youtube-dl 2>/dev/null)
     isEmpty( YOUTUBEDL_BIN ):error( "youtube-dl should be installed!!!" )
+
+    VLC_PATH = $$system(which vlc 2>/dev/null)
+    isEmpty( VLC_PATH ):VLC_PATH=/usr/bin/vlc
+    DEFINES += VLC_PATH=\\\"$$VLC_PATH\\\"
+
+    MPV_PATH = $$system(which mpv 2>/dev/null)
+    isEmpty( MPV_PATH ):MPV_PATH=/usr/bin/mpv
+    DEFINES += MPV_PATH=\\\"$$MPV_PATH\\\"
 }
 
 TRANS_DIR1 = $$OUT_PWD/translations
