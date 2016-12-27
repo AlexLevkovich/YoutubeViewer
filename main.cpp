@@ -5,13 +5,15 @@
 #include <QMessageBox>
 #include <QDateTimeEdit>
 #include <QLocale>
+#include <QFile>
+#include <QFileInfo>
 #include "default_values.h"
 #ifdef WIN32
 #include "explorerstyle.h"
 #endif
 
 QSettings *theSettings = NULL;
-QString TOOLS_BIN_PATH = TOOLS_BIN;
+QString YOUTUBE_DL_BIN = YOUTUBEDL_BIN;
 QDateTime MINIMUM_DATE;
 
 QMainWindow * findMainWindow() {
@@ -61,13 +63,12 @@ int main(int argc, char *argv[]) {
     theSettings = &settings;
 
 #ifdef WIN32
-    TOOLS_BIN_PATH = QFileInfo(QCoreApplication::applicationFilePath()).dir().path() + "/utils";
-    qputenv("PATH",qgetenv("PATH")+";"+TOOLS_BIN_PATH.toLocal8Bit());
+    YOUTUBE_DL_BIN = QFileInfo(QCoreApplication::applicationFilePath()).dir().path() + "/" + YOUTUBE_DL_BIN;
 #endif
-    TOOLS_BIN_PATH = theSettings->value("tools_path",TOOLS_BIN_PATH).toString();
+    YOUTUBE_DL_BIN = theSettings->value("youtube_dl_path",YOUTUBE_DL_BIN).toString();
 
-    if (!QDir(TOOLS_BIN_PATH).exists()) {
-        QMessageBox::critical(NULL,QObject::tr("Critical error!"),QObject::tr("Looks like TOOL directory is incorrect!\nYou can change it in Settings dialog."));
+    if (!QFile(YOUTUBE_DL_BIN).exists()) {
+        QMessageBox::critical(NULL,QObject::tr("Critical error!"),QObject::tr("Looks like PATH to youtube-dl is incorrect!\nYou can change it in Settings dialog."));
     }
 
     MainWindow w;

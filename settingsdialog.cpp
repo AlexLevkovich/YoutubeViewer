@@ -13,7 +13,7 @@
 #endif
 extern QString LOCALE_DATETIME_FORMAT();
 extern QSettings *theSettings;
-extern QString TOOLS_BIN_PATH;
+extern QString YOUTUBE_DL_BIN;
 static QString paths[PROVIDERS_COUNT];
 const QString players[PROVIDERS_COUNT] = {"VLC","MPV"
 #ifdef WIN32
@@ -51,7 +51,11 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Se
         ui->categoryCombo->addItem(categories[i]);
     }
 
-
+#ifdef WIN32
+    ui->label_9->setText(ui->label_9->text()+".exe:");
+#else
+    ui->label_9->setText(ui->label_9->text()+":");
+#endif
     ui->authorEdit->setHistoryCompleter("author_completer");
 
     ui->categoryCombo->setCurrentIndex(theSettings->value("search_def_category",0).toInt());
@@ -64,7 +68,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent), ui(new Ui::Se
     ui->previewHeightSpin->setValue(theSettings->value("preview_size",QSize(PREVIEW_WIDTH,PREVIEW_HEIGHT)).toSize().height());
     ui->symMaxCountSpin->setValue(theSettings->value("desc_sym_max_count",DESC_MAX_SYM_COUNT).toInt());
     ui->threadsSpin->setValue(theSettings->value("threads_count",THREADS_COUNT).toInt());
-    ui->toolsLine->setText(theSettings->value("tools_path",TOOLS_BIN_PATH).toString());
+    ui->toolsLine->setText(theSettings->value("youtube_dl_path",YOUTUBE_DL_BIN).toString());
 
     ui->playerCombo->setItemData(0,0);
     for (i=0;i<PROVIDERS_COUNT;i++) {
@@ -126,7 +130,7 @@ void SettingsDialog::on_buttonBox_accepted() {
     theSettings->setValue("preview_size",QSize((ui->previewHeightSpin->value()*4)/3,ui->previewHeightSpin->value()));
     theSettings->setValue("desc_sym_max_count",ui->symMaxCountSpin->value());
     theSettings->setValue("threads_count",ui->threadsSpin->value());
-    theSettings->setValue("tools_path",ui->toolsLine->text());
+    theSettings->setValue("youtube_dl_path",ui->toolsLine->text());
     theSettings->setValue("pref_video_size",ui->sizeCombo->itemText(ui->sizeCombo->currentIndex()));
     theSettings->setValue("pref_video_codec",ui->codecCombo->itemText(ui->codecCombo->currentIndex()));
     theSettings->setValue("player_fullscreen",ui->fullscreenCheck->isChecked());

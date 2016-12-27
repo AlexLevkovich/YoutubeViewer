@@ -18,20 +18,13 @@ isEmpty(INSTALL_PREFIX) {
     INSTALL_PREFIX = /usr
 }
 
-TOOLS_BIN = /usr/bin
+win32 {
+    YOUTUBEDL_BIN=utils/youtube-dl.exe
+}
 
 !win32 {
-    !exists( $$TOOLS_BIN/youtube-dl ) {
-        message( "youtube-dl should be installed!!!" )
-    }
-
-    !exists( $$TOOLS_BIN/aria2c ) {
-        message( "aria2 should be installed!!!" )
-    }
-
-    !exists( $$TOOLS_BIN/stdbuf ) {
-        message( "coreutils should be installed!!!" )
-    }
+    YOUTUBEDL_BIN = $$system(which youtube-dl 2>/dev/null)
+    isEmpty( YOUTUBEDL_BIN ):error( "youtube-dl should be installed!!!" )
 }
 
 TRANS_DIR1 = $$OUT_PWD/translations
@@ -40,7 +33,7 @@ TRANS_DIR2 = $$INSTALL_PREFIX/share/youtubeviewer
 DEFINES += INSTALL_PREFIX=\\\"$$INSTALL_PREFIX\\\"
 DEFINES += TRANS_DIR1=\\\"$$TRANS_DIR1\\\"
 DEFINES += TRANS_DIR2=\\\"$$TRANS_DIR2\\\"
-DEFINES += TOOLS_BIN=\\\"$$TOOLS_BIN\\\"
+DEFINES += YOUTUBEDL_BIN=\\\"$$YOUTUBEDL_BIN\\\"
 
 RC_FILE = win_icon.rc
 
@@ -88,7 +81,8 @@ SOURCES += main.cpp\
     externalplayer.cpp \
     xmltosrtconverter.cpp \
     startextplayerhelper.cpp \
-    subtitlesdownloader.cpp
+    subtitlesdownloader.cpp \
+    multidownloader.cpp
 
 HEADERS  += mainwindow.h \
     youtubeview.h \
@@ -128,7 +122,8 @@ HEADERS  += mainwindow.h \
     xmltosrtconverter.h \
     startextplayerhelper.h \
     downloaderinterface.h \
-    subtitlesdownloader.h
+    subtitlesdownloader.h \
+    multidownloader.h
 
 FORMS    += mainwindow.ui \
     searchwidget.ui \

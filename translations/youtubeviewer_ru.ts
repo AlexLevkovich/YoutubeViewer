@@ -181,7 +181,7 @@ Are you sure about exiting?</source>
     <message>
         <location line="+12"/>
         <source>Subtitles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Субтитры</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -324,7 +324,7 @@ Are you sure about exiting?</source>
         <translation>Проигрыватель MPC-HC</translation>
     </message>
     <message>
-        <location filename="../youtubesearch.cpp" line="+30"/>
+        <location filename="../youtubesearch.cpp" line="+27"/>
         <source>Relevance</source>
         <translation>Релевантность</translation>
     </message>
@@ -369,15 +369,20 @@ Are you sure about exiting?</source>
         <translation>дней</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="+70"/>
+        <location filename="../main.cpp" line="+71"/>
         <source>Critical error!</source>
         <translation>Критическая ошибка!</translation>
     </message>
     <message>
         <location line="+0"/>
+        <source>Looks like PATH to youtube-dl is incorrect!
+You can change it in Settings dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Looks like TOOL directory is incorrect!
 You can change it in Settings dialog.</source>
-        <translation>Похоже, каталог инструментов указан неправильно!
+        <translation type="vanished">Похоже, каталог инструментов указан неправильно!
 Вы можете изменить его в диалоге Настройки.</translation>
     </message>
     <message>
@@ -393,6 +398,18 @@ You can change it in Settings dialog.</source>
         <location line="-57"/>
         <source>Audio only</source>
         <translation>Только звук</translation>
+    </message>
+    <message>
+        <location filename="../multidownloader.cpp" line="+157"/>
+        <location line="+36"/>
+        <source>Nothing to write!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-29"/>
+        <location line="+36"/>
+        <source>No way to write. Part is full!!!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -509,9 +526,8 @@ You can change it in Settings dialog.</source>
         <translation></translation>
     </message>
     <message>
-        <location/>
         <source>Path to external TOOLS:</source>
-        <translation>Путь к внешним программам:</translation>
+        <translation type="vanished">Путь к внешним программам:</translation>
     </message>
     <message>
         <location/>
@@ -546,7 +562,16 @@ You can change it in Settings dialog.</source>
     <message>
         <location/>
         <source>Enable downloading subtitles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить загрузку субтитров</translation>
+    </message>
+    <message>
+        <source>Path to youtube-dl:</source>
+        <translation type="obsolete">Путь к youtube-dl</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Path to youtube-dl</source>
+        <translation type="unfinished">Путь к youtube-dl</translation>
     </message>
 </context>
 <context>
@@ -861,7 +886,7 @@ You can change it in Settings dialog.</source>
     <message>
         <location line="+2"/>
         <source>Subtitles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Субтитры</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -918,14 +943,18 @@ You can change it in Settings dialog.</source>
 <context>
     <name>YoutubeDownloader</name>
     <message>
-        <location filename="../youtubedownloader.cpp" line="+43"/>
         <source>Cannot start %1/aria2c!!!</source>
-        <translation>Не удается запустить %1/aria2c!!!</translation>
+        <translation type="vanished">Не удается запустить %1/aria2c!!!</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Unknown aria&apos;s error!!!</source>
-        <translation>aria: Неизвестная ошибка!!!</translation>
+        <translation type="vanished">aria: Неизвестная ошибка!!!</translation>
+    </message>
+    <message>
+        <location filename="../youtubedownloader.cpp" line="+29"/>
+        <location line="+2"/>
+        <source>Problem during starting downloader</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -934,6 +963,55 @@ You can change it in Settings dialog.</source>
         <location filename="../subtitlesdownloader.cpp" line="+24"/>
         <source>Netwotk failure!!!</source>
         <translation type="unfinished">Ошибка сети!!!</translation>
+    </message>
+</context>
+<context>
+    <name>MultiDownloader</name>
+    <message>
+        <location filename="../multidownloader.cpp" line="+138"/>
+        <location line="+227"/>
+        <source>Downloading already has been started!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-222"/>
+        <source>MultiDownloader::start(): cannot be executed from the same thread!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Invalid count of threads has passed!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Invalid QNetworkAccessManager instance!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Returned file length is zero. Multidownloading is not possible!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Failed to start downloading of the first part!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+121"/>
+        <source>Downloading has not been started!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>MultiDownloader::terminate(): cannot be executed from the same thread!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
+        <source>MultiDownloader::continueSaved(): cannot be executed from the same thread!!!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -1,9 +1,6 @@
 #include <QLocale>
 #include <QEventLoop>
 #include <QMainWindow>
-#if QT_VERSION >= 0x050000
-#include <QUrlQuery>
-#endif
 #include "youtubesearch.h"
 #include "default_values.h"
 #include <QDebug>
@@ -12,7 +9,7 @@
 
 
 extern QSettings *theSettings;
-extern QString TOOLS_BIN_PATH;
+extern QString YOUTUBE_DL_BIN;
 extern QMainWindow * findMainWindow();
 
 QImage YPlayList::image() const {
@@ -146,7 +143,7 @@ void Media::download_video_infos() {
 
     QProcess links_process;
     links_process.setProcessChannelMode(QProcess::MergedChannels);
-    links_process.start(QString(YOUTUBE_VIDEO_URLS_PROCESS).arg(url().toString()).arg(TOOLS_BIN_PATH));
+    links_process.start(QString(YOUTUBE_VIDEO_URLS_PROCESS).arg(url().toString()).arg(YOUTUBE_DL_BIN));
     links_process.waitForFinished(-1);
 
     if (links_process.exitCode() == 0) {

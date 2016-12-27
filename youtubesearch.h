@@ -22,7 +22,7 @@ extern QDateTime MINIMUM_DATE;
 #define YOUTUBE_PLAYLISTITEMS_SEARCH "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=%1&playlistId=%2&maxResults=%3"
 #define YOUTUBE_SUBLISTITEMS_SEARCH "https://www.youtube.com/api/timedtext?key=%1&v=%2&asrs=1&type=list&tlangs=1"
 #define YOUTUBE_SUBITEM_URL "https://www.youtube.com/api/timedtext?key=%1&v=%2&type=track&lang=%3"
-#define YOUTUBE_VIDEO_URLS_PROCESS "%2/youtube-dl --skip-download --print-json %1"
+#define YOUTUBE_VIDEO_URLS_PROCESS "%2 --skip-download --print-json %1"
 #define CATEGORY_PART "&videoCategoryId=%1"
 #define ORDER_PART "&order=%1"
 #define QUERY_PART "&q=%1"
