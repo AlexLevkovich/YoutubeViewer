@@ -472,16 +472,16 @@ void MultiDownloader::child_finished() {
     m_reply->abort();
     m_reply->deleteLater();
 
-    if (!m_timer.get()->isActive()) {
-        return;
-    }
-
     if (m_part_manager.get()->writtenLength() >= dataLength()) {
-        m_timer.get()->stop();
-        QMetaObject::invokeMethod(this,"emit_download_completed",Qt::QueuedConnection);
+        if (isStarted()) {
+            m_timer.get()->stop();
+            QMetaObject::invokeMethod(this,"emit_download_completed",Qt::QueuedConnection);
+        }
+        else QMetaObject::invokeMethod(this,"emit_download_terminated",Qt::QueuedConnection);
         return;
     }
 
+    if (!isStarted()) return;
     if (countWorkingParts() >= threadsCount()) return;
 
     addNewPartDownload();
@@ -490,6 +490,11 @@ void MultiDownloader::child_finished() {
 void MultiDownloader::emit_download_completed() {
     m_part_manager.get()->close();
     emit download_completed();
+}
+
+void MultiDownloader::emit_download_terminated() {
+    m_part_manager.get()->close();
+    emit download_terminated();
 }
 
 void MultiDownloader::timeout() {
@@ -515,11 +520,6 @@ void MultiDownloader::private_terminate() {
 }
 
 bool MultiDownloader::terminate() {
-    if (!isStarted()) {
-        setErrorString(tr("Downloading has not been started!!!"));
-        return false;
-    }
-
     if (QThread::currentThread() == this) {
         setErrorString(tr("MultiDownloader::terminate(): cannot be executed from the same thread!!!"));
         return false;
@@ -529,6 +529,8 @@ bool MultiDownloader::terminate() {
 
     QEventLoop loop;
     connect(this,SIGNAL(download_completed()),&loop,SLOT(quit()));
+    connect(this,SIGNAL(download_terminated()),&loop,SLOT(quit()));
+    connect(this,SIGNAL(error_occured()),&loop,SLOT(quit()));
     loop.exec();
 
     setDataLength(m_save_size);

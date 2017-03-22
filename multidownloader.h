@@ -160,12 +160,14 @@ private slots:
     void mainMetaDataChanged();
     void child_readyRead();
     void emit_download_completed();
+    void emit_download_terminated();
     void timeout();
     bool addNewPartDownload(int part_id = -1);
 
 signals:
     void error_occured();
     void download_completed();
+    void download_terminated();
     void progress(qint64 downloaded,int percents,qint64 speed);
 
 private slots:

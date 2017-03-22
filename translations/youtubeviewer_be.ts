@@ -1134,12 +1134,12 @@ You can change it in Settings dialog.</source>
     <name>MultiDownloader</name>
     <message>
         <location filename="../multidownloader.cpp" line="+138"/>
-        <location line="+227"/>
+        <location line="+229"/>
         <source>Downloading already has been started!!!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-222"/>
+        <location line="-224"/>
         <source>MultiDownloader::start(): cannot be executed from the same thread!!!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1164,17 +1164,12 @@ You can change it in Settings dialog.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+121"/>
-        <source>Downloading has not been started!!!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+5"/>
+        <location line="+126"/>
         <source>MultiDownloader::terminate(): cannot be executed from the same thread!!!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+48"/>
         <source>MultiDownloader::continueSaved(): cannot be executed from the same thread!!!</source>
         <translation type="unfinished"></translation>
     </message>
