@@ -162,7 +162,7 @@ private slots:
     void emit_download_completed();
     void emit_download_terminated();
     void timeout();
-    bool addNewPartDownload(int part_id = -1);
+    bool addNewPartDownload(int part_id = -1,int try_counter = 1);
 
 signals:
     void error_occured();

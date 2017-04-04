@@ -7,6 +7,7 @@
 
 #define DEF_PART_LENGTH 524288
 #define TIMER_INTERVAL 2000
+#define CONNECT_TRY_COUNT 5
 
 PartManager::PartManager(const QString & outputName,int part_length) {
     m_last_added_part_id = 0;
@@ -401,7 +402,7 @@ void MultiDownloader::mainMetaDataChanged() {
     m_timer.get()->start(TIMER_INTERVAL);
 }
 
-bool MultiDownloader::addNewPartDownload(int part_id) {
+bool MultiDownloader::addNewPartDownload(int part_id,int try_counter) {
     QList<int> working_indexes = workingPartIndexes();
 
     if (m_part_manager.get()->maxAllocatedLength() >= dataLength() && working_indexes == m_part_manager.get()->incompletedPartIndexes()) return true;
@@ -426,6 +427,7 @@ bool MultiDownloader::addNewPartDownload(int part_id) {
     m_reply->ignoreSslErrors();
     m_reply->setProperty("type","child");
     m_reply->setProperty("part",part_id);
+    m_reply->setProperty("try_counter",try_counter);
     connect(m_reply,SIGNAL(error(QNetworkReply::NetworkError)),this,SLOT(was_error(QNetworkReply::NetworkError)));
     connect(m_reply,SIGNAL(finished()),this,SLOT(child_finished()));
     connect(m_reply,SIGNAL(readyRead()),this,SLOT(child_readyRead()));
@@ -445,18 +447,28 @@ void MultiDownloader::was_error(QNetworkReply::NetworkError) {
 
 void MultiDownloader::was_error(const QString & error,QNetworkReply * reply) {
     setErrorString(error);
+    m_timer.get()->stop();
+    m_part_manager.get()->close();
+
     if (reply != NULL && reply->property("type").toString() == "main") {
         reply->abort();
         reply->deleteLater();
+        emit error_occured();
     }
-    m_timer.get()->stop();
-    m_part_manager.get()->close();
-    emit error_occured();
+    else {
+        int try_count = reply->property("try_counter").toInt();
+        if (try_count < CONNECT_TRY_COUNT) {
+            try_count++;
+            QMetaObject::invokeMethod(this,"addNewPartDownload",Qt::QueuedConnection,Q_ARG(int,reply->property("part").toInt()),Q_ARG(int,try_count));
+        }
+        else emit error_occured();
+    }
 }
 
 void MultiDownloader::child_readyRead() {
     QNetworkReply * m_reply = (QNetworkReply *)QObject::sender();
 
+    m_reply->setProperty("try_counter",1);
     int part_id = m_reply->property("part").toInt();
     if (!m_part_manager.get()->writeToPart(part_id,m_reply->readAll())) {
         was_error(m_part_manager.get()->errorString(),m_reply);
