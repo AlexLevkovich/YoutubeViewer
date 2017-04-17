@@ -149,6 +149,8 @@ public:
     bool setUrl(const QUrl & url);
     int threadsCount();
     void setThreadCount(int threads_count);
+    int reconnectAttemptCount();
+    void setReconnectAttemptCount(int count);
     QString outputName();
     bool setOutputName(const QString & outputName);
     bool saveState(const QString & outputName);
@@ -187,6 +189,7 @@ private:
     Protected<QTimer *> m_timer;
     Protected<QUrl> m_url;
     Protected<int> m_threads_count;
+    Protected<int> m_connect_attempt_count;
     Protected<QString> m_outputName;
     Protected<PartManager *> m_part_manager;
     QNetworkAccessManager * m_manager;

@@ -279,6 +279,7 @@ QDataStream & operator>>(QDataStream &stream,PartManager & part_manager) {
 MultiDownloader::MultiDownloader(const QUrl & url,int threads_count,const QString & outputName) : QThread() {
     m_url = url;
     m_threads_count = threads_count;
+    m_connect_attempt_count = CONNECT_TRY_COUNT;
     m_outputName = outputName;
     m_size = 0;
     m_prev_bytes_written = 0;
@@ -313,6 +314,14 @@ bool MultiDownloader::setUrl(const QUrl & url) {
 
     m_url = url;
     return true;
+}
+
+int MultiDownloader::reconnectAttemptCount() {
+    return m_connect_attempt_count;
+}
+
+void MultiDownloader::setReconnectAttemptCount(int count) {
+    m_connect_attempt_count = count;
 }
 
 void MultiDownloader::setThreadCount(int threads_count) {
@@ -446,22 +455,28 @@ void MultiDownloader::was_error(QNetworkReply::NetworkError) {
 }
 
 void MultiDownloader::was_error(const QString & error,QNetworkReply * reply) {
-    setErrorString(error);
-    m_timer.get()->stop();
-    m_part_manager.get()->close();
-
     if (reply != NULL && reply->property("type").toString() == "main") {
+        setErrorString(error);
+        m_timer.get()->stop();
+        m_part_manager.get()->close();
+
         reply->abort();
         reply->deleteLater();
         emit error_occured();
     }
     else {
         int try_count = reply->property("try_counter").toInt();
-        if (try_count < CONNECT_TRY_COUNT) {
+        if (try_count < reconnectAttemptCount()) {
             try_count++;
             QMetaObject::invokeMethod(this,"addNewPartDownload",Qt::QueuedConnection,Q_ARG(int,reply->property("part").toInt()),Q_ARG(int,try_count));
         }
-        else emit error_occured();
+        else {
+            setErrorString(error);
+            m_timer.get()->stop();
+            m_part_manager.get()->close();
+
+            emit error_occured();
+        }
     }
 }
 
