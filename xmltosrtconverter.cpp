@@ -22,7 +22,7 @@ XmlToSrtConverter::XmlToSrtConverter(const QByteArray & input) {
             }
             bool ok;
             QString s0 = attributes.value("start").toString();
-            buffer.write(QString("%1\n%2 --> %3\n%4\n\n").arg(++index).arg(formatSrtTime(s0)).arg(formatSrtTime(QString::number(s0.toDouble(&ok) + attributes.value("dur").toDouble(&ok),'f',3))).arg(xml_reader.readElementText().replace("&#39;", "'").replace("&quot;", "\"").replace("&gt;", ">").replace("&lt;", "<")).toUtf8());
+            buffer.write(QString("%1\n%2 --> %3\n%4\n\n").arg(++index).arg(formatSrtTime(s0)).arg(formatSrtTime(QString::number(s0.toDouble(&ok) + attributes.value("dur").toString().toDouble(&ok),'f',3))).arg(xml_reader.readElementText().replace("&#39;", "'").replace("&quot;", "\"").replace("&gt;", ">").replace("&lt;", "<")).toUtf8());
             if (!ok) {
                 xml_reader.skipCurrentElement();
                 continue;
@@ -72,5 +72,11 @@ QString XmlToSrtConverter::formatSrtTime(const QString & time) const {
     int h = m / 60;
     m = m % 60;
 
+#if QT_VERSION < 0x050000
+    QString ret;
+    ret.sprintf("%02d:%02d:%02d,%s",h,m,s,parts.at(1).toLocal8Bit().data());
+    return ret;
+#else
     return QString::asprintf("%02d:%02d:%02d,%s",h,m,s,parts.at(1).toLocal8Bit().data());
+#endif
 }
