@@ -60,7 +60,7 @@ YoutubeSearchWidget::~YoutubeSearchWidget() {
 
 void YoutubeSearchWidget::setFieldsValues(const QString & query,const QString & category,const QString & author,const QString & playlist_id,YoutubeOrderBy orderby,YoutubeTime time) {
     ui->searchEdit->setText(query);
-    ui->categoryCombo->setCurrentText(category);
+    ui->categoryCombo->setCurrentIndex(ui->categoryCombo->findText(category));
     ui->channelEdit->setText(author);
     ui->orderbyCombo->setCurrentIndex((int)orderby);
     ui->timeCombo->setCurrentIndex(time.operation());
