@@ -379,6 +379,14 @@ bool MultiDownloader::start() {
 
 void MultiDownloader::private_start() {
     QNetworkReply * m_reply = m_manager->get(QNetworkRequest(url()));
+    if (m_reply == NULL || m_reply->isFinished()) {
+        if (m_reply != NULL) {
+            m_reply->abort();
+            m_reply->deleteLater();
+        }
+        was_error(tr("Returned wrong QNetworkReply pointer!!!"));
+        return;
+    }
     m_reply->setParent(this);
     m_reply->ignoreSslErrors();
     m_reply->setProperty("type","main");
@@ -393,14 +401,16 @@ void MultiDownloader::setDataLength(qint64 size) {
 void MultiDownloader::mainMetaDataChanged() {
     QNetworkReply * m_reply = (QNetworkReply *)QObject::sender();
 
-    setDataLength(m_reply->header(QNetworkRequest::ContentLengthHeader).toLongLong());
-    if (dataLength() <= 0) {
+    qlonglong length = m_reply->header(QNetworkRequest::ContentLengthHeader).toLongLong();
+
+    if (length <= 0) {
         m_reply->abort();
         m_reply->deleteLater();
 
         was_error(tr("Returned file length is zero. Multidownloading is not possible!!!"));
         return;
     }
+    setDataLength(length);
     m_reply->abort();
     m_reply->deleteLater();
 
@@ -432,6 +442,14 @@ bool MultiDownloader::addNewPartDownload(int part_id,int try_counter) {
     qint64 curr_pos = m_part_manager.get()->partCurrPos(part_id);
     part_request.setRawHeader("Range",QString("bytes=%1-%2").arg(curr_pos).arg(curr_pos+m_part_manager.get()->partRest(part_id)-1).toLatin1());
     QNetworkReply * m_reply = m_manager->get(part_request);
+    if (m_reply == NULL || m_reply->isFinished()) {
+        if (m_reply != NULL) {
+            m_reply->abort();
+            m_reply->deleteLater();
+        }
+        was_error(tr("Returned wrong QNetworkReply pointer!!!"));
+        return false;
+    }
     m_reply->setParent(this);
     m_reply->ignoreSslErrors();
     m_reply->setProperty("type","child");
@@ -465,7 +483,8 @@ void MultiDownloader::was_error(const QString & error,QNetworkReply * reply) {
         emit error_occured();
     }
     else {
-        int try_count = reply->property("try_counter").toInt();
+        int try_count = reconnectAttemptCount();
+        if (reply != NULL) try_count = reply->property("try_counter").toInt();
         if (try_count < reconnectAttemptCount()) {
             try_count++;
             QMetaObject::invokeMethod(this,"addNewPartDownload",Qt::QueuedConnection,Q_ARG(int,reply->property("part").toInt()),Q_ARG(int,try_count));
@@ -686,3 +705,4 @@ bool MultiDownloader::moveDownloadPointer(qint64 pos) {
 bool MultiDownloader::invokeMethod(const char *member,QGenericArgument val0,QGenericArgument val1,QGenericArgument val2,QGenericArgument val3,QGenericArgument val4,QGenericArgument val5,QGenericArgument val6,QGenericArgument val7,QGenericArgument val8,QGenericArgument val9) {
     return QMetaObject::invokeMethod(this,member,Qt::QueuedConnection,val0,val1,val2,val3,val4,val5,val6,val7,val8,val9);
 }
+
