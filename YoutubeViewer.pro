@@ -20,6 +20,7 @@ isEmpty(INSTALL_PREFIX) {
 
 win32 {
     YOUTUBEDL_BIN=utils/youtube-dl.exe
+    LIBS += -lgdi32
 }
 
 !win32 {

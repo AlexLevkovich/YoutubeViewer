@@ -21,6 +21,7 @@ signals:
     void progress(qreal bytes_downloaded,qreal length,int percents,qreal speed);
 
 private slots:
+    void location_changed(const QUrl & url);
     void download_completed();
     void download_error();
     void download_progress(qint64 downloaded,int percents,qint64 speed);

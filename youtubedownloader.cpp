@@ -11,12 +11,29 @@ YoutubeDownloader::YoutubeDownloader(const QUrl & url,const QString & out_file_n
     connect(downloader,SIGNAL(download_completed()),this,SLOT(download_completed()));
     connect(downloader,SIGNAL(progress(qint64,int,qint64)),SLOT(download_progress(qint64,int,qint64)));
     connect(downloader,SIGNAL(error_occured()),SLOT(download_error()));
+    connect(downloader,SIGNAL(location_changed(const QUrl &)),SLOT(location_changed(const QUrl &)));
 }
 
 YoutubeDownloader::~YoutubeDownloader() {
     downloader->quit();
     downloader->wait();
     delete downloader;
+}
+
+void YoutubeDownloader::location_changed(const QUrl & url) {
+    int threads_count = downloader->threadsCount();
+    QString out_file_name = downloader->outputName();
+
+    downloader->quit();
+    downloader->wait();
+    delete downloader;
+
+    downloader = new MultiDownloader(url,threads_count,out_file_name);
+    connect(downloader,SIGNAL(download_completed()),this,SLOT(download_completed()));
+    connect(downloader,SIGNAL(progress(qint64,int,qint64)),SLOT(download_progress(qint64,int,qint64)));
+    connect(downloader,SIGNAL(error_occured()),SLOT(download_error()));
+    connect(downloader,SIGNAL(location_changed(const QUrl &)),SLOT(location_changed(const QUrl &)));
+    start();
 }
 
 void YoutubeDownloader::download_progress(qint64 downloaded,int percents,qint64 speed) {

@@ -387,6 +387,7 @@ void MultiDownloader::private_start() {
         was_error(tr("Returned wrong QNetworkReply pointer!!!"));
         return;
     }
+
     m_reply->setParent(this);
     m_reply->ignoreSslErrors();
     m_reply->setProperty("type","main");
@@ -404,9 +405,19 @@ void MultiDownloader::mainMetaDataChanged() {
     qlonglong length = m_reply->header(QNetworkRequest::ContentLengthHeader).toLongLong();
 
     if (length <= 0) {
+        if (m_reply->header(QNetworkRequest::ContentTypeHeader).toString() == "text/html") {
+            QUrl new_url = QUrl::fromEncoded(m_reply->rawHeader("Location"));
+            if (new_url != url()) {
+                emit location_changed(new_url);
+
+                m_reply->abort();
+                m_reply->deleteLater();
+                return;
+            }
+        }
+
         m_reply->abort();
         m_reply->deleteLater();
-
         was_error(tr("Returned file length is zero. Multidownloading is not possible!!!"));
         return;
     }

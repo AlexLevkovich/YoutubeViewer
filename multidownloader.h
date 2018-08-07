@@ -167,6 +167,7 @@ private slots:
     bool addNewPartDownload(int part_id = -1,int try_counter = 1);
 
 signals:
+    void location_changed(const QUrl & url);
     void error_occured();
     void download_completed();
     void download_terminated();

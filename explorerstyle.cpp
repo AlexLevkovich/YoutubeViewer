@@ -27,6 +27,8 @@ static PtrDrawThemeBackground pDrawThemeBackground = 0;
 static PtrOpenThemeData pOpenThemeData = 0;
 static PtrIsAppThemed pIsAppThemed = 0;
 
+HDC qt_win_display_dc();
+
 bool isAppThemed()
 {
 #ifdef Q_OS_WIN
