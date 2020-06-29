@@ -121,7 +121,7 @@ QString ProvidersDialog::command() const {
                     QString("\"%1\"").arg(m_video_url.toString()) +
                     (!m_audio_url.isEmpty()?QString(" --audio-file=\"%1\" ").arg(m_audio_url.toString()):" ");
                 for (int i=0;i<m_tempFilesNames.count();i++) {
-                    ret += QString("--sub-file \"%1\" ").arg(m_tempFilesNames[i]);
+                    ret += QString("--sub-file=\"%1\" ").arg(m_tempFilesNames[i]);
                 }
                 break;
             }
