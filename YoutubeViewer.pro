@@ -168,7 +168,7 @@ for(tsfile, TRANSLATIONS) {
 
 LUPDATE = $$[QT_INSTALL_BINS]/lupdate -locations relative -no-ui-lines -no-sort
 updatets.files = TRANSLATIONS
-updatets.commands = $$LUPDATE $$PWD/libqpacman.pro
+updatets.commands = $$LUPDATE $$PWD/YoutubeViewer.pro
 QMAKE_EXTRA_TARGETS += updatets
 
 qm.files = $$TRANS_DIR1/*.qm

@@ -229,8 +229,8 @@ Are you sure about exiting?</source>
     </message>
     <message>
         <location filename="../mpvsettingsdialog.ui"/>
-        <source> Kb</source>
-        <translation></translation>
+        <source> secs</source>
+        <translation type="unfinished"> секунд</translation>
     </message>
 </context>
 <context>
@@ -412,7 +412,7 @@ You can change it in Settings dialog.</source>
         <translation type="obsolete">Спыніць прайграванне</translation>
     </message>
     <message>
-        <location filename="../multidownloader.cpp" line="+157"/>
+        <location filename="../multidownloader.cpp" line="+158"/>
         <location line="+36"/>
         <source>Nothing to write!!!</source>
         <translation type="unfinished"></translation>
@@ -1116,7 +1116,7 @@ You can change it in Settings dialog.</source>
         <translation type="vanished">aria: Невядомая памылка!!!</translation>
     </message>
     <message>
-        <location filename="../youtubedownloader.cpp" line="+29"/>
+        <location filename="../youtubedownloader.cpp" line="+46"/>
         <location line="+2"/>
         <source>Problem during starting downloader</source>
         <translation type="unfinished"></translation>
@@ -1133,13 +1133,13 @@ You can change it in Settings dialog.</source>
 <context>
     <name>MultiDownloader</name>
     <message>
-        <location filename="../multidownloader.cpp" line="+138"/>
-        <location line="+229"/>
+        <location filename="../multidownloader.cpp" line="+147"/>
+        <location line="+276"/>
         <source>Downloading already has been started!!!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-224"/>
+        <location line="-271"/>
         <source>MultiDownloader::start(): cannot be executed from the same thread!!!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1154,17 +1154,23 @@ You can change it in Settings dialog.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+24"/>
+        <location line="+74"/>
+        <source>Returned wrong QNetworkReply pointer!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-40"/>
         <source>Returned file length is zero. Multidownloading is not possible!!!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Failed to start downloading of the first part!!!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+126"/>
+        <location line="+152"/>
         <source>MultiDownloader::terminate(): cannot be executed from the same thread!!!</source>
         <translation type="unfinished"></translation>
     </message>

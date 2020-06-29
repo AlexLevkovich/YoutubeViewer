@@ -18,8 +18,8 @@ YoutubeCommentsDialog::YoutubeCommentsDialog(Media * media,QWidget *parent) : QD
     ui->urlLabel->setText(QString("<html><head/><body><p><a href=\"%1\"><span style=\" text-decoration: underline; color:#0057ae;\">%1</span></a></p></body></html>").arg(media->url().toString()));
     ui->addedLabel->setText(media->date().toString());
     ui->descEdit->setText(media->description());
-    ui->backButton->setMaximumWidth(ui->backButton->contentsMargins().left() + ui->backButton->fontMetrics().width(ui->backButton->text()) + ui->backButton->contentsMargins().right());
-    ui->nextButton->setMaximumWidth(ui->nextButton->contentsMargins().left() + ui->nextButton->fontMetrics().width(ui->nextButton->text()) + ui->nextButton->contentsMargins().right());
+    ui->backButton->setMaximumWidth(ui->backButton->contentsMargins().left() + ui->backButton->fontMetrics().horizontalAdvance(ui->backButton->text()) + ui->backButton->contentsMargins().right());
+    ui->nextButton->setMaximumWidth(ui->nextButton->contentsMargins().left() + ui->nextButton->fontMetrics().horizontalAdvance(ui->nextButton->text()) + ui->nextButton->contentsMargins().right());
     ui->backButton->setEnabled(false);
     ui->nextButton->setEnabled(false);
     ui->waitView->setVisible(true);

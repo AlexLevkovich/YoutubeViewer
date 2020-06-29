@@ -5,6 +5,7 @@
 
 #include "waitview.h"
 #include <QPaintEvent>
+#include <QPainterPath>
 #include <QPainter>
 #include <QApplication>
 #include <QPixmapCache>

@@ -127,7 +127,7 @@ void YoutubeSearchWidget::on_playlistShowPopup() {
             for (int i=0;i<list.count();i++) {
                 YPlayList item = list.at(i);
                 ui->playlistCombo->addItem(QIcon(QPixmap::fromImage(item.image())),item.title(),item.id());
-                comboNewWidth = qMax(QFontMetrics(ui->playlistCombo->font()).width(item.title())+comboAddWidth,comboNewWidth);
+                comboNewWidth = qMax(QFontMetrics(ui->playlistCombo->font()).horizontalAdvance(item.title())+comboAddWidth,comboNewWidth);
                 updated = true;
             }
         }
